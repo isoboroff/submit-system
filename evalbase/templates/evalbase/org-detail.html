@@ -42,8 +42,11 @@
 	      {% empty %}
 	      (none yet)
 	      {% endfor %}
+          <a href="{% url 'org-edit' object.shortname %}">Remove a user from this organization</a>
+
             </td>
           </tr>
+
           {% endif %}
         </tbody>
       </table>

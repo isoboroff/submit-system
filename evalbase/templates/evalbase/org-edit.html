@@ -1,0 +1,16 @@
+{% extends 'evalbase/base.html' %}
+
+{% block title %} Edit org {% endblock %}
+
+
+{% block content %}
+    <h4>
+    <b>Removing users from group {{ org }}</b></h4>
+    <p>The only way to re-add them is to resend them the invite link!</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ gen_form }}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

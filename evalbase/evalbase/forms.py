@@ -12,6 +12,17 @@ class SignupForm(UserCreationForm):
                   'email',
                   'password1', 'password2')
 
+class MembersEditForm(forms.Form):
+    def get_form_class(context):
+        fields = {}
+        # member_choices = list(map(lambda x: (x.email), context['members']))[0]
+        member_choices = []
+        for member in context['members']:
+            member_choices.append((member.id,f'{member.first_name} {member.last_name} ({member.email})'))
+        fields["users"] = forms.ChoiceField(label="Select a user to remove: ", choices=member_choices)
+        return type('MembersEditForm', (forms.Form,), fields)
+
+
 
 class SubmitFormForm(forms.Form):
     def get_form_class(context):
