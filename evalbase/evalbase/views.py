@@ -74,7 +74,6 @@ class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
     template_name = 'evalbase/org-detail.html'
     slug_field = 'shortname'
     slub_url_kwarg = 'shortname'
-
     def get_object(self):
         try:
             org = Organization.objects.get(shortname=self.kwargs['shortname'])
@@ -84,6 +83,40 @@ class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
                 raise PermissionDenied()
         except:
             raise PermissionDenied()
+
+class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
+    template_name = "evalbase/org-edit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        org = Organization.objects.get(shortname=self.kwargs['name'])
+        if org.owner == self.request.user or org.members.filter(pk=self.request.user.pk).exists():
+            context['org'] = org
+            # Get members of the org, but not yourself
+            context['members'] = org.members.all().exclude(id = self.request.user.id)
+            print("Members:")
+            print(context['members'])
+            form_class = MembersEditForm.get_form_class(context)
+            mef = form_class()
+            context['gen_form'] = mef
+        else:
+            raise PermissionDenied()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        form_class = MembersEditForm.get_form_class(context)
+        form = form_class(request.POST)
+        # TODO add a confirmation screen of some sort?
+        if form.is_valid():
+            stuff = form.cleaned_data
+            org = context['org']
+            user = User.objects.filter(id=stuff['users'])[0]
+            org.members.remove(user)
+            return HttpResponseRedirect(reverse_lazy('home'))
+        else:
+            return render(request, 'evalbase/org-edit.html', context=context)
+
 
 class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
     model = Organization
@@ -102,9 +135,8 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
         confname = self.kwargs['conf']
         form.instance.conference = Conference.objects.get(shortname=confname)
         form.instance.passphrase = uuid.uuid4()
-        form.save(commit=False)
+        form.instance.save()
         form.instance.members.add(self.request.user)
-
         return super().form_valid(form)
 
 
@@ -127,8 +159,11 @@ class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
         else:
             return HttpResponseRedirect(reverse_lazy('home'))
 
-class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
-    pass
+
+
+
+
+
 
 class ListAgreements(EvalBaseLoginReqdMixin, generic.ListView):
     model = Agreement
@@ -201,7 +236,6 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
                              is_validated=False,
                              has_evaluation=False
                              )
-            print(sub)
             sub.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
@@ -298,7 +332,6 @@ def download(request, conf, task, runtag):
     file = sub.file
     try:
         filepath = settings.DOWNLOAD_DATA + "/" +  file.url
-        print(filepath)
 
         return FileResponse(open(filepath, 'rb'),
             as_attachment=True)
