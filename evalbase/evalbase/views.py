@@ -123,6 +123,15 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
     template_name = 'evalbase/org-create.html'
     fields = ['shortname', 'longname', 'task_interest']
 
+    def get_form(self, *args, **kwargs):
+        # Make sure that the tracks to select for task_interest are only
+        # those for the conference we're registering for.
+        form = super().get_form(*args, **kwargs)
+        conf = self.kwargs.get('conf')
+        conf = Conference.objects.get(shortname=conf)
+        form.fields['task_interest'].queryset = Task.objects.filter(conference=conf)
+        return form
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.conf = Conference.objects.get(shortname=self.kwargs['conf'])
