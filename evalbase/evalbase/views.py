@@ -129,10 +129,11 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
         form = super().get_form(*args, **kwargs)
         conf = self.kwargs.get('conf')
         conf = Conference.objects.get(shortname=conf)
-        form.fields['task_interest'].queryset = Task.objects.filter(conference=conf)
+        conftasks = Task.objects.filter(conference=conf)
+        form.fields['task_interest'].queryset = conftasks
         form.fields['task_interest'].choices = [
-            (t.id, t.longname) for t in Task.objects.filter(conference=conf)]
-        form.fields['task_interest'].widget.attrs={'size': '8'}
+            (t.id, t.longname) for t in conftasks]
+        form.fields['task_interest'].widget.attrs={'size': str(conftasks.count())}
         return form
 
     def get_context_data(self, **kwargs):
