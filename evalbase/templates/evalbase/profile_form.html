@@ -4,6 +4,9 @@
 {% block title %}User Profile{% endblock %}
 
 {% block content %}
+
+<p>Please complete your user profile with your contact information.</p>
+
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form %}

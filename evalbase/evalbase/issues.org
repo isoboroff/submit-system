@@ -1,3 +1,11 @@
+#+AUTHOR: Ian Soboroff
+#+STARTUP:indent
+#+OPTIONS: num:nil toc:nil
+#+TODO: ONCE(o) EPISODIC ONGOING POTENTIAL | RESOLVED IMPROVED UNRESOLVABLE TOLERATED INACTIVE
+#+TODO: MALFUNCTION DAMAGE | REPAIRED REPLACED DISCARDED
+#+TODO: TODO | INPROGRESS DONE
+#+TITLE:ISSUE TRACKER
+
 * Issues
 
 ** DONE Make an issue list.
@@ -25,8 +33,13 @@
 ** TODO View agreements signed and unsigned
 ** TODO make an activity log more application-specific than "recent changes"
 
-** TODO BUG when creating a profile don't force a login in the middle
-** TODO BUG creating an org fails with an error
+** ONGOING the submitted runs display should really be elsewhere.  It also shows "Already submitted" even if there are no submissions.  And it should only show for this user, or this org, or this conference.
+
+
+** DONE BUG when creating a profile don't force a login in the middle
+CLOSED: [2022-12-06 Tue 14:37]
+** DONE BUG creating an org fails with an error
+CLOSED: [2022-12-06 Tue 14:37]
 ** TODO Allow submissions to be viewed properly
 ** TODO BUG Files are not downloadable from the admin side or edit page
 ** TODO BUG Fix handling of edit page when given wrong task
@@ -38,7 +51,3 @@ CLOSED: [2021-11-23 Tue 15:09]
 CLOSED: [2021-11-23 Tue 15:09]
 ** DONE BUG: Well, creating a new account should also take the profile too
 CLOSED: [2021-11-23 Tue 15:09]
-
-
-
-
