@@ -30,6 +30,7 @@ class SubmitFormFieldInline(admin.TabularInline):
 @admin.register(SubmitForm)
 class SubmitFormAdmin(admin.ModelAdmin):
     inlines = [SubmitFormFieldInline]
+    list_filter = ('task__conference', 'task__shortname')
 
 
 class SubmitMetaInline(admin.TabularInline):

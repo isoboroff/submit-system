@@ -122,7 +122,7 @@ class SubmitForm(models.Model):
         blank=True)
 
     def __str__(self):
-        return self.task.shortname
+        return "/".join([self.task.conference.shortname, self.task.shortname])
 
 class SubmitFormField(models.Model):
     """A SubmitFormField is a field in a SubmitForm.
