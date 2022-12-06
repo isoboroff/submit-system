@@ -30,24 +30,27 @@
 ** TODO submission validation
 ** TODO View submission validation status
 ** TODO Sign an agreement
+- Idea: have open forms listed on the conf tasks page
 ** TODO View agreements signed and unsigned
 ** TODO make an activity log more application-specific than "recent changes"
 
 ** ONGOING the submitted runs display should really be elsewhere.  It also shows "Already submitted" even if there are no submissions.  And it should only show for this user, or this org, or this conference.
 
+** RESOLVED on the submission form the choice of organization should be limited to those in the current conference.
+CLOSED: [2022-12-06 Tue 15:42]
 
-** DONE BUG when creating a profile don't force a login in the middle
+** RESOLVED BUG when creating a profile don't force a login in the middle
 CLOSED: [2022-12-06 Tue 14:37]
-** DONE BUG creating an org fails with an error
+** RESOLVED BUG creating an org fails with an error
 CLOSED: [2022-12-06 Tue 14:37]
 ** TODO Allow submissions to be viewed properly
-** TODO BUG Files are not downloadable from the admin side or edit page
-** TODO BUG Fix handling of edit page when given wrong task
+** ONGOING BUG Files are not downloadable from the admin side or edit page
+** ONGOING BUG Fix handling of edit page when given wrong task
 
 
-** DONE BUG: Signup doesn't take a display name or email address
+** RESOLVED BUG: Signup doesn't take a display name or email address
 CLOSED: [2021-11-23 Tue 15:09]
-** DONE BUG: Logging in with no profile should take you to profile creation
+** RESOLVED BUG: Logging in with no profile should take you to profile creation
 CLOSED: [2021-11-23 Tue 15:09]
-** DONE BUG: Well, creating a new account should also take the profile too
+** RESOLVED BUG: Well, creating a new account should also take the profile too
 CLOSED: [2021-11-23 Tue 15:09]

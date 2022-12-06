@@ -225,10 +225,9 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         context['task'] = task
         context['form'] = submitform
         context['user'] = self.request.user
-        # Adding groups to conferences is broken right now, so I'm choosing any temporarily.
-        # This will need to get changed. TODO
-        # context['orgs'] = Organization.objects.filter(members=self.request.user).filter(conference=conf)
-        context['orgs'] = Organization.objects.all()
+        context['orgs'] = Organization.objects.filter(
+            members__pk=self.request.user.pk
+        ).filter(conference=conf)
 
         form_class = SubmitFormForm.get_form_class(context)
         sff = form_class()
