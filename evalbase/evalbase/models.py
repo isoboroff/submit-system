@@ -192,4 +192,3 @@ class SubmitMeta(models.Model):
     key = models.CharField(max_length=15)
     value = models.CharField(max_length=250)
 
-

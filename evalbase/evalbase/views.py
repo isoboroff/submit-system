@@ -13,15 +13,33 @@ from django.core.exceptions import PermissionDenied
 from .models import *
 from .forms import *
 
+# When possible, I try to use generic views.  However, sometimes that makes
+# simple things difficult, in which case we have to dive to a lower level.
+# It's tricky to decide when you have to dive, but a good rule of thumb is
+# when you can't figure out how to do something, you find a solution on
+# StackOverflow, and it's very non-ovious or hidden in the Django documentation.
+
 class SignUp(generic.edit.CreateView):
+    '''Registering a new user.'''
+
     form_class = SignupForm
     success_url = reverse_lazy('profile-create')
     template_name = 'evalbase/signup.html'
 
+
 class EvalBaseLoginReqdMixin(LoginRequiredMixin):
+    '''This subclasses the LoginRequiredMixin to point to our login view.'''
+
     login_url = reverse_lazy('login')
 
+
+# User profiles are the model that holds information about users.  The
+# User model itself comes from Django's auth library.  To add stuff like
+# contact info or whatever, we use a UserProfile model.
+
 class ProfileDetail(EvalBaseLoginReqdMixin, generic.detail.DetailView):
+    '''User profile detail view.'''
+
     model = UserProfile
     template_name = 'evalbase/profile_view.html'
 
@@ -37,7 +55,10 @@ class ProfileDetail(EvalBaseLoginReqdMixin, generic.detail.DetailView):
         context['user'] = User.objects.get(pk=self.request.user.id)
         return context
 
+
 class ProfileCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
+    '''User profile creation view.'''
+
     model = UserProfile
     fields = ['street_address', 'city_state', 'country', 'postal_code']
     template_name = 'evalbase/profile_form.html'
@@ -47,7 +68,10 @@ class ProfileCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class ProfileEdit(EvalBaseLoginReqdMixin, generic.edit.UpdateView):
+    '''Editing the user profile.'''
+
     model = UserProfile
     fields = ['street_address', 'city_state', 'country', 'postal_code']
     template_name = 'evalbase/profile_form.html'
@@ -59,7 +83,19 @@ class ProfileEdit(EvalBaseLoginReqdMixin, generic.edit.UpdateView):
         except:
             return None
 
+
+# Organizations register to participate in Conferences.  Other kinds of
+# evaluation activities might call them "teams" or "performers", but
+# TREC isn't about winning or performing, it's about sciencing.
+
+# One user registers an organization.  In order to join an organization,
+# there is a special sign-up token URL that you share with members of your
+# organization.
+
+
 class OrganizationList(EvalBaseLoginReqdMixin, generic.ListView):
+    '''List the organizations I'm a member of.'''
+
     model = Organization
     template_name = 'evalbase/my-orgs.html'
 
@@ -69,7 +105,14 @@ class OrganizationList(EvalBaseLoginReqdMixin, generic.ListView):
         rs = rs.union(Organization.objects.filter(owner=self.request.user))
         return rs
 
+
 class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
+    '''Organization detail view.
+
+    The really useful thing here is the signup URL, which must be shared
+    with people who want to be part of this organization.
+    '''
+
     model = Organization
     template_name = 'evalbase/org-detail.html'
     slug_field = 'shortname'
@@ -84,7 +127,10 @@ class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
         except:
             raise PermissionDenied()
 
+
 class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
+    '''The organization edit view is for removing people from the org.'''
+
     template_name = "evalbase/org-edit.html"
 
     def get_context_data(self, **kwargs):
@@ -119,13 +165,21 @@ class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
 
 
 class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
+    '''Create an organization.  This is signing up to participate in
+    an evaluation.
+
+    The complex thing about this form is that we ask registrants to indicate
+    which tracks they would like to participate in.  So we need to get the
+    list of tracks for this conference.
+
+    In form validation, we create the random signup key URL.
+    '''
+
     model = Organization
     template_name = 'evalbase/org-create.html'
     fields = ['shortname', 'longname', 'task_interest']
 
     def get_form(self, *args, **kwargs):
-        # Make sure that the tracks to select for task_interest are only
-        # those for the conference we're registering for.
         form = super().get_form(*args, **kwargs)
         conf = self.kwargs.get('conf')
         conf = Conference.objects.get(shortname=conf)
@@ -143,6 +197,8 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
         return context
 
     def form_valid(self, form):
+        '''Aside from validating, set up the signup key.'''
+
         form.instance.contact_person = self.request.user
         form.instance.owner = self.request.user
         confname = self.kwargs['conf']
@@ -154,6 +210,10 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
 
 
 class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
+    '''This is the view when someone goes to the special join-an-organization
+    URL.
+    '''
+
     template_name='evalbase/join.html'
 
     def get_context_data(self, **kwargs):
@@ -173,10 +233,7 @@ class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
             return HttpResponseRedirect(reverse_lazy('home'))
 
 
-
-
-
-
+# Trying to integrate agreements.  This class is homeless at the moment.
 
 class ListAgreements(EvalBaseLoginReqdMixin, generic.ListView):
     model = Agreement
@@ -186,33 +243,58 @@ class ListAgreements(EvalBaseLoginReqdMixin, generic.ListView):
         conf = Conference.objects.get(shortname=self.kwargs['conf'])
         return conf.agreements.all()
 
-class HomeView(LoginRequiredMixin, generic.base.TemplateView):
+
+class HomeView(EvalBaseLoginReqdMixin, generic.base.TemplateView):
+    '''The main page.  You can see what conferences you are participating
+    in and which ones you can sign up to participate in.
+    '''
+
     template_name = 'evalbase/home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['open_evals'] = Conference.objects.filter(open_signup=True)
-        context['my_orgs'] = Organization.objects.filter(members__pk=self.request.user.pk).filter(conference__complete=False)
-        context['submissions'] = Submission.objects.filter(submitted_by_id=self.request.user.id)
+        context['my_orgs'] = (Organization.objects
+                              .filter(members__pk=self.request.user.pk)
+                              .filter(conference__complete=False))
+        context['submissions'] = (Submission.objects
+                                  .filter(submitted_by_id=self.request.user.id))
         return context
 
+
 class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
+    '''List the tracks in a conference.'''
+
     model = Task
     template_name = 'evalbase/tasks.html'
 
     def get_queryset(self):
-        return Task.objects.filter(conference__shortname=self.kwargs['conf']).filter(task_open=True)
+        return (Task.objects
+                .filter(conference__shortname=self.kwargs['conf'])
+                .filter(task_open=True))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         conf = Conference.objects.get(shortname=self.kwargs['conf'])
-        orgs = Organization.objects.filter(members__pk=self.request.user.pk).filter(conference=conf)
-        myruns = Submission.objects.filter(task__conference=conf).filter(org__in=orgs).order_by('task')
+        orgs = (Organization.objects
+                .filter(members__pk=self.request.user.pk)
+                .filter(conference=conf))
+        myruns = (Submission.objects
+                  .filter(task__conference=conf)
+                  .filter(org__in=orgs)
+                  .order_by('task'))
         context['conf'] = conf
         context['myruns'] = myruns
         return context
 
+
 class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
+    '''This is the view for submitting a run to a task.  Each task has
+    a custom set of metadata fields for the submission form, and those
+    are described in the SubmitMetas class.  This form is what creates
+    Submissions.
+    '''
+
     template_name = 'evalbase/submit.html'
 
     def get_context_data(self, **kwargs):
@@ -225,9 +307,9 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         context['task'] = task
         context['form'] = submitform
         context['user'] = self.request.user
-        context['orgs'] = Organization.objects.filter(
-            members__pk=self.request.user.pk
-        ).filter(conference=conf)
+        context['orgs'] = (Organization.objects
+                           .filter(members__pk=self.request.user.pk)
+                           .filter(conference=conf))
 
         form_class = SubmitFormForm.get_form_class(context)
         sff = form_class()
@@ -241,7 +323,9 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         if form.is_valid():
             stuff = form.cleaned_data
             sub = Submission(task=context['task'],
-                             org=Organization.objects.filter(conference=context['conf']).filter(shortname=stuff['org'])[0],
+                             org = (Organization.objects
+                                    .filter(conference=context['conf'])
+                                    .filter(shortname=stuff['org'])[0]),
                              submitted_by=request.user,
                              runtag=stuff['runtag'],
                              file=stuff['runfile'],
@@ -252,7 +336,10 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
             for field in custom_fields:
-                smeta = SubmitMeta(submission=sub, form_field=field, key=field.meta_key, value=stuff[field.meta_key])
+                smeta = SubmitMeta(submission=sub,
+                                   form_field=field,
+                                   key=field.meta_key,
+                                   value=stuff[field.meta_key])
                 smeta.save()
             return render(request, 'evalbase/home.html', context={'form': stuff})
             ## FIXME - Not the correct forwarding after
@@ -260,7 +347,10 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
 
+
 class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
+    '''A form for editing the metadata for a submission.'''
+
     template_name = 'evalbase/edit.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -290,19 +380,24 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         form_class = SubmitFormForm.get_form_class(context)
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
-            run = Submission.objects.filter(submitted_by_id=self.request.user.id).filter(
-                task__conference__shortname=self.kwargs['conf']).filter(id=context['id'])[0]
+            run = (Submission.objects
+                   .filter(submitted_by_id=self.request.user.id)
+                   .filter(task__conference__shortname=self.kwargs['conf'])
+                   .filter(id=context['id'])[0])
             stuff = form.cleaned_data
             print("FILE IS")
             print(stuff['runfile'])
             run.file = stuff['runfile']
-            run.org = Organization.objects.filter(conference=context['conf']).filter(shortname=stuff['org'])[0]
+            run.org = (Organization.objects
+                       .filter(conference=context['conf'])
+                       .filter(shortname=stuff['org'])[0])
             run.runtag = stuff['runtag']
             run.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
             for field in custom_fields:
-                original = SubmitMeta.objects.filter(key=field.meta_key).filter(submission_id=run.id)[0]
+                original = (SubmitMeta.objects.filter(key=field.meta_key)
+                            .filter(submission_id=run.id)[0])
                 original.value = stuff[field.meta_key]
                 original.save()
 
@@ -314,18 +409,20 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
             return render(request, 'evalbase/submit.html', context=context)
 
 
-
 class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
+    '''View a submission.'''
     template_name = 'evalbase/run.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # run = Submission.objects.filter(runtag=self.kwargs['runtag']).filter(task__shortname=self.kwargs['task']).filter(task__conference__shortname=self.kwargs['conf'])
-        run = Submission.objects.filter(runtag=self.kwargs['runtag']).filter(task__conference__shortname=self.kwargs['conf'])
+        run = (Submission.objects
+               .filter(runtag=self.kwargs['runtag'])
+               .filter(task__conference__shortname=self.kwargs['conf']))
         if run[0].submitted_by != self.request.user:
             raise PermissionDenied()
         context['submission'] = run[0]
-        context['metas'] = SubmitMeta.objects.filter(submission_id=context['submission'].id)
+        context['metas'] = (SubmitMeta.objects
+                            .filter(submission_id=context['submission'].id))
         field_descs = {}
         for meta in context['metas']:
             field_descs[meta.key] = meta.form_field.question
@@ -337,7 +434,9 @@ class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
 @login_required
 def download(request, conf, task, runtag):
     print(request,conf,task, runtag)
-    run = Submission.objects.filter(runtag=runtag).filter(task__conference__shortname=conf)
+    run = (Submission.objects
+           .filter(runtag=runtag)
+           .filter(task__conference__shortname=conf))
     if run[0].submitted_by != request.user:
         raise PermissionDenied()
     sub = run[0]
