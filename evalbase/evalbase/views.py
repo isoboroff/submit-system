@@ -310,6 +310,7 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         context['orgs'] = (Organization.objects
                            .filter(members__pk=self.request.user.pk)
                            .filter(conference=conf))
+        context['mode'] = 'submit'
 
         form_class = SubmitFormForm.get_form_class(context)
         sff = form_class()
@@ -357,21 +358,34 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         conf = Conference.objects.get(shortname=kwargs['conf'])
         task = Task.objects.get(shortname=kwargs['task'], conference=conf)
         submitform = SubmitForm.objects.get(task=task)
-        run = Submission.objects.filter(submitted_by_id=self.request.user.id).filter(task__conference__shortname=self.kwargs['conf']).filter(id = context['id'])[0]
+
         context['conf'] = conf
         context['task'] = task
         context['form'] = submitform
         context['user'] = self.request.user
-        context['org'] = run.org
-        context['runtag'] = run.runtag
-        context['file'] = run.file
-        context['id'] = run.id
-        # Adding groups to conferences is broken right now, so I'm choosing any temporarily.
-        # This will need to get changed. TODO
-        # context['orgs'] = Organization.objects.filter(members=self.request.user).filter(conference=conf)
-        context['orgs'] = Organization.objects.all()
-        form_class = SubmitFormForm.edit_form_class(context)
-        sff = form_class()
+        context['orgs'] = (Organization.objects
+                           .filter(members__pk=self.request.user.pk)
+                           .filter(conference=conf))
+        context['mode'] = 'edit'
+        form_class = SubmitFormForm.get_form_class(context)
+
+        run = (Submission.objects
+               .filter(submitted_by_id=self.request.user.id)
+               .filter(task__conference__shortname=self.kwargs['conf'])
+               .filter(id=kwargs['id'])[0])
+
+        form_info = {'conf': conf,
+                     'task': run.task,
+                     'org': run.org,
+                     'user': run.submitted_by,
+                     'email': run.submitted_by.email,
+                     'runtag': run.runtag,
+                     'runfile': run.file}
+        other_infos = SubmitMeta.objects.filter(submission=run)
+        for run_meta in other_infos:
+            form_info[run_meta.key] = run_meta.value
+
+        sff = form_class(form_info)
         context['gen_form'] = sff
         return context
 
@@ -396,7 +410,8 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
             for field in custom_fields:
-                original = (SubmitMeta.objects.filter(key=field.meta_key)
+                original = (SubmitMeta.objects
+                            .filter(key=field.meta_key)
                             .filter(submission_id=run.id)[0])
                 original.value = stuff[field.meta_key]
                 original.save()
