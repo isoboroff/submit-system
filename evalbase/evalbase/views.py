@@ -324,8 +324,13 @@ class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             stuff = form.cleaned_data
-            sub = Submission(task=stuff['task'],
-                             org = stuff['org'],
+            org = (Organization.objects
+                   .filter(shortname=stuff['org'])
+                   .filter(members__pk=self.request.user.pk)
+                   .filter(conference=context['conf']))[0]
+
+            sub = Submission(task=context['task'],
+                             org = org,
                              submitted_by=request.user,
                              runtag=stuff['runtag'],
                              is_validated=False,
