@@ -42,6 +42,17 @@
         (none right now, come back later!)
         {% endif %}
 
+        {% if complete %}
+      <p>
+        Closed conferences you have participated in<br/>
+        <ul>
+          {% for conf in complete %}
+          <li><a href="{% url 'tasks' conf.shortname %}">
+              ({{ conf.shortname }})</a>
+            {{ conf.longname }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
     </div>
   </div>
 </div>

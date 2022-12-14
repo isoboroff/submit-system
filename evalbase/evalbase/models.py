@@ -71,7 +71,8 @@ class Organization(models.Model):
         related_name='member_of')
     conference = models.ForeignKey(
         Conference,
-        on_delete=models.PROTECT)
+        on_delete=models.PROTECT,
+        related_name='participants')
     task_interest = models.ManyToManyField(
         to='Task',
         #limit_choices_to=Q(conference=conference)
