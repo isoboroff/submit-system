@@ -3,8 +3,10 @@
 {% block title %} Open Tasks -- {{ conf.shortname }} {% endblock %}
 
 {% block content %}
+<h1> {{ conf.longname }} </h1>
+
 {% if object_list %}
-<h2> {{ conf.longname }} tracks </h2>
+<h2>Tracks</h2>
 <ul>
   {% for task in object_list %}
   <li>{{ task.longname }}
