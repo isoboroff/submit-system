@@ -42,15 +42,6 @@
         (none right now, come back later!)
         {% endif %}
 
-        <p>
-            Already Submitted:
-        <ul>
-          {% for sub in submissions %}
-          <li> <a href="{% url 'run' sub.task.conference.shortname sub.task.shortname sub.runtag %}"> {{ sub.runtag }}</a> (#{{ sub.id }})</li>
-          {% endfor %}
-        </ul>
-      </p>
-
     </div>
   </div>
 </div>

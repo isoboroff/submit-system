@@ -257,8 +257,6 @@ class HomeView(EvalBaseLoginReqdMixin, generic.base.TemplateView):
         context['my_orgs'] = (Organization.objects
                               .filter(members__pk=self.request.user.pk)
                               .filter(conference__complete=False))
-        context['submissions'] = (Submission.objects
-                                  .filter(submitted_by_id=self.request.user.id))
         return context
 
 
