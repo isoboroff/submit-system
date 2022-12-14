@@ -46,8 +46,8 @@ urlpatterns = [
 
     path('conf/<str:conf>', views.ConferenceTasks.as_view(), name='tasks'),
     path('conf/agreements/<str:conf>', views.ListAgreements.as_view(), name='agree'),
-    path('conf/<str:conf>/<str:task>/submit', views.SubmitTask.as_view(), name='submit'),
-    path('conf/<str:conf>/<str:task>/<int:id>/edit', views.EditTask.as_view(), name='edit-task'),
+    path('conf/<str:conf>/<str:task>/submit', views.SubmitRun.as_view(), name='submit'),
+    path('conf/<str:conf>/<str:task>/<int:id>/edit', views.EditSubmission.as_view(), name='edit-task'),
 
     path('run/<str:conf>/<str:task>/<str:runtag>', views.Submissions.as_view(), name='run'),
     path('run/<str:conf>/<str:task>/<str:runtag>/download', views.download, name='run-download'),

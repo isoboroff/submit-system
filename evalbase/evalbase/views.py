@@ -289,7 +289,7 @@ class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
         return context
 
 
-class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
+class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
     '''This is the view for submitting a run to a task.  Each task has
     a custom set of metadata fields for the submission form, and those
     are described in the SubmitMetas class.  This form is what creates
@@ -346,7 +346,7 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
             return render(request, 'evalbase/submit.html', context=context)
 
 
-class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
+class EditSubmission(EvalBaseLoginReqdMixin, generic.TemplateView):
     '''A form for editing the metadata for a submission.'''
 
     template_name = 'evalbase/edit.html'
