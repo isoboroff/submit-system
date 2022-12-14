@@ -5,7 +5,9 @@
 
 {% block content %}
 <h4>Submission {{ submission.runtag }}</h4>
-    <a href = "{% url 'edit-task' submission.task.conference.shortname submission.task.shortname submission.id %}">Edit this submission</a>
+{% if submission.task.task_open %}
+<a href = "{% url 'edit-task' submission.task.conference.shortname submission.task.shortname submission.id %}">Edit this submission</a>
+{% endif %}
 
 <ul>
     <li> Conference: {{ submission.task.conference.longname }} ({{ submission.task.conference.shortname }})</li>

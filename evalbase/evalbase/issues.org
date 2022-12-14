@@ -45,7 +45,8 @@ CLOSED: [2022-12-06 Tue 15:42]
 CLOSED: [2022-12-06 Tue 14:37]
 ** RESOLVED BUG creating an org fails with an error
 CLOSED: [2022-12-06 Tue 14:37]
-** TODO Allow submissions to be viewed properly
+** DONE Allow submissions to be viewed properly
+CLOSED: [2022-12-14 Wed 14:21]
 ** ONGOING BUG Files are not downloadable from the admin side or edit page
 - This seems to be because settings doesn't have the DOWNLOAD_DATA variable set.
 ** ONGOING BUG Fix handling of edit page when given wrong task

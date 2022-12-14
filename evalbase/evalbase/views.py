@@ -356,6 +356,9 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         task = Task.objects.get(shortname=kwargs['task'], conference=conf)
         submitform = SubmitForm.objects.get(task=task)
 
+        if not task.task_open:
+            raise PermissionDenied('Task is closed')
+
         context['conf'] = conf
         context['task'] = task
         context['form'] = submitform
@@ -388,6 +391,9 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not context['task'].task_open:
+            raise Http404('Task closed')
+
         form_class = SubmitFormForm.get_form_class(context)
         form = form_class(request.POST)
         if form.is_valid():
@@ -402,7 +408,7 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
                    .filter(shortname=stuff['org'])
                    .filter(conference__shortname=self.kwargs['conf']))
             if not org:
-                return Http404
+                raise Http404()
 
             run.org = org[0]
             run.runtag = stuff['runtag']
@@ -431,10 +437,10 @@ class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)
         run = (Submission.objects
                .filter(runtag=self.kwargs['runtag'])
-               .filter(task__conference__shortname=self.kwargs['conf']))
-        if run[0].submitted_by != self.request.user:
+               .filter(task__conference__shortname=self.kwargs['conf']))[0]
+        if run.submitted_by != self.request.user and run.org.org_owner_of != self.request.user:
             raise PermissionDenied()
-        context['submission'] = run[0]
+        context['submission'] = run
         context['metas'] = (SubmitMeta.objects
                             .filter(submission_id=context['submission'].id))
         field_descs = {}
