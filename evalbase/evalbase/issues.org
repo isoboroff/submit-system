@@ -26,7 +26,8 @@
 ** DONE Make a task
 ** DONE View my submissions
 ** DONE review submission meta-data details
-** TODO update/revise, or delete (?) a submission
+** DONE delete a submission
+CLOSED: [2022-12-14 Wed 14:53]
 ** DONE edit metadata for submission
 CLOSED: [2022-12-14 Wed 13:19]
 ** TODO submission validation

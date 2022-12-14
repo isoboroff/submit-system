@@ -434,6 +434,13 @@ class EditSubmission(EvalBaseLoginReqdMixin, generic.TemplateView):
             return render(request, 'evalbase/submit.html', context=context)
 
 
+class DeleteSubmission(EvalBaseLoginReqdMixin, generic.DeleteView):
+    model = Submission
+    success_url = '/'
+    slug_field = 'runtag'
+    slug_url_kwarg = 'runtag'
+
+
 class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
     '''View a submission.'''
     template_name = 'evalbase/run.html'
