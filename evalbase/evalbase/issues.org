@@ -27,6 +27,8 @@
 ** DONE View my submissions
 ** DONE review submission meta-data details
 ** TODO update/revise, or delete (?) a submission
+** DONE edit metadata for submission
+CLOSED: [2022-12-14 Wed 13:19]
 ** TODO submission validation
 ** TODO View submission validation status
 ** TODO Sign an agreement
@@ -45,6 +47,7 @@ CLOSED: [2022-12-06 Tue 14:37]
 CLOSED: [2022-12-06 Tue 14:37]
 ** TODO Allow submissions to be viewed properly
 ** ONGOING BUG Files are not downloadable from the admin side or edit page
+- This seems to be because settings doesn't have the DOWNLOAD_DATA variable set.
 ** ONGOING BUG Fix handling of edit page when given wrong task
 
 

@@ -323,13 +323,10 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             stuff = form.cleaned_data
-            sub = Submission(task=context['task'],
-                             org = (Organization.objects
-                                    .filter(conference=context['conf'])
-                                    .filter(shortname=stuff['org'])[0]),
+            sub = Submission(task=stuff['task'],
+                             org = stuff['org'],
                              submitted_by=request.user,
                              runtag=stuff['runtag'],
-                             file=stuff['runfile'],
                              is_validated=False,
                              has_evaluation=False
                              )
@@ -342,8 +339,7 @@ class SubmitTask(EvalBaseLoginReqdMixin, generic.TemplateView):
                                    key=field.meta_key,
                                    value=stuff[field.meta_key])
                 smeta.save()
-            return render(request, 'evalbase/home.html', context={'form': stuff})
-            ## FIXME - Not the correct forwarding after
+            return render(request, 'evalbase/home.html')
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
@@ -392,19 +388,22 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         form_class = SubmitFormForm.get_form_class(context)
-        form = form_class(request.POST, request.FILES)
+        form = form_class(request.POST)
         if form.is_valid():
+            stuff = form.cleaned_data
             run = (Submission.objects
                    .filter(submitted_by_id=self.request.user.id)
                    .filter(task__conference__shortname=self.kwargs['conf'])
-                   .filter(id=context['id'])[0])
+                   .filter(runtag=stuff['runtag'])[0])
             stuff = form.cleaned_data
-            print("FILE IS")
-            print(stuff['runfile'])
-            run.file = stuff['runfile']
-            run.org = (Organization.objects
-                       .filter(conference=context['conf'])
-                       .filter(shortname=stuff['org'])[0])
+            org = (Organization.objects
+                   .filter(members__pk=self.request.user.pk)
+                   .filter(shortname=stuff['org'])
+                   .filter(conference__shortname=self.kwargs['conf']))
+            if not org:
+                return Http404
+
+            run.org = org[0]
             run.runtag = stuff['runtag']
             run.save()
 
@@ -417,8 +416,7 @@ class EditTask(EvalBaseLoginReqdMixin, generic.TemplateView):
                 original.save()
 
 
-            return render(request, 'evalbase/home.html', context={'form': stuff})
-            ## FIXME
+            return HttpResponseRedirect(reverse_lazy('home'))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
