@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
-
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
@@ -22,6 +21,12 @@ class MembersEditForm(forms.Form):
             member_choices.append((member.id,f'{member.first_name} {member.last_name} ({member.email})'))
         fields["users"] = forms.ChoiceField(label="Select a user to remove: ", choices=member_choices)
         return type('MembersEditForm', (forms.Form,), fields)
+
+
+class AgreementForm(forms.Form):
+    sigtext = forms.CharField(label='Signature',
+                              help_text='Please type your full name',
+                              max_length=50)
 
 
 class SubmitFormForm(forms.Form):

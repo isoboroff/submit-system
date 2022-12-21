@@ -96,7 +96,9 @@ class Signature(models.Model):
     """Signature is a signature on an agreement."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
+    sigtext = models.CharField(max_length=50)
     agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE)
+
 
 class Task(models.Model):
     """A Task is like a TREC track, a thing in a Conference that people submit things to."""

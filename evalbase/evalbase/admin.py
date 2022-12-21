@@ -18,7 +18,8 @@ class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = [ 'passphrase' ]
 
 
-admin.site.register(Agreement)    
+admin.site.register(Agreement)
+admin.site.register(Signature)
 
 
 class SubmitFormFieldInline(admin.TabularInline):

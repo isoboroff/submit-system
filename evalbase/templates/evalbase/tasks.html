@@ -5,6 +5,15 @@
 {% block content %}
 <h1> {{ conf.longname }} </h1>
 
+{% if agreements %}
+<p>You need to sign the following participation agreement(s):</p>
+<ul>
+  {% for agreement in agreements %}
+  <li><a href="{% url 'sign-agreement' conf agreement %}">{{ agreement.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
 {% if object_list %}
 <h2>Tracks</h2>
 <ul>

@@ -45,7 +45,7 @@ urlpatterns = [
     path('org/<str:shortname>', views.OrganizationDetail.as_view(), name='org-detail'),
 
     path('conf/<str:conf>', views.ConferenceTasks.as_view(), name='tasks'),
-    path('conf/agreements/<str:conf>', views.ListAgreements.as_view(), name='agree'),
+    path('agreements/<str:conf>/<str:agreement>/sign', views.sign_agreement, name='sign-agreement'),
     path('conf/<str:conf>/<str:task>/submit', views.SubmitRun.as_view(), name='submit'),
     path('conf/<str:conf>/<str:task>/<int:id>/edit', views.EditSubmission.as_view(), name='edit-task'),
 

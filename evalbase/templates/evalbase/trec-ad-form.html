@@ -1,75 +1,88 @@
-        <H1><B>Agreement Concerning Dissemination of TREC Results</H1></B>
+{% extends 'evalbase/base.html' %}
+{% load bootstrap5 %}
 
-	<P>The annual Text REtrieval Conference (TREC) is an event in which 
-	organizations with an interest in information retrieval and related 
-	technologies take part in a coordinated series of experiments using the same 
-	experimental data and queries.  The results of these individual experiments 
-	are then presented at a workshop where tentative comparisons may be made.  
-	In order to preserve the desired, pre-competitive nature of these conferences, 
-	the organizers have developed a set of guidelines constraining the 
-	dissemination and publication of TREC evaluation results.  These guidelines 
-	are meant to preclude the publication of incomplete or inaccurate information 
-	that could damage the reputation of the conference or its participants and 
-	could discourage participation in future conferences.  The guidelines apply
-	to all TREC participants and to organizations requesting access to the archive
-	of TREC results.</P>
+{% block title %} {{ object.name }} {% endblock %}
 
-	<P>A signed agreement is required of each organization participating in
-	the TREC evaluations or accessing the results archive.  Any organization
-	that is found to have violated the terms or spirit of the agreement may be
-	denied participation in future TRECs. </P>
+{% block content %}
 
-	<B>GUIDELINES: </B> <BR>
-	<OL>
-	<LI><B>SCIENTIFIC OR TECHNICAL PUBLICATIONS: </B> Scientific or technical
-	publications, including newsletters from universities or research
-	laboratories, should adhere to community standards for fairness and
-	objectivity and should accurately and clearly state the limitations of
-	the testing conditions and other factors which might influence scores.
-	The experimental nature of the tasks, data and evaluation procedures
-	should also be stated.  The full conference proceedings should always
-	be referenced.
+<H1><B>Agreement Concerning Dissemination of TREC Results</H1></B>
 
-	<LI><B>ADVERTISEMENTS: </B>No advertisements using the TREC evaluation results
-	can be placed in magazines, journals, newspapers, or other publications.
+<P>The annual Text REtrieval Conference (TREC) is an event in which 
+  organizations with an interest in information retrieval and related 
+  technologies take part in a coordinated series of experiments using the same 
+  experimental data and queries.  The results of these individual experiments 
+  are then presented at a workshop where tentative comparisons may be made.  
+  In order to preserve the desired, pre-competitive nature of these conferences, 
+  the organizers have developed a set of guidelines constraining the 
+  dissemination and publication of TREC evaluation results.  These guidelines 
+  are meant to preclude the publication of incomplete or inaccurate information 
+  that could damage the reputation of the conference or its participants and 
+  could discourage participation in future conferences.  The guidelines apply
+  to all TREC participants and to organizations requesting access to the archive
+  of TREC results.</P>
 
-	<LI><B>PRESS RELEASES:  </B> Press releases about TREC results to organizations 
-	with national/international coverage are also prohibited.
+<P>A signed agreement is required of each organization participating in
+  the TREC evaluations or accessing the results archive.  Any organization
+  that is found to have violated the terms or spirit of the agreement may be
+  denied participation in future TRECs. </P>
 
-	<LI><B>MARKETING LITERATURE, LOCAL NEWSLETTERS: </B>Although it is recognized 
-	that extensive evaluation discussions are not appropriate in this type
-	of literature, it is expected that any claims made on the basis of 
-	evaluation results are accurate, that the evaluation measures used to 
-	substantiate these claims are stated, and that a reference is made to 
-	the full conference proceedings.  Where promotional material is subject 
-	to prepublication revision by the media, the author should make every 
-	effort to see that the revision does not cause a violation of the guidelines.
+<B>GUIDELINES: </B> <BR>
+<OL>
+  <LI><B>SCIENTIFIC OR TECHNICAL PUBLICATIONS: </B> Scientific or technical
+    publications, including newsletters from universities or research
+    laboratories, should adhere to community standards for fairness and
+    objectivity and should accurately and clearly state the limitations of
+    the testing conditions and other factors which might influence scores.
+    The experimental nature of the tasks, data and evaluation procedures
+    should also be stated.  The full conference proceedings should always
+    be referenced.
 
-	<LI>Web Sites: Web sites are a type of marketing literature with a global
-	distribution. The guidelines for marketing literature in general apply to web sites
-	as well. References to TREC should link to the TREC web site.	
-	
-	<LI>Cross-system comparisons may not be made with other named teams for
-	individual tests, and may only be made when they are supported by
-	accepted methods of statistical significance testing. Comparisons must be
-	accompanied by the results of those tests and should reference the
-	publication of those tests in the conference proceedings or related
-	literature. Informal, qualitative comparisons with recognized
-	baselines or benchmarks, and with general levels or trends in performance,
-	must be clearly stated to be such and thus open to statistical reassessment.
+  <LI><B>ADVERTISEMENTS: </B>No advertisements using the TREC evaluation results
+    can be placed in magazines, journals, newspapers, or other publications.
 
-	<LI>A copy of any publication that quotes or contains references to
-	the TREC evaluation results must be provided to the TREC program chair.
-	</OL>
+  <LI><B>PRESS RELEASES:  </B> Press releases about TREC results to organizations 
+    with national/international coverage are also prohibited.
 
-	<B>ENDORSEMENT (Please type): </B><BR>
+  <LI><B>MARKETING LITERATURE, LOCAL NEWSLETTERS: </B>Although it is recognized 
+    that extensive evaluation discussions are not appropriate in this type
+    of literature, it is expected that any claims made on the basis of 
+    evaluation results are accurate, that the evaluation measures used to 
+    substantiate these claims are stated, and that a reference is made to 
+    the full conference proceedings.  Where promotional material is subject 
+    to prepublication revision by the media, the author should make every 
+    effort to see that the revision does not cause a violation of the guidelines.
 
-	<P>I, the undersigned, acting on
-	behalf of the organization indicated below,
-	acknowledge my understanding of the above guidelines and accept this
-	agreement.  As a condition of our participation in the TREC evaluation,
-	and/or gaining access to the archive of TREC results, my organization
-	and its employees and representatives agree to abide
-	by these guidelines.  I am qualified to make this commitment. </P>
+  <LI>Web Sites: Web sites are a type of marketing literature with a global
+    distribution. The guidelines for marketing literature in general apply to web sites
+    as well. References to TREC should link to the TREC web site.	
+    
+  <LI>Cross-system comparisons may not be made with other named teams for
+    individual tests, and may only be made when they are supported by
+    accepted methods of statistical significance testing. Comparisons must be
+    accompanied by the results of those tests and should reference the
+    publication of those tests in the conference proceedings or related
+    literature. Informal, qualitative comparisons with recognized
+    baselines or benchmarks, and with general levels or trends in performance,
+    must be clearly stated to be such and thus open to statistical reassessment.
 
+  <LI>A copy of any publication that quotes or contains references to
+    the TREC evaluation results must be provided to the TREC program chair.
+</OL>
 
+<B>ENDORSEMENT (Please type): </B><BR>
+
+<P>I, the undersigned, acting on
+  behalf of the organization indicated below,
+  acknowledge my understanding of the above guidelines and accept this
+  agreement.  As a condition of our participation in the TREC evaluation,
+  and/or gaining access to the archive of TREC results, my organization
+  and its employees and representatives agree to abide
+  by these guidelines.  I am qualified to make this commitment. </P>
+
+<form method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit" value="Sign"/>
+</form>
+
+{% endblock %}

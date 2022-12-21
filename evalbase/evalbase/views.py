@@ -17,7 +17,7 @@ from .forms import *
 # simple things difficult, in which case we have to dive to a lower level.
 # It's tricky to decide when you have to dive, but a good rule of thumb is
 # when you can't figure out how to do something, you find a solution on
-# StackOverflow, and it's very non-ovious or hidden in the Django documentation.
+# StackOverflow, and it's very non-obvious or hidden in the Django documentation.
 
 class SignUp(generic.edit.CreateView):
     '''Registering a new user.'''
@@ -233,17 +233,6 @@ class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
             return HttpResponseRedirect(reverse_lazy('home'))
 
 
-# Trying to integrate agreements.  This class is homeless at the moment.
-
-class ListAgreements(EvalBaseLoginReqdMixin, generic.ListView):
-    model = Agreement
-    template_name ='evalbase/agreements.html'
-
-    def get_queryset(self):
-        conf = Conference.objects.get(shortname=self.kwargs['conf'])
-        return conf.agreements.all()
-
-
 class HomeView(EvalBaseLoginReqdMixin, generic.base.TemplateView):
     '''The main page.  You can see what conferences you are participating
     in and which ones you can sign up to participate in.
@@ -284,9 +273,29 @@ class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
                   .filter(task__conference=conf)
                   .filter(org__in=orgs)
                   .order_by('task'))
+        agreements = conf.agreements.exclude(signature__user=self.request.user.pk)
         context['conf'] = conf
         context['myruns'] = myruns
+        context['agreements'] = agreements
         return context
+
+
+def sign_agreement(request, conf, agreement):
+    agrobj = get_object_or_404(Agreement, name=agreement)
+    template = 'evalbase/' + agrobj.template
+
+    if request.method == 'POST':
+        form = AgreementForm(request.POST)
+        if form.is_valid():
+            sig = Signature(user=request.user,
+                            agreement=agrobj,
+                            sigtext=form.cleaned_data['sigtext'])
+            sig.save()
+            return HttpResponseRedirect(reverse('tasks', kwargs={'conf': conf}))
+    else:
+        form = AgreementForm()
+
+    return render(request, template, { 'form': form })
 
 
 class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
