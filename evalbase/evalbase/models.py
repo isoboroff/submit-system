@@ -86,7 +86,8 @@ class Organization(models.Model):
 
 class Agreement(models.Model):
     """An Agreement is something somebody has to sign.  Usually for Conferences."""
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=25)
+    longname = models.CharField(max_length=150)
     template = models.CharField(max_length=30)
 
     def __str__(self):

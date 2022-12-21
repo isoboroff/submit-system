@@ -15,5 +15,15 @@
 <p>Your profile is blank.  Please
   <a href="{% url 'profile-create' %}">create it.</a></p>
 {% endif %}
+
+{% if signatures %}
+<p>You have signed the following agreements:</p>
+  <ul>
+    {% for s in signatures %}
+    <li>{{ s.agreement.longname }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <a href="{% url 'home' %}">Return to home.</a>
 {% endblock %}

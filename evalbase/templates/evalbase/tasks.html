@@ -9,7 +9,7 @@
 <p>You need to sign the following participation agreement(s):</p>
 <ul>
   {% for agreement in agreements %}
-  <li><a href="{% url 'sign-agreement' conf agreement %}">{{ agreement.name }}</a></li>
+  <li><a href="{% url 'sign-agreement' conf agreement %}">{{ agreement.longname }}</a></li>
   {% endfor %}
 </ul>
 {% endif %}

@@ -53,6 +53,7 @@ class ProfileDetail(EvalBaseLoginReqdMixin, generic.detail.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = User.objects.get(pk=self.request.user.id)
+        context['signatures'] = Signature.objects.filter(user=self.request.user)
         return context
 
 
@@ -283,6 +284,12 @@ class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
 def sign_agreement(request, conf, agreement):
     agrobj = get_object_or_404(Agreement, name=agreement)
     template = 'evalbase/' + agrobj.template
+
+    # Check if the form was already signed
+    existing = Signature.objects.filter(user=request.user,
+                                        agreement=agrobj)
+    if existing:
+        return HttpResponseRedirect(reverse('tasks', kwargs={'conf': conf}))
 
     if request.method == 'POST':
         form = AgreementForm(request.POST)
