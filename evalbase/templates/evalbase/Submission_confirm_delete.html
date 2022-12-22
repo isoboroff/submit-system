@@ -5,7 +5,7 @@
 
 {% block content %}
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object.pk }}"?</p>
+    <p>Are you sure you want to delete "{{ object.runtag }}"?</p>
     {% bootstrap_form form %}
     <input type="submit" value="Confirm">
 </form>
