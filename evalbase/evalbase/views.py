@@ -361,7 +361,7 @@ class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
                                    key=field.meta_key,
                                    value=stuff[field.meta_key])
                 smeta.save()
-            return render(request, 'evalbase/home.html')
+            return HttpResponseRedirect(reverse('tasks'))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
