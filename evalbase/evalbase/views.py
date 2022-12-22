@@ -137,6 +137,9 @@ class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         org = Organization.objects.get(shortname=self.kwargs['name'])
+        if not org.conference.open_signup:
+            raise PermissionDenied
+
         if org.owner == self.request.user or org.members.filter(pk=self.request.user.pk).exists():
             context['org'] = org
             # Get members of the org, but not yourself
