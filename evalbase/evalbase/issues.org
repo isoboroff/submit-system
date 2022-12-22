@@ -32,9 +32,9 @@ CLOSED: [2022-12-22 Thu 16:01]
 CLOSED: [2022-12-14 Wed 13:19]
 ** TODO submission validation
 ** TODO View submission validation status
-** TODO Sign an agreement
+** DONE Sign an agreement
+CLOSED: [2022-12-22 Thu 16:04]
 - Idea: have open forms listed on the conf tasks page
-  - Fix: can sign more than once
 ** TODO View agreements signed and unsigned
 ** TODO make an activity log more application-specific than "recent changes"
 
