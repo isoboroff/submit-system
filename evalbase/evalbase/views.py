@@ -281,6 +281,7 @@ class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
         return context
 
 
+@login_required(login_url=reverse_lazy('login'))
 def sign_agreement(request, conf, agreement):
     agrobj = get_object_or_404(Agreement, name=agreement)
     template = 'evalbase/' + agrobj.template
@@ -361,7 +362,8 @@ class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
                                    key=field.meta_key,
                                    value=stuff[field.meta_key])
                 smeta.save()
-            return HttpResponseRedirect(reverse('tasks'))
+            return HttpResponseRedirect(reverse('tasks',
+                                                kwargs={'conf': self.kwargs['conf']}))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
@@ -452,9 +454,22 @@ class EditSubmission(EvalBaseLoginReqdMixin, generic.TemplateView):
 
 class DeleteSubmission(EvalBaseLoginReqdMixin, generic.DeleteView):
     model = Submission
-    success_url = '/'
-    slug_field = 'runtag'
+    # success_url = reverse_lazy('tasks', kwargs['conf'])
     slug_url_kwarg = 'runtag'
+    slug_field = 'runtag'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = super().get_object()
+
+        if self.request.user != obj.submitted_by or self.request.user != obj.org.owner:
+            raise Http404
+
+        context['object'] = obj
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('tasks', kwargs={'conf': self.kwargs['conf']})
 
 
 class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
