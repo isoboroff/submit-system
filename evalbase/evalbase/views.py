@@ -219,6 +219,9 @@ class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         org = Organization.objects.get(passphrase=self.kwargs['key'])
+        if not org.conference.open_signup:
+            raise PermissionDenied
+
         context = super().get_context_data(**kwargs)
         context['org'] = org
         context['key'] = self.kwargs['key']

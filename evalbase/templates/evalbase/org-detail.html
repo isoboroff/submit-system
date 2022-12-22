@@ -28,7 +28,7 @@
 	      <a href="mailto:{{ object.contact_person.email }}">
 	        {{ object.contact_person.email }}</a>)</td>
           </tr>
-          {% if user == object.owner %}
+          {% if user == object.owner and object.conference.open_signup %}
           <tr>
             <th> To join </th>
             <td> Use <a href="{% url 'org-join' object.passphrase %}">this URL</a> to invite people to join your organization.</td>
