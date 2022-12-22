@@ -1,11 +1,12 @@
 {% extends 'evalbase/base.html' %}
+{% load bootstrap5 %}
 
-{% block title %} evalbase Delete {{ object.runtag }} {% endblock %}
+{% block title %} Really delete {{ object.runtag }}? {% endblock %}
 
 {% block content %}
-<form method="post">
-  {% csrf_token %}
-  <p>Are you sure you want to delete "{{object.runtag}}"?</p>
-  <input type="submit" value="Confirm">
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.pk }}"?</p>
+    {% bootstrap_form form %}
+    <input type="submit" value="Confirm">
 </form>
 {% endblock %}
