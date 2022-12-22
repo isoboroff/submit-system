@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).parent.parent.parent
 
 #BOOTSTRAP4_FOLDER = os.path.abspath(os.path.join(BASE_DIR, "..", "bootstrap4"))
 #if BOOTSTRAP4_FOLDER not in sys.path:
@@ -25,7 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b0@5@)2#*$7a&@74hn%ji2k7g511rqcvr5h&dw0iuo1xyatzx&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
