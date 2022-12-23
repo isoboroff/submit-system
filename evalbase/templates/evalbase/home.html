@@ -19,7 +19,7 @@
               {{ org.conference.shortname }}</a>
             (as
             {% if org.owner == user %} the owner {% else %} a member {% endif %}
-            of the <a href="{% url 'org-detail' org %}">
+            of the <a href="{% url 'org-detail' org.conference org %}">
               {{ org.shortname }}</a> group)</li>
           {% empty %}
           <li>(none yet!)</li>

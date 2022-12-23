@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 from django import utils
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -12,6 +13,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from .models import *
 from .forms import *
+from .decorators import *
 
 # When possible, I try to use generic views.  However, sometimes that makes
 # simple things difficult, in which case we have to dive to a lower level.
@@ -117,17 +119,11 @@ class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
     model = Organization
     template_name = 'evalbase/org-detail.html'
     slug_field = 'shortname'
-    slub_url_kwarg = 'shortname'
-    def get_object(self):
-        try:
-            org = Organization.objects.get(Q(shortname=self.kwargs['shortname']) &
-                                           Q(conf__shortname=self.kwargs['conf']))
-            if org.owner == self.request.user or org.members.filter(pk=self.request.user.pk).exists():
-                return org
-            else:
-                raise PermissionDenied()
-        except:
-            raise PermissionDenied()
+    slug_url_kwarg = 'org'
+
+    @method_decorator(user_is_member_of_org)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
