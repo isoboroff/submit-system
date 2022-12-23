@@ -16,6 +16,18 @@
   <a href="{% url 'profile-create-edit' %}">create it.</a></p>
 {% endif %}
 
+{% if orgs %}
+<p>You are part of the following registered participant organizations:</p>
+<ul>
+  {% for org in orgs %}
+  <li><a href="{% url 'org-detail' org.conference org.shortname %}">
+  {{ org.longname }}</a>
+  ({{ org.shortname }}, in {{ org.conference.shortname }})</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+
 {% if signatures %}
 <p>You have signed the following agreements:</p>
   <ul>

@@ -47,6 +47,9 @@ def profile_view(request, *args, **kwargs):
     if not profile:
         return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
     context = {'userprofile': profile,
+               'orgs': (Organization.objects
+                        .filter(Q(members=request.user)|Q(owner=request.user))
+                        .filter(conference__complete=False)),
                'signatures': Signature.objects.filter(user=request.user)}
     return render(request, 'evalbase/profile_view.html', context)
 
@@ -89,19 +92,6 @@ def profile_create_edit(request, *args, **kwargs):
 # One user registers an organization.  In order to join an organization,
 # there is a special sign-up token URL that you share with members of your
 # organization.
-
-
-class OrganizationList(EvalBaseLoginReqdMixin, generic.ListView):
-    '''List the organizations I'm a member of.'''
-
-    model = Organization
-    template_name = 'evalbase/my-orgs.html'
-
-    def get_queryset(self):
-        # return orgs I own or I am a member of.
-        rs = Organization.objects.filter(members__pk=self.request.user.pk)
-        rs = rs.union(Organization.objects.filter(owner=self.request.user))
-        return rs
 
 
 class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
