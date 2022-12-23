@@ -94,21 +94,11 @@ def profile_create_edit(request, *args, **kwargs):
 # organization.
 
 
-class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
-    '''Organization detail view.
-
-    The really useful thing here is the signup URL, which must be shared
-    with people who want to be part of this organization.
-    '''
-
-    model = Organization
-    template_name = 'evalbase/org-detail.html'
-    slug_field = 'shortname'
-    slug_url_kwarg = 'org'
-
-    @method_decorator(user_is_member_of_org)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+@evalbase_login_required
+@user_is_member_of_org
+@require_http_methods(['GET'])
+def org_view(request, *args, **kwargs):
+    render(request, 'evalbase/org-detail.html', {'object': kwargs['_org']})
 
 
 class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):

@@ -27,7 +27,7 @@ def user_is_member_of_org(view_func):
         org = get_object_or_404(Organization, shortname=kwargs['org'])
         if (org.owner == request.user or
             org.members.filter(pk=request.user.pk).exists()):
-            return view_func(request, *args, **kwargs)
+            return view_func(request, *args, {**kwargs, '_org': org})
         raise PermissionDenied
     return wrapped_view
 
