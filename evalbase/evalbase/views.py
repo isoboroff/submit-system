@@ -15,18 +15,18 @@ from .models import *
 from .forms import *
 from .decorators import *
 
-# When possible, I try to use generic views.  However, sometimes that makes
-# simple things difficult, in which case we have to dive to a lower level.
-# It's tricky to decide when you have to dive, but a good rule of thumb is
-# when you can't figure out how to do something, you find a solution on
-# StackOverflow, and it's very non-obvious or hidden in the Django documentation.
+def signup_view(request, *args, **kwargs):
+    if request.method == 'GET':
+        context = {'form': SignupForm()}
+        return render(request, 'evalbase/signup.html', context)
 
-class SignUp(generic.edit.CreateView):
-    '''Registering a new user.'''
+    elif request.method == 'POST':
+        form_data = SignupForm(request.POST)
+        new_profile = form_data.save()
+        return HttpResponseRedirect(reverse_lazy('profile-create'))
 
-    form_class = SignupForm
-    success_url = reverse_lazy('profile-create')
-    template_name = 'evalbase/signup.html'
+    else:
+        return Http404
 
 
 class EvalBaseLoginReqdMixin(LoginRequiredMixin):

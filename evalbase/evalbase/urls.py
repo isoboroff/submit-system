@@ -32,7 +32,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
-    path('signup/', views.SignUp.as_view(template_name='evalbase/signup.html'), name='signup'),
+    path('signup/', views.signup_view, name='signup'),
 
     path('profile/', views.ProfileDetail.as_view(), name='profile'),
     path('profile/create', views.ProfileCreate.as_view(), name='profile-create'),
