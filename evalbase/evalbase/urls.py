@@ -39,10 +39,10 @@ urlpatterns = [
     path('profile/edit', views.ProfileEdit.as_view(), name='profile-edit'),
 
     path('org/list', views.OrganizationList.as_view(), name='my-orgs'),
-    path('org/edit/<name>', views.OrganizationEdit.as_view(), name='org-edit'),
+    path('org/<str:conf>/<str:name>/edit', views.OrganizationEdit.as_view(), name='org-edit'),
     path('org/join/<key>', views.OrganizationJoin.as_view(), name='org-join'),
-    path('org/create/<str:conf>', views.OrganizationCreate.as_view(), name='org-create'),
-    path('org/<str:shortname>', views.OrganizationDetail.as_view(), name='org-detail'),
+    path('org/<str:conf>/create', views.OrganizationCreate.as_view(), name='org-create'),
+    path('org/<str:conf>/<str:shortname>', views.OrganizationDetail.as_view(), name='org-detail'),
 
     path('conf/<str:conf>', views.ConferenceTasks.as_view(), name='tasks'),
     path('agreements/<str:conf>/<str:agreement>/sign', views.sign_agreement, name='sign-agreement'),

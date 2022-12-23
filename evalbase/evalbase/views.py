@@ -120,7 +120,8 @@ class OrganizationDetail(EvalBaseLoginReqdMixin, generic.DetailView):
     slub_url_kwarg = 'shortname'
     def get_object(self):
         try:
-            org = Organization.objects.get(shortname=self.kwargs['shortname'])
+            org = Organization.objects.get(Q(shortname=self.kwargs['shortname']) &
+                                           Q(conf__shortname=self.kwargs['conf']))
             if org.owner == self.request.user or org.members.filter(pk=self.request.user.pk).exists():
                 return org
             else:
@@ -136,7 +137,8 @@ class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        org = Organization.objects.get(shortname=self.kwargs['name'])
+        org = Organization.objects.get(Q(shortname=self.kwargs['name']) &
+                                       Q(conf__shortname=self.kwargs['conf']))
         if not org.conference.open_signup:
             raise PermissionDenied
 
@@ -197,6 +199,8 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.conf = Conference.objects.get(shortname=self.kwargs['conf'])
+        if not conf.open_signup:
+            raise PermissionDenied
         context['conf'] = self.conf
         return context
 
