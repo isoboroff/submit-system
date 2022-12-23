@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, Http404, FileResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
@@ -15,6 +16,7 @@ from .models import *
 from .forms import *
 from .decorators import *
 
+@require_http_methods(['GET', 'POST'])
 def signup_view(request, *args, **kwargs):
     if request.method == 'GET':
         context = {'form': SignupForm()}
@@ -22,11 +24,9 @@ def signup_view(request, *args, **kwargs):
 
     elif request.method == 'POST':
         form_data = SignupForm(request.POST)
-        new_profile = form_data.save()
-        return HttpResponseRedirect(reverse_lazy('profile-create'))
-
-    else:
-        return Http404
+        if form_data.is_valid():
+            form_data.save()
+        return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
 
 
 class EvalBaseLoginReqdMixin(LoginRequiredMixin):
@@ -39,52 +39,47 @@ class EvalBaseLoginReqdMixin(LoginRequiredMixin):
 # User model itself comes from Django's auth library.  To add stuff like
 # contact info or whatever, we use a UserProfile model.
 
-class ProfileDetail(EvalBaseLoginReqdMixin, generic.detail.DetailView):
-    '''User profile detail view.'''
 
-    model = UserProfile
-    template_name = 'evalbase/profile_view.html'
-
-    # You can only see your own profile.
-    def get_object(self):
-        try:
-            return UserProfile.objects.get(user=self.request.user)
-        except:
-            return None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = User.objects.get(pk=self.request.user.id)
-        context['signatures'] = Signature.objects.filter(user=self.request.user)
-        return context
+@evalbase_login_required
+@require_http_methods(['GET'])
+def profile_view(request, *args, **kwargs):
+    profile = UserProfile.objects.filter(user=request.user).first()
+    if not profile:
+        return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
+    context = {'userprofile': profile,
+               'signatures': Signature.objects.filter(user=request.user)}
+    return render(request, 'evalbase/profile_view.html', context)
 
 
-class ProfileCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
-    '''User profile creation view.'''
+@evalbase_login_required
+@require_http_methods(['GET', 'POST'])
+def profile_create_edit(request, *args, **kwargs):
+    if request.method == 'GET':
+        cur_profile = UserProfile.objects.filter(user=request.user).first()
+        if cur_profile:
+            form = ProfileForm(instance=cur_profile,
+                               initial={'user': request.user})
+        else:
+            form = ProfileForm()
+        return render(request, 'evalbase/profile_form.html',
+                      {'form': form})
 
-    model = UserProfile
-    fields = ['street_address', 'city_state', 'country', 'postal_code']
-    template_name = 'evalbase/profile_form.html'
+    elif request.method == 'POST':
+        cur_profile = UserProfile.objects.filter(user=request.user).first()
+        if cur_profile:
+            form_data = ProfileForm(request.POST, instance=cur_profile)
+        else:
+            form_data = ProfileForm(request.POST)
 
-    # The profile is always for the current user.
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        if form_data.is_valid:
+            if not cur_profile:
+                instance = form_data.save(commit=False)
+                instance.user = request.user
+                instance.save()
+            else:
+                form_data.save()
 
-
-class ProfileEdit(EvalBaseLoginReqdMixin, generic.edit.UpdateView):
-    '''Editing the user profile.'''
-
-    model = UserProfile
-    fields = ['street_address', 'city_state', 'country', 'postal_code']
-    template_name = 'evalbase/profile_form.html'
-
-    # You can only see your own profile.
-    def get_object(self):
-        try:
-            return UserProfile.objects.get(user=self.request.user)
-        except:
-            return None
+        return HttpResponseRedirect(reverse_lazy('profile'))
 
 
 # Organizations register to participate in Conferences.  Other kinds of

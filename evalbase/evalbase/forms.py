@@ -12,6 +12,12 @@ class SignupForm(UserCreationForm):
                   'password1', 'password2')
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['street_address', 'city_state', 'country', 'postal_code']
+
+
 class MembersEditForm(forms.Form):
     def get_form_class(context):
         fields = {}

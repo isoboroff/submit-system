@@ -10,10 +10,10 @@
 <p>Country: {{ userprofile.country }}</p>
 <p>Postal code: {{ userprofile.postal_code }}</p>
 
-<p><a href="{% url 'profile-edit' %}">Edit</a> your profile.</p>
+<p><a href="{% url 'profile-create-edit' %}">Edit</a> your profile.</p>
 {% else %}
 <p>Your profile is blank.  Please
-  <a href="{% url 'profile-create' %}">create it.</a></p>
+  <a href="{% url 'profile-create-edit' %}">create it.</a></p>
 {% endif %}
 
 {% if signatures %}
