@@ -18,16 +18,19 @@ def evalbase_login_required(view_func):
 
 def user_is_member_of_org(view_func):
     '''Confirm that the request.user is a member of the org named
-    by the kwarg 'org'.
+    by the kwargs 'org' and 'conf'
     '''
     @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
-        if 'org' not in kwargs:
+        if 'org' not in kwargs or 'conf' not in kwargs:
             raise Http404
-        org = get_object_or_404(Organization, shortname=kwargs['org'])
+        org = get_object_or_404(Organization,
+                                shortname=kwargs['org'],
+                                conference__shortname=kwargs['conf'])
         if (org.owner == request.user or
             org.members.filter(pk=request.user.pk).exists()):
-            return view_func(request, *args, {**kwargs, '_org': org})
+            kwargs['_org'] = org
+            return view_func(request, *args, **kwargs)
         raise PermissionDenied
     return wrapped_view
 
@@ -36,12 +39,15 @@ def user_owns_org(view_func):
     '''Confirm that the request.user is the owner of the org
     named by the kwarg 'org'.
     '''
-    @functools.wraps
+    @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
-        if 'org' not in kwargs:
+        if 'org' not in kwargs or 'conf' not in kwargs:
             raise Http404
-        org = get_object_or_404(Organization, shortname=kwargs['org'])
+        org = get_object_or_404(Organization,
+                                shortname=kwargs['org'],
+                                conference__shortname=kwargs['conf'])
         if (org.owner == request.user):
+            kwargs['_org'] = org
             return view_func(request, *args, **kwargs)
         raise PermissionDenied
     return wrapped_view
@@ -82,6 +88,21 @@ def user_may_edit_submission(view_func):
                                 Q(runtag=kwargs['runtag']))
         if (sub.submitted_by == request.user or
             request.user == sub.org.owner):
+            return view_func(request, *args, **kwargs)
+        raise PermissionDenied
+    return wrapped_view
+
+
+def conference_is_open(view_func):
+    '''Confirm that the conference named in the kwarg 'conf' is not complete.
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs:
+            raise Http404
+        conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+        if not conf.complete:
+            kwargs['_conf'] = conf
             return view_func(request, *args, **kwargs)
         raise PermissionDenied
     return wrapped_view
