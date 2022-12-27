@@ -19,13 +19,13 @@ class ProfileForm(forms.ModelForm):
 
 
 class MembersEditForm(forms.Form):
+    # Returning the form class in this somewhat clever way lets me set
+    # the choices to the current members of the organization.
     def get_form_class(context):
         fields = {}
-        # member_choices = list(map(lambda x: (x.email), context['members']))[0]
-        member_choices = []
-        for member in context['members']:
-            member_choices.append((member.id,f'{member.first_name} {member.last_name} ({member.email})'))
-        fields["users"] = forms.ChoiceField(label="Select a user to remove: ", choices=member_choices)
+        member_choices = [(m.id, f'{m.first_name} {m.last_name} ({m.email})')
+                          for m in context['members']]
+        fields["users"] = forms.MultipleChoiceField(label="Select user(s) to remove", choices=member_choices)
         return type('MembersEditForm', (forms.Form,), fields)
 
 

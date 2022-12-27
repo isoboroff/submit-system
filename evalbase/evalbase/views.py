@@ -1,4 +1,5 @@
 import uuid
+import logging
 from datetime import datetime
 from django import utils
 from django.utils.decorators import method_decorator
@@ -17,7 +18,7 @@ from .forms import *
 from .decorators import *
 
 @require_http_methods(['GET', 'POST'])
-def signup_view(request, *args, **kwargs):
+def signup_view(request):
     if request.method == 'GET':
         context = {'form': SignupForm()}
         return render(request, 'evalbase/signup.html', context)
@@ -42,7 +43,7 @@ class EvalBaseLoginReqdMixin(LoginRequiredMixin):
 
 @evalbase_login_required
 @require_http_methods(['GET'])
-def profile_view(request, *args, **kwargs):
+def profile_view(request):
     profile = UserProfile.objects.filter(user=request.user).first()
     if not profile:
         return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
@@ -56,7 +57,7 @@ def profile_view(request, *args, **kwargs):
 
 @evalbase_login_required
 @require_http_methods(['GET', 'POST'])
-def profile_create_edit(request, *args, **kwargs):
+def profile_create_edit(request):
     if request.method == 'GET':
         cur_profile = UserProfile.objects.filter(user=request.user).first()
         if cur_profile:
@@ -98,47 +99,34 @@ def profile_create_edit(request, *args, **kwargs):
 @user_is_member_of_org
 @require_http_methods(['GET'])
 def org_view(request, *args, **kwargs):
-    render(request, 'evalbase/org-detail.html', {'object': kwargs['_org']})
+    return render(request, 'evalbase/org-detail.html', {'object': kwargs['_org']})
 
 
-class OrganizationEdit(EvalBaseLoginReqdMixin, generic.TemplateView):
-    '''The organization edit view is for removing people from the org.'''
+@evalbase_login_required
+@user_is_member_of_org
+@conference_is_open
+@require_http_methods(['GET', 'POST'])
+def org_edit(request, *args, **kwargs):
 
-    template_name = "evalbase/org-edit.html"
+    org = kwargs['_org']
+    members = org.members.all().exclude(id=request.user.id)
+    context = {'org': org, 'members': members}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        org = Organization.objects.get(Q(shortname=self.kwargs['name']) &
-                                       Q(conf__shortname=self.kwargs['conf']))
-        if not org.conference.open_signup:
-            raise PermissionDenied
+    if request.method == 'GET':
+        form_class = MembersEditForm.get_form_class(context)
+        form = form_class()
+        context['gen_form'] = form
+        return render(request, 'evalbase/org-edit.html', context)
 
-        if org.owner == self.request.user or org.members.filter(pk=self.request.user.pk).exists():
-            context['org'] = org
-            # Get members of the org, but not yourself
-            context['members'] = org.members.all().exclude(id = self.request.user.id)
-            print("Members:")
-            print(context['members'])
-            form_class = MembersEditForm.get_form_class(context)
-            mef = form_class()
-            context['gen_form'] = mef
-        else:
-            raise PermissionDenied()
-        return context
-
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
+    elif request.method == 'POST':
         form_class = MembersEditForm.get_form_class(context)
         form = form_class(request.POST)
-        # TODO add a confirmation screen of some sort?
         if form.is_valid():
-            stuff = form.cleaned_data
-            org = context['org']
-            user = User.objects.filter(id=stuff['users'])[0]
-            org.members.remove(user)
-            return HttpResponseRedirect(reverse_lazy('home'))
-        else:
-            return render(request, 'evalbase/org-edit.html', context=context)
+            cleaned = form.cleaned_data
+            org.members.remove(*cleaned['users'])
+        return HttpResponseRedirect(reverse_lazy('org-detail',
+                                                 kwargs={'conf': kwargs['conf'],
+                                                         'org': kwargs['org']}))
 
 
 class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
