@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect, Http404, FileResponse
+from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from .models import *
@@ -181,31 +181,33 @@ def org_create(request, *args, **kwargs):
                             'form': form })
 
 
-class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):
-    '''This is the view when someone goes to the special join-an-organization
-    URL.
+@evalbase_login_required
+@require_http_methods(['GET', 'POST'])
+def org_join(request, *args, **kwargs):
+    '''Join an organization.  This view is triggered by someone
+    using the special 'join-org' key for an organization.
+    The conference has to be open, but since the URL doesn't have
+    the conference specified, we can't use the conference_is_open
+    decorator.
     '''
 
-    template_name='evalbase/join.html'
+    org = Organization.objects.filter(passphrase=kwargs['key'])
+    if not org:
+        raise Http404('org not found, wtf')
+    org = org[0]
+    if not org.conference.open_signup:
+        raise PermissionDenied
 
-    def get_context_data(self, **kwargs):
-        org = Organization.objects.get(passphrase=self.kwargs['key'])
-        if not org.conference.open_signup:
-            raise PermissionDenied
+    if request.method == 'GET':
+        return render(request, 'evalbase/join.html',
+                      { 'org': org,
+                        'key': kwargs['key'] })
 
-        context = super().get_context_data(**kwargs)
-        context['org'] = org
-        context['key'] = self.kwargs['key']
-        return context
-
-    def post(self, request, *args, **kwargs):
-        user = self.request.user
-        org = Organization.objects.get(passphrase=self.kwargs['key'])
+    elif request.method == 'POST':
+        user = request.user
         org.members.add(user)
-        if org.conference.agreements.exists():
-            return HttpResponseRedirect(reverse_lazy('agree'), kwargs={'org':org, 'conf': org.conference})
-        else:
-            return HttpResponseRedirect(reverse_lazy('home'))
+        return HttpResponseRedirect(reverse_lazy('home'))
+
 
 
 class HomeView(EvalBaseLoginReqdMixin, generic.base.TemplateView):

@@ -38,7 +38,7 @@ urlpatterns = [
     path('profile/edit', views.profile_create_edit, name='profile-create-edit'),
 
     path('org/<str:conf>/<str:org>/edit', views.org_edit, name='org-edit'),
-    path('org/join/<key>', views.OrganizationJoin.as_view(), name='org-join'),
+    path('org/join/<str:key>', views.org_join, name='org-join'),
     path('org/<str:conf>/create', views.org_create, name='org-create'),
     path('org/<str:conf>/<str:org>', views.org_view, name='org-detail'),
 
