@@ -42,7 +42,7 @@ urlpatterns = [
     path('org/<str:conf>/create', views.org_create, name='org-create'),
     path('org/<str:conf>/<str:org>', views.org_view, name='org-detail'),
 
-    path('conf/<str:conf>', views.ConferenceTasks.as_view(), name='tasks'),
+    path('conf/<str:conf>', views.conf_tasks, name='tasks'),
     path('agreements/<str:conf>/<str:agreement>/sign', views.sign_agreement, name='sign-agreement'),
     path('conf/<str:conf>/<str:task>/submit', views.SubmitRun.as_view(), name='submit'),
     path('conf/<str:conf>/<str:task>/<int:id>/edit', views.EditSubmission.as_view(), name='edit-task'),

@@ -53,6 +53,23 @@ def user_owns_org(view_func):
     return wrapped_view
 
 
+def user_is_participant(view_func):
+    '''Confirm that the request.user is a member of an org in the conf
+    named by kwarg['conf'].
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs:
+            raise Http404
+        valid_orgs = (Organization.objects
+                      .filter(conference__shortname=kwargs['conf'])
+                      .filter(members__pk=request.user.pk))
+        if valid_orgs:
+            return view_func(request, *args, **kwargs)
+        raise PermissionDenied
+    return wrapped_view
+
+
 def user_is_active_participant(view_func):
     '''Confirm that the request.user is a member of an org in the conf
     named by kwarg['conf'], and that the org has submitted at least one

@@ -210,6 +210,7 @@ def org_join(request, *args, **kwargs):
 
 
 @evalbase_login_required
+@require_http_methods(['GET'])
 def home_view(request, *args, **kwargs):
     '''The main page.  You can see what conferences you are participating
     in and which ones you can sign up to participate in.
@@ -228,32 +229,29 @@ def home_view(request, *args, **kwargs):
                     'complete': complete })
 
 
-class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):
+@evalbase_login_required
+@user_is_participant
+@require_http_methods(['GET'])
+def conf_tasks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
+    conf = Conference.objects.get(shortname=kwargs['conf'])
+    object_list = (Task.objects
+                   .filter(conference=conf)
+                   .filter(task_open=True))
+    orgs = (Organization.objects
+            .filter(members__pk=request.user.pk)
+            .filter(conference=conf))
+    myruns = (Submission.objects
+              .filter(task__conference=conf)
+              .filter(org__in=orgs)
+              .order_by('task'))
+    agreements = conf.agreements.exclude(signature__user=request.user.pk)
 
-    model = Task
-    template_name = 'evalbase/tasks.html'
-
-    def get_queryset(self):
-        return (Task.objects
-                .filter(conference__shortname=self.kwargs['conf'])
-                .filter(task_open=True))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        conf = Conference.objects.get(shortname=self.kwargs['conf'])
-        orgs = (Organization.objects
-                .filter(members__pk=self.request.user.pk)
-                .filter(conference=conf))
-        myruns = (Submission.objects
-                  .filter(task__conference=conf)
-                  .filter(org__in=orgs)
-                  .order_by('task'))
-        agreements = conf.agreements.exclude(signature__user=self.request.user.pk)
-        context['conf'] = conf
-        context['myruns'] = myruns
-        context['agreements'] = agreements
-        return context
+    return render(request, 'evalbase/tasks.html',
+                  { 'object_list': object_list,
+                    'conf': conf,
+                    'myruns': myruns,
+                    'agreements': agreements })
 
 
 @login_required(login_url=reverse_lazy('login'))
