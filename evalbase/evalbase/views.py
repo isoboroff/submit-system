@@ -129,7 +129,10 @@ def org_edit(request, *args, **kwargs):
                                                          'org': kwargs['org']}))
 
 
-class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
+@evalbase_login_required
+@conference_is_open
+@require_http_methods(['GET', 'POST'])
+def org_create(request, *args, **kwargs):
     '''Create an organization.  This is signing up to participate in
     an evaluation.
 
@@ -140,40 +143,42 @@ class OrganizationCreate(EvalBaseLoginReqdMixin, generic.edit.CreateView):
     In form validation, we create the random signup key URL.
     '''
 
-    model = Organization
-    template_name = 'evalbase/org-create.html'
-    fields = ['shortname', 'longname', 'task_interest']
+    class _Form(forms.Form):
+        shortname = forms.CharField(max_length=15)
+        longname = forms.CharField(max_length=50)
+        task_interest = forms.ModelMultipleChoiceField(
+            widget=forms.CheckboxSelectMultiple,
+            queryset=(Task
+                      .objects
+                      .filter(conference=kwargs['_conf'])
+                      .order_by('longname')))
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        conf = self.kwargs.get('conf')
-        conf = Conference.objects.get(shortname=conf)
-        conftasks = Task.objects.filter(conference=conf)
-        form.fields['task_interest'].queryset = conftasks
-        form.fields['task_interest'].choices = [
-            (t.id, t.longname) for t in conftasks]
-        form.fields['task_interest'].widget.attrs={'size': str(conftasks.count())}
-        return form
+    if request.method == 'GET':
+        form = _Form()
+        return render(request, 'evalbase/org-create.html',
+                      { 'conf': kwargs['_conf'],
+                        'form': form })
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        self.conf = Conference.objects.get(shortname=self.kwargs['conf'])
-        if not conf.open_signup:
-            raise PermissionDenied
-        context['conf'] = self.conf
-        return context
-
-    def form_valid(self, form):
-        '''Aside from validating, set up the signup key.'''
-
-        form.instance.contact_person = self.request.user
-        form.instance.owner = self.request.user
-        confname = self.kwargs['conf']
-        form.instance.conference = Conference.objects.get(shortname=confname)
-        form.instance.passphrase = uuid.uuid4()
-        form.instance.save()
-        form.instance.members.add(self.request.user)
-        return super().form_valid(form)
+    elif request.method == 'POST':
+        form = _Form(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            org = Organization(
+                shortname=cleaned['shortname'],
+                longname=cleaned['longname'],
+                contact_person=request.user,
+                owner=request.user,
+                conference=kwargs['_conf'],
+                passphrase=uuid.uuid4())
+            org.save()
+            org.task_interest.set(cleaned['task_interest'])
+            org.members.add(request.user)
+            org.save()
+            return HttpResponseRedirect(reverse_lazy('home'))
+        else:
+            return render(request, 'evalbase/org-create.html',
+                          { 'conf': kwargs['_conf'],
+                            'form': form })
 
 
 class OrganizationJoin(EvalBaseLoginReqdMixin, generic.TemplateView):

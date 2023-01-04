@@ -114,7 +114,8 @@ class Task(models.Model):
     task_open = models.BooleanField()
 
     def __str__(self):
-        return "/".join([self.conference.shortname, self.shortname])
+        # return "/".join([self.conference.shortname, self.shortname])
+        return self.longname
 
 class SubmitForm(models.Model):
     """A SubmitForm is a form for submitting something to a Task."""
