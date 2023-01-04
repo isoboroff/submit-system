@@ -25,7 +25,8 @@ class MembersEditForm(forms.Form):
         fields = {}
         member_choices = [(m.id, f'{m.first_name} {m.last_name} ({m.email})')
                           for m in context['members']]
-        fields["users"] = forms.MultipleChoiceField(label="Select user(s) to remove", choices=member_choices)
+        fields["users"] = forms.MultipleChoiceField(
+            label="Select user(s) to remove", choices=member_choices)
         return type('MembersEditForm', (forms.Form,), fields)
 
 
