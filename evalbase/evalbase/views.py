@@ -209,24 +209,23 @@ def org_join(request, *args, **kwargs):
         return HttpResponseRedirect(reverse_lazy('home'))
 
 
-
-class HomeView(EvalBaseLoginReqdMixin, generic.base.TemplateView):
+@evalbase_login_required
+def home_view(request, *args, **kwargs):
     '''The main page.  You can see what conferences you are participating
     in and which ones you can sign up to participate in.
     '''
+    open_evals = Conference.objects.filter(open_signup=True)
+    my_orgs = (Organization.objects
+               .filter(members__pk=request.user.pk)
+               .filter(conference__complete=False))
+    complete = (Conference.objects
+                .filter(complete=True)
+                .filter(participants__members__pk=request.user.pk))
 
-    template_name = 'evalbase/home.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['open_evals'] = Conference.objects.filter(open_signup=True)
-        context['my_orgs'] = (Organization.objects
-                              .filter(members__pk=self.request.user.pk)
-                              .filter(conference__complete=False))
-        context['complete'] = (Conference.objects
-                               .filter(complete=True)
-                               .filter(participants__members__pk=self.request.user.pk))
-        return context
+    return render(request, 'evalbase/home.html',
+                  { 'open_evals': open_evals,
+                    'my_orgs': my_orgs,
+                    'complete': complete })
 
 
 class ConferenceTasks(EvalBaseLoginReqdMixin, generic.ListView):

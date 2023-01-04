@@ -49,5 +49,5 @@ urlpatterns = [
     path('run/<str:conf>/<str:task>/<str:runtag>', views.Submissions.as_view(), name='run'),
     path('run/<str:conf>/<str:task>/<str:runtag>/download', views.download, name='run-download'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.DeleteSubmission.as_view(), name='run-delete'),
-    path('', views.HomeView.as_view(template_name='evalbase/home.html'), name='home'),
+    path('', views.home_view, name='home'),
 ]
