@@ -27,7 +27,9 @@ def signup_view(request):
         form_data = SignupForm(request.POST)
         if form_data.is_valid():
             form_data.save()
-        return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
+            return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
+        else:
+            return render(request, 'evalbase/signup.html', context)
 
 
 class EvalBaseLoginReqdMixin(LoginRequiredMixin):
@@ -82,6 +84,9 @@ def profile_create_edit(request):
                 instance.save()
             else:
                 form_data.save()
+        else:
+            return render(request, 'evalbase/profile_form.html',
+                          {'form': form})
 
         return HttpResponseRedirect(reverse_lazy('profile'))
 
@@ -126,7 +131,8 @@ def org_edit(request, *args, **kwargs):
             org.members.remove(*cleaned['users'])
         return HttpResponseRedirect(reverse_lazy('org-detail',
                                                  kwargs={'conf': kwargs['conf'],
-                                                         'org': kwargs['org']}))
+                                                         'org': kwargs['org'],
+                                                         'gen_form': form}))
 
 
 @evalbase_login_required
@@ -254,7 +260,9 @@ def conf_tasks(request, *args, **kwargs):
                     'agreements': agreements })
 
 
-@login_required(login_url=reverse_lazy('login'))
+@evalbase_login_required
+@user_is_participant
+@require_http_methods(['GET', 'POST'])
 def sign_agreement(request, conf, agreement):
     agrobj = get_object_or_404(Agreement, name=agreement)
     template = 'evalbase/' + agrobj.template
