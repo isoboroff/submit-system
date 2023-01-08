@@ -1,0 +1,1025 @@
+[
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add user profile",
+      "content_type": 7,
+      "codename": "add_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change user profile",
+      "content_type": 7,
+      "codename": "change_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete user profile",
+      "content_type": 7,
+      "codename": "delete_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view user profile",
+      "content_type": 7,
+      "codename": "view_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add organization",
+      "content_type": 8,
+      "codename": "add_organization"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change organization",
+      "content_type": 8,
+      "codename": "change_organization"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete organization",
+      "content_type": 8,
+      "codename": "delete_organization"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view organization",
+      "content_type": 8,
+      "codename": "view_organization"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add conference",
+      "content_type": 9,
+      "codename": "add_conference"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change conference",
+      "content_type": 9,
+      "codename": "change_conference"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete conference",
+      "content_type": 9,
+      "codename": "delete_conference"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view conference",
+      "content_type": 9,
+      "codename": "view_conference"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add submit form field",
+      "content_type": 10,
+      "codename": "add_submitformfield"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change submit form field",
+      "content_type": 10,
+      "codename": "change_submitformfield"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete submit form field",
+      "content_type": 10,
+      "codename": "delete_submitformfield"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view submit form field",
+      "content_type": 10,
+      "codename": "view_submitformfield"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add task",
+      "content_type": 11,
+      "codename": "add_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change task",
+      "content_type": 11,
+      "codename": "change_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete task",
+      "content_type": 11,
+      "codename": "delete_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view task",
+      "content_type": 11,
+      "codename": "view_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add submission",
+      "content_type": 12,
+      "codename": "add_submission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change submission",
+      "content_type": 12,
+      "codename": "change_submission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete submission",
+      "content_type": 12,
+      "codename": "delete_submission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view submission",
+      "content_type": 12,
+      "codename": "view_submission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+      "name": "Can add submit form",
+      "content_type": 13,
+      "codename": "add_submitform"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+      "name": "Can change submit form",
+      "content_type": 13,
+      "codename": "change_submitform"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+      "name": "Can delete submit form",
+      "content_type": 13,
+      "codename": "delete_submitform"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+      "name": "Can view submit form",
+      "content_type": 13,
+      "codename": "view_submitform"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add submit meta",
+      "content_type": 14,
+      "codename": "add_submitmeta"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change submit meta",
+      "content_type": 14,
+      "codename": "change_submitmeta"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete submit meta",
+      "content_type": 14,
+      "codename": "delete_submitmeta"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view submit meta",
+      "content_type": 14,
+      "codename": "view_submitmeta"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+      "name": "Can add signature",
+      "content_type": 15,
+      "codename": "add_signature"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+      "name": "Can change signature",
+      "content_type": 15,
+      "codename": "change_signature"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+      "name": "Can delete signature",
+      "content_type": 15,
+      "codename": "delete_signature"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+      "name": "Can view signature",
+      "content_type": 15,
+      "codename": "view_signature"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+      "name": "Can add agreement",
+      "content_type": 16,
+      "codename": "add_agreement"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+      "name": "Can change agreement",
+      "content_type": 16,
+      "codename": "change_agreement"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+      "name": "Can delete agreement",
+      "content_type": 16,
+      "codename": "delete_agreement"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+      "name": "Can view agreement",
+      "content_type": 16,
+      "codename": "view_agreement"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$cIrOQZxRCB6ymD8LU7MLjR$tQp/78R4+YooC9LUPhPKwXCMJSrvAT6Xu4FQumy8kXk=",
+      "last_login": "2023-01-08T00:27:23.193Z",
+      "is_superuser": true,
+      "username": "ian",
+      "first_name": "Ian",
+      "last_name": "Soboroff",
+      "email": "ian.soboroff@nist.gov",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-08-16T20:12:39Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "userprofile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "organization"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "conference"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "submitformfield"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "task"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "submission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "submitform"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "submitmeta"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "signature"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+      "app_label": "evalbase",
+      "model": "agreement"
+    }
+  },
+  {
+    "model": "evalbase.userprofile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "street_address": "100 Bureau Drive",
+      "city_state": "Gaithersburg, MD",
+      "postal_code": "20899-8940",
+      "country": "US",
+      "created_at": "2019-08-28"
+    }
+  },
+  {
+    "model": "evalbase.conference",
+    "pk": 3,
+    "fields": {
+      "shortname": "trec-2023",
+      "longname": "TREC 2023",
+      "open_signup": true,
+      "tech_contact": "ian.soboroff@nist.gov",
+      "admin_contact": "ian.soboroff@nist.gov",
+      "complete": false,
+      "results_root": "trec2023/runs",
+      "agreements": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "evalbase.organization",
+    "pk": 4,
+    "fields": {
+      "owner": 1,
+      "shortname": "nist",
+      "longname": "Not In Some Textbooks",
+      "contact_person": 1,
+      "passphrase": "913c179c-2ee2-4c96-96a1-ccdea9320a2f",
+      "conference": 3,
+      "members": [
+        1
+      ],
+      "task_interest": [
+        10
+      ]
+    }
+  },
+  {
+    "model": "evalbase.agreement",
+    "pk": 1,
+    "fields": {
+      "name": "TREC-ad-form",
+      "longname": "Agreement Concerning Dissemination of TREC Results",
+      "template": "trec-ad-form.html"
+    }
+  },
+  {
+    "model": "evalbase.signature",
+    "pk": 8,
+    "fields": {
+      "user": 1,
+      "date": "2022-12-21",
+      "sigtext": "Ian Soboroff",
+      "agreement": 1
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 10,
+    "fields": {
+      "shortname": "crisis",
+      "longname": "CrisisFACTs",
+      "conference": 3,
+      "required": false,
+      "task_open": true
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 11,
+    "fields": {
+      "shortname": "deep",
+      "longname": "Deep Learning",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 12,
+    "fields": {
+      "shortname": "ikat",
+      "longname": "Interactive Knowledge Assistance",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 13,
+    "fields": {
+      "shortname": "mm",
+      "longname": "Multimedia",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 14,
+    "fields": {
+      "shortname": "neuclir",
+      "longname": "NeuCLIR",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 15,
+    "fields": {
+      "shortname": "product",
+      "longname": "Product Search",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 16,
+    "fields": {
+      "shortname": "tot",
+      "longname": "Tip of the Tongue",
+      "conference": 3,
+      "required": false,
+      "task_open": false
+    }
+  },
+  {
+    "model": "evalbase.task",
+    "pk": 17,
+    "fields": {
+      "shortname": "trials",
+      "longname": "Clinical Trials",
+      "conference": 3,
+      "required": false,
+      "task_open": true
+    }
+  },
+  {
+    "model": "evalbase.submitform",
+    "pk": 3,
+    "fields": {
+      "task": 17,
+      "header_template": ""
+    }
+  },
+  {
+    "model": "evalbase.submitform",
+    "pk": 4,
+    "fields": {
+      "task": 10,
+      "header_template": ""
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 11,
+    "fields": {
+      "submit_form": 3,
+      "question": "Is this run manual or automatic?",
+      "choices": "manual,automatic",
+      "meta_key": "runtype",
+      "sequence": 1,
+      "question_type": 3
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 12,
+    "fields": {
+      "submit_form": 3,
+      "question": "Describe the retrieval model used.",
+      "choices": "",
+      "meta_key": "desc",
+      "sequence": 2,
+      "question_type": 1
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 13,
+    "fields": {
+      "submit_form": 3,
+      "question": "Describe any external resources used.",
+      "choices": "",
+      "meta_key": "extern",
+      "sequence": 3,
+      "question_type": 1
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 14,
+    "fields": {
+      "submit_form": 4,
+      "question": "Is this run manual or automatic?",
+      "choices": "manual,automatic",
+      "meta_key": "runtype",
+      "sequence": 1,
+      "question_type": 3
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 15,
+    "fields": {
+      "submit_form": 4,
+      "question": "Did you use the Incident Streams tweet category labels in the data or requests?",
+      "choices": "",
+      "meta_key": "trecis",
+      "sequence": 2,
+      "question_type": 8
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 16,
+    "fields": {
+      "submit_form": 4,
+      "question": "How does your system calculate importance?",
+      "choices": "",
+      "meta_key": "importance",
+      "sequence": 3,
+      "question_type": 1
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 17,
+    "fields": {
+      "submit_form": 4,
+      "question": "What streams did you make use of? (check all that apply)",
+      "choices": "Twitter,Facebook,Reddit,Web news",
+      "meta_key": "streams",
+      "sequence": 4,
+      "question_type": 4
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 18,
+    "fields": {
+      "submit_form": 4,
+      "question": "Is your approach extractive or abstractive?",
+      "choices": "extractive,abstractive,both,other",
+      "meta_key": "extract",
+      "sequence": 5,
+      "question_type": 3
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 19,
+    "fields": {
+      "submit_form": 4,
+      "question": "Please give a short description of the techniques used to produce this run.",
+      "choices": "",
+      "meta_key": "desc",
+      "sequence": 6,
+      "question_type": 1
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 20,
+    "fields": {
+      "submit_form": 4,
+      "question": "Please give a priority for pooling this run.",
+      "choices": "high,medium,low",
+      "meta_key": "priority",
+      "sequence": 7,
+      "question_type": 3
+    }
+  },
+  {
+    "model": "evalbase.submitformfield",
+    "pk": 21,
+    "fields": {
+      "submit_form": 3,
+      "question": "Please give a priority for pooling this run.",
+      "choices": "hgh,medium.low",
+      "meta_key": "priority",
+      "sequence": 4,
+      "question_type": 3
+    }
+  }
+]
