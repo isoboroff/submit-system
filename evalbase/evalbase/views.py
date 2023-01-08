@@ -436,24 +436,20 @@ def edit_submission(request, *args, **kwargs):
             return render(request, template_name, context=context)
 
 
-class DeleteSubmission(EvalBaseLoginReqdMixin, generic.DeleteView):
-    model = Submission
-    # success_url = reverse_lazy('tasks', kwargs['conf'])
-    slug_url_kwarg = 'runtag'
-    slug_field = 'runtag'
+@evalbase_login_required
+@user_may_edit_submission
+@require_http_methods(['GET', 'POST'])
+def delete_submission(request, *args, **kwargs):
+    template = 'evalbase/submission_confirm_delete.html'
+    run = kwargs['_sub']
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        obj = super().get_object()
+    if request.method == 'GET':
+        return render(request, template, context={'object': run})
 
-        if self.request.user != obj.submitted_by or self.request.user != obj.org.owner:
-            raise Http404
-
-        context['object'] = obj
-        return context
-
-    def get_success_url(self):
-        return reverse_lazy('tasks', kwargs={'conf': self.kwargs['conf']})
+    elif request.method == 'POST':
+        run.delete()
+        return HttpResponseRedirect(
+            reverse_lazy('tasks', kwargs={'conf': kwargs['conf']}))
 
 
 class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
