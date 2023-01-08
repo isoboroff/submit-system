@@ -38,7 +38,8 @@ CLOSED: [2022-12-22 Thu 16:04]
 ** TODO View agreements signed and unsigned
 ** TODO make an activity log more application-specific than "recent changes"
 
-** ONGOING the submitted runs display should really be elsewhere.  It also shows "Already submitted" even if there are no submissions.  And it should only show for this user, or this org, or this conference.
+** DONE the submitted runs display should really be elsewhere.  It also shows "Already submitted" even if there are no submissions.  And it should only show for this user, or this org, or this conference.
+CLOSED: [2023-01-07 Sat 20:17]
 
 ** RESOLVED on the submission form the choice of organization should be limited to those in the current conference.
 CLOSED: [2022-12-06 Tue 15:42]
@@ -52,6 +53,7 @@ CLOSED: [2022-12-14 Wed 14:21]
 ** ONGOING BUG Files are not downloadable from the admin side or edit page
 - This seems to be because settings doesn't have the DOWNLOAD_DATA variable set.
 ** ONGOING BUG Fix handling of edit page when given wrong task
+** ONGOING BUG In the edit view, checkbox multiple-choices aren't completed.
 
 
 ** RESOLVED BUG: Signup doesn't take a display name or email address

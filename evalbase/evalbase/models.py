@@ -186,6 +186,10 @@ class Submission(models.Model):
     is_validated = models.BooleanField()
     has_evaluation = models.BooleanField()
 
+    def __str__(self):
+        return f'{self.task.conference.shortname}/{self.runtag}'
+
+
 class SubmitMeta(models.Model):
     """SubmitMetas are values for SubmitFormFields aside from task, org, submitter, file and date."""
     submission = models.ForeignKey(
@@ -197,3 +201,5 @@ class SubmitMeta(models.Model):
     key = models.CharField(max_length=15)
     value = models.CharField(max_length=250)
 
+    def __str__(self):
+        return f'{self.submission.runtag} {self.key}:{self.value}'

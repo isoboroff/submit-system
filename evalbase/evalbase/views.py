@@ -108,7 +108,7 @@ def org_view(request, *args, **kwargs):
 
 
 @evalbase_login_required
-@user_is_member_of_org
+@user_owns_org
 @conference_is_open
 @require_http_methods(['GET', 'POST'])
 def org_edit(request, *args, **kwargs):
@@ -261,7 +261,7 @@ def conf_tasks(request, *args, **kwargs):
 
 
 @evalbase_login_required
-@user_is_participant
+@user_is_member_of_org
 @require_http_methods(['GET', 'POST'])
 def sign_agreement(request, conf, agreement):
     agrobj = get_object_or_404(Agreement, name=agreement)
@@ -287,7 +287,11 @@ def sign_agreement(request, conf, agreement):
     return render(request, template, { 'form': form })
 
 
-class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
+@evalbase_login_required
+@user_is_participant
+@task_is_open
+@require_http_methods(['GET', 'POST'])
+def submit_run(request, *args, **kwargs):
     '''This is the view for submitting a run to a task.  Each task has
     a custom set of metadata fields for the submission form, and those
     are described in the SubmitMetas class.  This form is what creates
@@ -296,35 +300,34 @@ class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
 
     template_name = 'evalbase/submit.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        conf = Conference.objects.get(shortname=kwargs['conf'])
-        task = Task.objects.get(shortname=kwargs['task'], conference=conf)
-        submitform = SubmitForm.objects.get(task=task)
+    conf = kwargs['_conf']
+    task = kwargs['_task']
+    submitform = SubmitForm.objects.get(task=task)
 
-        context['conf'] = conf
-        context['task'] = task
-        context['form'] = submitform
-        context['user'] = self.request.user
-        context['orgs'] = (Organization.objects
-                           .filter(members__pk=self.request.user.pk)
-                           .filter(conference=conf))
-        context['mode'] = 'submit'
+    context = {}
+    context['conf'] = conf
+    context['task'] = task
+    context['form'] = submitform
+    context['user'] = request.user
+    context['orgs'] = (Organization.objects
+                       .filter(members__pk=request.user.pk)
+                       .filter(conference=conf))
+    context['mode'] = 'submit'
 
-        form_class = SubmitFormForm.get_form_class(context)
+    form_class = SubmitFormForm.get_form_class(context)
+
+    if request.method == 'GET':
         sff = form_class()
         context['gen_form'] = sff
-        return context
+        return render(request, template_name, context=context)
 
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        form_class = SubmitFormForm.get_form_class(context)
+    elif request.method == 'POST':
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             stuff = form.cleaned_data
             org = (Organization.objects
                    .filter(shortname=stuff['org'])
-                   .filter(members__pk=self.request.user.pk)
+                   .filter(members__pk=request.user.pk)
                    .filter(conference=context['conf']))[0]
 
             sub = Submission(task=context['task'],
@@ -344,73 +347,70 @@ class SubmitRun(EvalBaseLoginReqdMixin, generic.TemplateView):
                                    value=stuff[field.meta_key])
                 smeta.save()
             return HttpResponseRedirect(reverse('tasks',
-                                                kwargs={'conf': self.kwargs['conf']}))
+                                                kwargs={'conf': conf}))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
 
 
-class EditSubmission(EvalBaseLoginReqdMixin, generic.TemplateView):
+@evalbase_login_required
+@task_is_open
+@user_may_edit_submission
+@require_http_methods(['GET', 'POST'])
+def edit_submission(request, *args, **kwargs):
     '''A form for editing the metadata for a submission.'''
 
     template_name = 'evalbase/edit.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        conf = Conference.objects.get(shortname=kwargs['conf'])
-        task = Task.objects.get(shortname=kwargs['task'], conference=conf)
-        submitform = SubmitForm.objects.get(task=task)
 
-        if not task.task_open:
-            raise PermissionDenied('Task is closed')
+    context = {}
+    conf = kwargs['_conf']
+    task = kwargs['_task']
+    submitform = SubmitForm.objects.get(task=task)
 
-        context['conf'] = conf
-        context['task'] = task
-        context['form'] = submitform
-        context['user'] = self.request.user
-        context['orgs'] = (Organization.objects
-                           .filter(members__pk=self.request.user.pk)
-                           .filter(conference=conf))
-        context['mode'] = 'edit'
-        form_class = SubmitFormForm.get_form_class(context)
+    context['conf'] = conf
+    context['task'] = task
+    context['form'] = submitform
+    context['user'] = request.user
+    context['orgs'] = (Organization.objects
+                       .filter(members__pk=request.user.pk)
+                       .filter(conference=conf))
+    context['mode'] = 'edit'
+    form_class = SubmitFormForm.get_form_class(context)
 
-        run = (Submission.objects
-               .filter(submitted_by_id=self.request.user.id)
-               .filter(task__conference__shortname=self.kwargs['conf'])
-               .filter(id=kwargs['id'])[0])
+    run = (Submission.objects
+           .filter(submitted_by_id=request.user.id)
+           .filter(task__conference__shortname=kwargs['conf'])
+           .filter(runtag=kwargs['runtag'])[0])
 
-        form_info = {'conf': conf,
-                     'task': run.task,
-                     'org': run.org,
-                     'user': run.submitted_by,
-                     'email': run.submitted_by.email,
-                     'runtag': run.runtag,
-                     'runfile': run.file}
-        other_infos = SubmitMeta.objects.filter(submission=run)
-        for run_meta in other_infos:
-            form_info[run_meta.key] = run_meta.value
+    form_info = {'conf': conf,
+                 'task': run.task,
+                 'org': run.org,
+                 'user': run.submitted_by,
+                 'email': run.submitted_by.email,
+                 'runtag': run.runtag,
+                 'runfile': run.file}
+    other_infos = SubmitMeta.objects.filter(submission=run)
+    for run_meta in other_infos:
+        form_info[run_meta.key] = run_meta.value
 
+    if request.method == 'GET':
         sff = form_class(form_info)
         context['gen_form'] = sff
-        return context
+        return render(request, template_name, context=context)
 
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        if not context['task'].task_open:
-            raise Http404('Task closed')
-
-        form_class = SubmitFormForm.get_form_class(context)
+    elif request.method == 'POST':
         form = form_class(request.POST)
         if form.is_valid():
             stuff = form.cleaned_data
             run = (Submission.objects
-                   .filter(submitted_by_id=self.request.user.id)
-                   .filter(task__conference__shortname=self.kwargs['conf'])
+                   .filter(submitted_by_id=request.user.id)
+                   .filter(task__conference__shortname=kwargs['conf'])
                    .filter(runtag=stuff['runtag'])[0])
             stuff = form.cleaned_data
             org = (Organization.objects
-                   .filter(members__pk=self.request.user.pk)
+                   .filter(members__pk=request.user.pk)
                    .filter(shortname=stuff['org'])
-                   .filter(conference__shortname=self.kwargs['conf']))
+                   .filter(conference__shortname=kwargs['conf']))
             if not org:
                 raise Http404()
 
@@ -427,10 +427,13 @@ class EditSubmission(EvalBaseLoginReqdMixin, generic.TemplateView):
                 original.save()
 
 
-            return HttpResponseRedirect(reverse_lazy('home'))
+            return HttpResponseRedirect(reverse_lazy('run',
+                                                     kwargs={'conf': conf,
+                                                             'task': task,
+                                                             'runtag': run.runtag}))
         else:
             context['gen_form'] = form
-            return render(request, 'evalbase/submit.html', context=context)
+            return render(request, template_name, context=context)
 
 
 class DeleteSubmission(EvalBaseLoginReqdMixin, generic.DeleteView):
