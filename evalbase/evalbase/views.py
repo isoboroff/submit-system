@@ -1,7 +1,9 @@
 import uuid
 import logging
 from datetime import datetime
+from pathlib import Path
 from django import utils
+from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -344,6 +346,7 @@ def submit_run(request, *args, **kwargs):
                              org = org,
                              submitted_by=request.user,
                              runtag=stuff['runtag'],
+                             file=request.FILES.get('runfile', None),
                              is_validated=False,
                              has_evaluation=False
                              )
@@ -482,22 +485,3 @@ def view_submission(request, *args, **kwargs):
     context["file"] = run.file
 
     return render(request, template_name, context)
-
-
-@login_required
-def download(request, conf, task, runtag):
-    print(request,conf,task, runtag)
-    run = (Submission.objects
-           .filter(runtag=runtag)
-           .filter(task__conference__shortname=conf))
-    if run[0].submitted_by != request.user:
-        raise PermissionDenied()
-    sub = run[0]
-    file = sub.file
-    try:
-        filepath = settings.DOWNLOAD_DATA + "/" +  file.url
-
-        return FileResponse(open(filepath, 'rb'),
-            as_attachment=True)
-    except FileNotFoundError:
-        raise Http404(f'file-not-found, {filepath}')

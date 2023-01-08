@@ -26,6 +26,6 @@
   {% endfor %}
 </ul>
 
-    <a href = "{% url 'run-download' submission.task.conference.shortname  submission.task.shortname submission.runtag  %} " download>Uploaded file</a>
+    <a href="{{ submission.file.url }}" download>Uploaded file</a>
 
 {% endblock %}

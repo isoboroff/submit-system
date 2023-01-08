@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 from evalbase import views
@@ -47,7 +49,10 @@ urlpatterns = [
     path('conf/<str:conf>/<str:task>/submit', views.submit_run, name='submit'),
     path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='run'),
     path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
-    path('run/<str:conf>/<str:task>/<str:runtag>/download', views.download, name='run-download'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
