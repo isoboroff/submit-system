@@ -109,7 +109,7 @@ class Task(models.Model):
         max_length=50)
     conference = models.ForeignKey(
         Conference,
-        on_delete=models.PROTECT)
+        on_delete=models.CASCADE)
     required = models.BooleanField()
     task_open = models.BooleanField()
 
