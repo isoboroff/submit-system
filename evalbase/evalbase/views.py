@@ -32,12 +32,6 @@ def signup_view(request):
             return render(request, 'evalbase/signup.html', context)
 
 
-class EvalBaseLoginReqdMixin(LoginRequiredMixin):
-    '''This subclasses the LoginRequiredMixin to point to our login view.'''
-
-    login_url = reverse_lazy('login')
-
-
 # User profiles are the model that holds information about users.  The
 # User model itself comes from Django's auth library.  To add stuff like
 # contact info or whatever, we use a UserProfile model.
@@ -215,6 +209,9 @@ def org_join(request, *args, **kwargs):
         return HttpResponseRedirect(reverse_lazy('home'))
 
 
+# This is the main 'index.html' page view
+
+
 @evalbase_login_required
 @require_http_methods(['GET'])
 def home_view(request, *args, **kwargs):
@@ -233,6 +230,11 @@ def home_view(request, *args, **kwargs):
                   { 'open_evals': open_evals,
                     'my_orgs': my_orgs,
                     'complete': complete })
+
+
+# This view lists the tracks in a conference.  If the track is open
+# for submissions, there is a link for submitting a run.  If the
+# user has submitted runs, they are listed here.
 
 
 @evalbase_login_required
@@ -258,6 +260,10 @@ def conf_tasks(request, *args, **kwargs):
                     'conf': conf,
                     'myruns': myruns,
                     'agreements': agreements })
+
+
+# Users may not be able to submit runs before they have signed an
+# agreement such as the TREC no-ads agreement.
 
 
 @evalbase_login_required
@@ -286,6 +292,10 @@ def sign_agreement(request, conf, agreement):
 
     return render(request, template, { 'form': form })
 
+
+# Submitting, editing, and deleting runs.  This constructs a form based
+# on the form fields defined for this track in the database, and handles
+# its return.
 
 @evalbase_login_required
 @user_is_participant
@@ -452,26 +462,26 @@ def delete_submission(request, *args, **kwargs):
             reverse_lazy('tasks', kwargs={'conf': kwargs['conf']}))
 
 
-class Submissions(EvalBaseLoginReqdMixin, generic.TemplateView):
+@evalbase_login_required
+@user_may_edit_submission
+@require_http_methods(['GET'])
+def view_submission(request, *args, **kwargs):
     '''View a submission.'''
     template_name = 'evalbase/run.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        run = (Submission.objects
-               .filter(runtag=self.kwargs['runtag'])
-               .filter(task__conference__shortname=self.kwargs['conf']))[0]
-        if run.submitted_by != self.request.user and run.org.org_owner_of != self.request.user:
-            raise PermissionDenied()
-        context['submission'] = run
-        context['metas'] = (SubmitMeta.objects
-                            .filter(submission_id=context['submission'].id))
-        field_descs = {}
-        for meta in context['metas']:
-            field_descs[meta.key] = meta.form_field.question
-        context['fields'] = field_descs
-        context["file"] = context['submission'].file
-        return context
+    context = {}
+    run = kwargs['_sub']
+
+    context['submission'] = run
+    context['metas'] = (SubmitMeta.objects
+                        .filter(submission_id=run.id))
+    field_descs = {}
+    for meta in context['metas']:
+        field_descs[meta.key] = meta.form_field.question
+    context['fields'] = field_descs
+    context["file"] = run.file
+
+    return render(request, template_name, context)
 
 
 @login_required
