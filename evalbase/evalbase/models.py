@@ -64,7 +64,7 @@ class Organization(models.Model):
         on_delete=models.PROTECT,
         related_name='org_contact_for')
     passphrase = models.CharField(
-        max_length=20,
+        max_length=36,
         editable=False)
     members = models.ManyToManyField(
         User,
