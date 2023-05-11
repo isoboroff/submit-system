@@ -298,7 +298,6 @@ def sign_agreement(request, conf, agreement):
 # on the form fields defined for this track in the database, and handles
 # its return.
 
-@agreements_signed
 @evalbase_login_required
 @user_is_participant
 @task_is_open
@@ -326,14 +325,6 @@ def submit_run(request, *args, **kwargs):
     context['mode'] = 'submit'
 
     form_class = SubmitFormForm.get_form_class(context)
-    
-    '''Check if the user signed all necessary agreements with weird logic'''
-    signed = True
-    for ag in conf.agreements.all():
-        signed = False
-        for sig in ag.signature_set.all():
-            if sig.user == request.user:
-                signed = True
 
     if request.method == 'GET':
         sff = form_class()
@@ -345,29 +336,29 @@ def submit_run(request, *args, **kwargs):
         if form.is_valid():
             stuff = form.cleaned_data
             org = (Organization.objects
-               .filter(shortname=stuff['org'])
-               .filter(members__pk=request.user.pk)
-               .filter(conference=context['conf']))[0]
+                   .filter(shortname=stuff['org'])
+                   .filter(members__pk=request.user.pk)
+                   .filter(conference=context['conf']))[0]
 
             sub = Submission(task=context['task'],
-                         org = org,
-                         submitted_by=request.user,
-                         runtag=stuff['runtag'],
-                         file=request.FILES.get('runfile', None),
-                         is_validated=False,
-                         has_evaluation=False
-                         )
+                             org = org,
+                             submitted_by=request.user,
+                             runtag=stuff['runtag'],
+                             file=request.FILES.get('runfile', None),
+                             is_validated=False,
+                             has_evaluation=False
+                             )
             sub.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
             for field in custom_fields:
                 smeta = SubmitMeta(submission=sub,
-                               form_field=field,
-                               key=field.meta_key,
-                               value=stuff[field.meta_key])
+                                   form_field=field,
+                                   key=field.meta_key,
+                                   value=stuff[field.meta_key])
                 smeta.save()
             return HttpResponseRedirect(reverse('tasks',
-                                            kwargs={'conf': conf}))
+                                                kwargs={'conf': conf}))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
