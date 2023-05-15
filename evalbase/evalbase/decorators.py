@@ -164,3 +164,25 @@ def task_is_open(view_func):
             return view_func(request, *args, **kwargs)
         raise PermissionDenied('Task is not open')
     return wrapped_view
+
+def agreements_signed(view_func):
+    '''Confirm that the user has signed all agreements required by the conf.
+    kwargs: conf
+    '''    
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs:
+            raise Http404('No such conf')
+        conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+        signed = True
+        for ag in conf.agreements.all():
+            signed = False
+            for sig in ag.signature_set.all():
+                if sig.user == request.user:
+                    signed = True
+        if not signed:
+            raise PermissionDenied('You haven\'t signed the necessary agreements')
+        return view_func(request, *args, **kwargs)
+    return wrapped_view
+
+        

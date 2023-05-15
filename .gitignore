@@ -4,3 +4,4 @@ db.sqlite3
 *.pyc
 *~
 venv/
+trec-2023-fixture.json

@@ -269,7 +269,6 @@ def conf_tasks(request, *args, **kwargs):
 
 
 @evalbase_login_required
-@user_is_member_of_org
 @require_http_methods(['GET', 'POST'])
 def sign_agreement(request, conf, agreement):
     agrobj = get_object_or_404(Agreement, name=agreement)
@@ -299,6 +298,7 @@ def sign_agreement(request, conf, agreement):
 # on the form fields defined for this track in the database, and handles
 # its return.
 
+@agreements_signed
 @evalbase_login_required
 @user_is_participant
 @task_is_open
@@ -309,7 +309,6 @@ def submit_run(request, *args, **kwargs):
     are described in the SubmitMetas class.  This form is what creates
     Submissions.
     '''
-
     template_name = 'evalbase/submit.html'
 
     conf = kwargs['_conf']
@@ -327,6 +326,7 @@ def submit_run(request, *args, **kwargs):
     context['mode'] = 'submit'
 
     form_class = SubmitFormForm.get_form_class(context)
+    
 
     if request.method == 'GET':
         sff = form_class()
