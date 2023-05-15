@@ -99,8 +99,6 @@ class Signature(models.Model):
     date = models.DateField(auto_now_add=True)
     sigtext = models.CharField(max_length=50)
     agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE)
-    #def __str__(self):
-        #return self.user just trying something
 
 
 class Task(models.Model):

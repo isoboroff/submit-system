@@ -47,9 +47,9 @@ urlpatterns = [
     path('conf/<str:conf>', views.conf_tasks, name='tasks'),
     path('agreements/<str:conf>/<str:agreement>/sign', views.sign_agreement, name='sign-agreement'),
     path('conf/<str:conf>/<str:task>/submit', views.submit_run, name='submit'),
-    path('run/<str:conf>/<str:task>/<str:runtag>/<int:pk>', views.view_submission, name='run'),
-    path('conf/<str:conf>/<str:task>/<str:runtag>/<int:pk>/edit', views.edit_submission, name='edit-task'),
-    path('run/<str:conf>/<str:task>/<str:runtag>/<int:pk>/delete', views.delete_submission, name='run-delete'),
+    path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='run'),
+    path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
+    path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
 ]
 

@@ -121,8 +121,7 @@ def user_may_edit_submission(view_func):
             raise Http404('No such conf or runtag')
         sub = get_object_or_404(Submission,
                                 Q(task__conference__shortname=kwargs['conf']) &
-                                Q(runtag=kwargs['runtag']) &
-                                Q(pk=kwargs['pk']))
+                                Q(runtag=kwargs['runtag']))
         if (sub.submitted_by == request.user or
             request.user == sub.org.owner):
             kwargs['_sub'] = sub
@@ -167,7 +166,9 @@ def task_is_open(view_func):
     return wrapped_view
 
 def agreements_signed(view_func):
-    '''Uses weird logic to make sure the user signed the necessary agreements'''
+    '''Confirm that the user has signed all agreements required by the conf.
+    kwargs: conf
+    '''    
     @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
         if 'conf' not in kwargs:
