@@ -109,7 +109,7 @@ class SubmitFormForm(forms.Form):
 
     def make_runtag_checker(context):
         def thunk(value):
-            tags = SubmitMeta.objects.filter(submission__task=context['task']).filter(key='runtag').filter(value=value)
+            tags = Submission.objects.filter(task__conference=context['conf']).filter(runtag=value)
             if tags:
                 raise ValidationError(
                     _('A submission with runtag %(runtag) has already been submitted.'),

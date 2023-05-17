@@ -337,33 +337,30 @@ def submit_run(request, *args, **kwargs):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             stuff = form.cleaned_data
-            #form.make_runtag_checker(context)
-            if not Submission.objects.filter(task__conference=conf).filter(runtag=stuff['runtag']):
-                org = (Organization.objects
-                       .filter(shortname=stuff['org'])
-                       .filter(members__pk=request.user.pk)
-                       .filter(conference=context['conf']))[0]
-    
-                sub = Submission(task=context['task'],
-                                 org = org,
-                                 submitted_by=request.user,
-                                 runtag=stuff['runtag'],
-                                 file=request.FILES.get('runfile', None),
-                                 is_validated=False,
-                                 has_evaluation=False
-                                 )
-                sub.save()
-    
-                custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
-                for field in custom_fields:
-                    smeta = SubmitMeta(submission=sub,
-                                       form_field=field,
-                                       key=field.meta_key,
-                                       value=stuff[field.meta_key])
-                    smeta.save()
-                return HttpResponseRedirect(reverse('tasks',
-                                                kwargs={'conf': conf}))
-            else: return HttpResponse("That runtag is already in use")
+            org = (Organization.objects
+                   .filter(shortname=stuff['org'])
+                   .filter(members__pk=request.user.pk)
+                   .filter(conference=context['conf']))[0]
+
+            sub = Submission(task=context['task'],
+                             org = org,
+                             submitted_by=request.user,
+                             runtag=stuff['runtag'],
+                             file=request.FILES.get('runfile', None),
+                             is_validated=False,
+                             has_evaluation=False
+                             )
+            sub.save()
+
+            custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
+            for field in custom_fields:
+                smeta = SubmitMeta(submission=sub,
+                                   form_field=field,
+                                   key=field.meta_key,
+                                   value=stuff[field.meta_key])
+                smeta.save()
+            return HttpResponseRedirect(reverse('tasks',
+                                            kwargs={'conf': conf}))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
