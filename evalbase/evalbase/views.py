@@ -360,7 +360,7 @@ def submit_run(request, *args, **kwargs):
                                    value=stuff[field.meta_key])
                 smeta.save()
             return HttpResponseRedirect(reverse('tasks',
-                                                kwargs={'conf': conf}))
+                                            kwargs={'conf': conf}))
         else:
             context['gen_form'] = form
             return render(request, 'evalbase/submit.html', context=context)
