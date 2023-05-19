@@ -62,12 +62,13 @@ class SubmitFormForm(forms.Form):
         org_choices = list(map(lambda x: (x.shortname, x.longname), context['orgs']))
         fields['org'] = forms.ChoiceField(label='Organization', choices=org_choices)
 
-        fields['runtag'] = forms.CharField(
-            label='runtag',
-            validators=[SubmitFormForm.make_runtag_checker(context)])
-
         if context['mode'] == 'submit':
             fields['runfile'] = forms.FileField(label='Submission file')
+            fields['runtag'] = forms.CharField(
+                label='runtag',
+                validators=[SubmitFormForm.make_runtag_checker(context)])
+        else:
+            fields['runtag'] = forms.CharField(label='runtag')
 
         # Set up custom fields
         other_fields = (SubmitFormField.objects
