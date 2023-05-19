@@ -186,7 +186,6 @@ class Submission(models.Model):
     is_validated = models.BooleanField()
     has_evaluation = models.BooleanField()
 
-
     def __str__(self):
         return f'{self.task.conference.shortname}/{self.runtag}'
 

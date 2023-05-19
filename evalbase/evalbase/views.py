@@ -343,7 +343,6 @@ def submit_run(request, *args, **kwargs):
                    .filter(members__pk=request.user.pk)
                    .filter(conference=context['conf']))[0]
 
-
             sub = Submission(task=context['task'],
                              org = org,
                              submitted_by=request.user,
