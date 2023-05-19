@@ -18,6 +18,7 @@ from django.core.exceptions import PermissionDenied
 from .models import *
 from .forms import *
 from .decorators import *
+import subprocess
 
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
@@ -342,6 +343,7 @@ def submit_run(request, *args, **kwargs):
                    .filter(members__pk=request.user.pk)
                    .filter(conference=context['conf']))[0]
 
+
             sub = Submission(task=context['task'],
                              org = org,
                              submitted_by=request.user,
@@ -350,6 +352,10 @@ def submit_run(request, *args, **kwargs):
                              is_validated=False,
                              has_evaluation=False
                              )
+
+            script = subprocess.run(["perl", "check_deep.pl", "docs", sub.file.name])
+            sub.is_validated=script.returncode
+
             sub.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])

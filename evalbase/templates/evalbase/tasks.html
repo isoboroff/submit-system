@@ -35,7 +35,7 @@
 <ul>
   {% for run in myruns %}
   <li> <a href="{% url 'run' conf.shortname run.task.shortname run.runtag %}">
-      {{ run.runtag }}</a> : {{ run.task.shortname }}; on {{ run.date }}; by {{ run.submitted_by }}
+      {{ run.runtag }}</a> : {{ run.task.shortname }}; on {{ run.date }}; by {{ run.submitted_by }}, validation={{run.is_validated}}
     {% if run.submitted_by == user %}
     <a href="{% url 'run-delete' conf.shortname run.task.shortname run.runtag %}">
       (delete run)
