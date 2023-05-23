@@ -352,8 +352,9 @@ def submit_run(request, *args, **kwargs):
                              has_evaluation=False
                              )
 
-            script = subprocess.run(["perl", "check_deep.pl", "docs", sub.file.name])
-            sub.is_validated=script.returncode
+            if task.checker_file != "NONE":    
+                script = subprocess.run(["perl", f"checkers/{task.checker_file}", "docs", sub.file.name])
+                sub.is_validated=script.returncode
 
             sub.save()
 
