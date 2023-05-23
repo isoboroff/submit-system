@@ -221,7 +221,9 @@ def home_view(request, *args, **kwargs):
     '''The main page.  You can see what conferences you are participating
     in and which ones you can sign up to participate in.
     '''
-    open_evals = Conference.objects.filter(open_signup=True)
+    open_evals = (Conference.objects
+                  .filter(open_signup=True)
+                  .exclude(participants__members__pk = request.user.pk))
     my_orgs = (Organization.objects
                .filter(members__pk=request.user.pk)
                .filter(conference__complete=False))
