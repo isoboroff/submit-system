@@ -9,7 +9,7 @@ class TaskInline(admin.TabularInline):
     show_change_link = True
 
 @admin.register(Conference)
-class ConferenxeAdmin(admin.ModelAdmin):
+class ConferenceAdmin(admin.ModelAdmin):
     inlines = [TaskInline]
 
 
