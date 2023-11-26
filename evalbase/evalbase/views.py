@@ -18,6 +18,7 @@ from django.core.exceptions import PermissionDenied
 from .models import *
 from .forms import *
 from .decorators import *
+import subprocess
 
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
@@ -31,6 +32,7 @@ def signup_view(request):
             form_data.save()
             return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
         else:
+            context = {'form': form_data}
             return render(request, 'evalbase/signup.html', context)
 
 
@@ -220,7 +222,9 @@ def home_view(request, *args, **kwargs):
     '''The main page.  You can see what conferences you are participating
     in and which ones you can sign up to participate in.
     '''
-    open_evals = Conference.objects.filter(open_signup=True)
+    open_evals = (Conference.objects
+                  .filter(open_signup=True)
+                  .exclude(participants__members__pk = request.user.pk))
     my_orgs = (Organization.objects
                .filter(members__pk=request.user.pk)
                .filter(conference__complete=False))
@@ -350,6 +354,11 @@ def submit_run(request, *args, **kwargs):
                              is_validated=False,
                              has_evaluation=False
                              )
+
+            if task.checker_file != "NONE":    
+                script = subprocess.run(["perl", f"checkers/{task.checker_file}", "docs", sub.file.name])
+                sub.is_validated=script.returncode
+
             sub.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
