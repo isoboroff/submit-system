@@ -65,7 +65,7 @@ class SubmitFormForm(forms.Form):
         if context['mode'] == 'submit':
             fields['runfile'] = forms.FileField(label='Submission file')
             fields['runtag'] = forms.CharField(
-                label='runtag',
+                label='Runtag: a short identifier for the run',
                 validators=[SubmitFormForm.make_runtag_checker(context)])
         else:
             fields['runtag'] = forms.CharField(label='runtag')

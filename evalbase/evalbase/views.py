@@ -148,9 +148,14 @@ def org_create(request, *args, **kwargs):
     '''
 
     class _Form(forms.Form):
-        shortname = forms.CharField(max_length=15)
-        longname = forms.CharField(max_length=50)
+        shortname = forms.CharField(
+            label='Organization ID - a short name for your organization (e.g. "nist")',
+            max_length=15)
+        longname = forms.CharField(
+            label='Full name of your organization',
+            max_length=50)
         task_interest = forms.ModelMultipleChoiceField(
+            label='Which tracks are you interested in?',
             widget=forms.CheckboxSelectMultiple,
             queryset=(Task
                       .objects
@@ -330,7 +335,6 @@ def submit_run(request, *args, **kwargs):
     context['mode'] = 'submit'
 
     form_class = SubmitFormForm.get_form_class(context)
-    
 
     if request.method == 'GET':
         sff = form_class()
