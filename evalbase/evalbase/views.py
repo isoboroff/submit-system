@@ -32,6 +32,7 @@ def signup_view(request):
             form_data.save()
             return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
         else:
+            context = {'form': form_data}
             return render(request, 'evalbase/signup.html', context)
 
 
