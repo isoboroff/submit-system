@@ -379,6 +379,24 @@ def submit_run(request, *args, **kwargs):
             return render(request, 'evalbase/submit.html', context=context)
 
 
+def safe_parse_list(s):
+    '''Database entries for checkbox values are lists, in Python format.
+    Turn them into real lists of values, without using eval or
+    ast.literal_eval'''
+    import ast
+    tree = ast.parse(s, mode='eval')
+    if isinstance(tree.body, ast.List):
+        vals = []
+        for elt in tree.body.elts:
+            if isinstance(elt, ast.Constant):
+                vals.append(elt.value)
+            else:
+                return None
+        return vals
+    else:
+        return None
+
+
 @evalbase_login_required
 @task_is_open
 @user_may_edit_submission
@@ -417,7 +435,11 @@ def edit_submission(request, *args, **kwargs):
                  'runfile': run.file}
     other_infos = SubmitMeta.objects.filter(submission=run)
     for run_meta in other_infos:
-        form_info[run_meta.key] = run_meta.value
+        info_field = SubmitFormField.objects.filter(meta_key=run_meta.key)[0]
+        if info_field.question_type == SubmitFormField.QuestionType.CHECKBOX:
+            form_info[run_meta.key] = safe_parse_list(run_meta.value)
+        else:
+            form_info[run_meta.key] = run_meta.value
 
     if request.method == 'GET':
         sff = form_class(form_info)
