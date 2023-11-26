@@ -1,5 +1,5 @@
 {% extends 'evalbase/base.html' %}
-{% load bootstrap5 %}
+{% load django_bootstrap5 %}
 
 {% block title %}evalbase Sign up{% endblock %}
 
@@ -7,8 +7,6 @@
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">Sign up</button>
-  {% endbuttons %}
+  {% bootstrap_button type="submit" content="Sign up" %}
 </form>
 {% endblock %}

@@ -1,14 +1,13 @@
 {% extends "evalbase/base.html" %}
-{% load bootstrap5 %}
+{% load django_bootstrap5 %}
 
 {% block title %} Join {% endblock %}
 {% block content %}
 <form method="post">
   {% csrf_token %}
-    Hi, {{user.first_name}}, Join {{ org.longname }} ({{ org.shortname }}) ?
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">Join</button>
-  {% endbuttons %}
+  Hi, {{user.first_name}}, Join {{ org.longname }} ({{ org.shortname }}) ?
+  <br/>
+  {% bootstrap_button button_type="submit" content="Join" %}
 </form>
 {% endblock %}
 
