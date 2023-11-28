@@ -360,10 +360,6 @@ def submit_run(request, *args, **kwargs):
                              has_evaluation=False
                              )
 
-            if task.checker_file != "NONE":    
-                script = subprocess.run(["perl", f"checkers/{task.checker_file}", "docs", sub.file.name])
-                sub.is_validated=script.returncode
-
             sub.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
@@ -374,8 +370,9 @@ def submit_run(request, *args, **kwargs):
                                    value=stuff[field.meta_key])
                 smeta.save()
 
-            run_check_script(sub, 'do_it.sh')
-            
+            if task.checker_file and task.checker_file != 'NONE':
+                run_check_script(sub, task.checker_file)
+
             return HttpResponseRedirect(reverse('tasks',
                                             kwargs={'conf': conf}))
         else:
