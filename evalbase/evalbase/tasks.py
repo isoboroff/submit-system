@@ -11,6 +11,10 @@ SUBM_ROOT = Path(settings.MEDIA_ROOT)
 
 @task()
 def run_check_script(submission, script, *args):
+    argsplit = script.split()
+    script = argsplit[0]
+    args = [*args, *argsplit[1:]]
+
     script_path = Path(settings.CHECK_SCRIPT_PATH) / script
     if not script_path.exists():
         raise FileNotFoundError(script_path)
@@ -23,11 +27,17 @@ def run_check_script(submission, script, *args):
     if not subm_path.exists():
         raise FileNotFoundError(subm_path)
 
-    proc = subprocess.run([script_path, *args, submission.file.name],
+    proc = subprocess.run([script_path, *args, subm_path],
                           cwd=subm_dir,
                           capture_output=True,
                           text=True)
 
-    submission.check_output = proc.stdout + '\n' + proc.stderr
+    errlog = ''
+    errlog_file = subm_path.with_name(submission.runtag + '.errlog')
+    if errlog_file.exists():
+        with open(errlog_file, 'r') as errlog_fp:
+            errlog = errlog_fp.read()
+
+    submission.check_output = errlog + '\n' + proc.stdout + '\n' + proc.stderr + '\n'
     submission.is_validated = (proc.returncode == 0)
     submission.save()

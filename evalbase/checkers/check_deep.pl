@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 
 use strict;
+use File::Spec;
+use File::Basename;
 
 # Check a TREC 2022 Deep Learning track submission for various
 # common errors:
@@ -15,7 +17,7 @@ use strict;
 # Results input file is in the form
 #     topic_num Q0 docid rank sim tag
 
-
+my $scriptdir = dirname(File::Spec->rel2abs(__FILE__));
 
 # Change these variable values to the directory in which the error log should be put
 my $errlog_dir = ".";
@@ -26,7 +28,7 @@ my $MAX_ERRORS = 25;
 # May return up to MAX_RET visit ids per topic
 my $MAX_RET_DOCS = 100;
 my $MAX_RET_PASS = 100;
-my $topicfile = "/evalbase/newfiles/deep-2022_queries.tsv";
+my $topicfile = "$scriptdir/deep-2022_queries.tsv";
 my @topics = ();
 
 my %valid_ids;
