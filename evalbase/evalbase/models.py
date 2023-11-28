@@ -186,6 +186,7 @@ class Submission(models.Model):
         upload_to=get_submission_path)
     is_validated = models.BooleanField()
     has_evaluation = models.BooleanField()
+    check_output = models.TextField(blank=True)
 
     def __str__(self):
         return f'{self.task.conference.shortname}/{self.runtag}'

@@ -18,6 +18,7 @@ from django.core.exceptions import PermissionDenied
 from .models import *
 from .forms import *
 from .decorators import *
+from .tasks import run_check_script
 import subprocess
 
 @require_http_methods(['GET', 'POST'])
@@ -372,6 +373,9 @@ def submit_run(request, *args, **kwargs):
                                    key=field.meta_key,
                                    value=stuff[field.meta_key])
                 smeta.save()
+
+            run_check_script(sub, 'do_it.sh')
+            
             return HttpResponseRedirect(reverse('tasks',
                                             kwargs={'conf': conf}))
         else:
