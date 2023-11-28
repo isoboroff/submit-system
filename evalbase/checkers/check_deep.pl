@@ -181,13 +181,15 @@ exit 0;
 # print error message, keeping track of total number of errors
 sub error {
     my $msg_string = pop(@_);
+    my $checker = basename($0);
+    my $checked = basename($results_file);
 
     print ERRLOG
-        "$0 of $results_file: Error on line $line_num --- $msg_string\n";
+        "$checker of $checked: Error on line $line_num --- $msg_string\n";
 
     $num_errors++;
     if ($num_errors > $MAX_ERRORS) {
-        print ERRLOG "$0 of $results_file: Quit. Too many errors!\n";
+        print ERRLOG "$checker of $checked: Quit. Too many errors!\n";
         close ERRLOG ||
             die "Close failed for error log $errlog: $!\n";
         exit 255;
