@@ -167,7 +167,7 @@ def get_submission_path(submission, filename):
     return 'submissions/{0}/{1}/results/{2}/{3}'.format(submission.task.conference.results_root,
                                                         submission.task.shortname,
                                                         submission.runtag,
-                                                        submission.file.name)
+                                                        submission.runtag)
 class Submission(models.Model):
     """A Submission is something that got submitted to a Task via a SubmitForm."""
     runtag = models.CharField(max_length=15)
