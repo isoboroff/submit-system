@@ -1,5 +1,7 @@
 import uuid
 import logging
+import subprocess
+import shutil
 from datetime import datetime
 from pathlib import Path
 from django import utils
@@ -19,7 +21,6 @@ from .models import *
 from .forms import *
 from .decorators import *
 from .tasks import run_check_script
-import subprocess
 
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
@@ -497,6 +498,8 @@ def delete_submission(request, *args, **kwargs):
 
     elif request.method == 'POST':
         run.delete()
+        run_dir =  (Path(settings.MEDIA_ROOT) / run.file.name).parent
+        shutil.rmtree(run_dir, ignore_errors=True)
         return HttpResponseRedirect(
             reverse_lazy('tasks', kwargs={'conf': kwargs['conf']}))
 
