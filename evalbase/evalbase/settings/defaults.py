@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'huey.contrib.djhuey',
     'evalbase',
 ]
 
@@ -140,3 +141,29 @@ LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHECK_SCRIPT_PATH = Path(BASE_DIR) / 'checkers'
+
+# Huey config
+HUEY = {
+    'huey_class': 'huey.SqliteHuey',
+    'name': 'evalbase-tasks',
+    'filename': DATABASES['default']['NAME'],
+    'results': True,
+    'store_none': False,
+    'immediate': False,
+    'utc': False,
+    'fsync': False,
+    'cache_mb': 64,
+    'consumer': {
+        'workers': 1,
+        'worker_type': 'greenlet',
+        'initial_delay': 0.1,
+        'backoff': 1.15,
+        'max_delay': 10.0,
+        'scheduler_interval': 1,
+        'periodic': False,
+        'check_worker_health': True,
+        'health_check_interval': 1,
+    },
+}
