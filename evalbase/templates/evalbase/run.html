@@ -26,6 +26,16 @@
   {% endfor %}
 </ul>
 
-    <a href="{{ submission.file.url }}" download>Uploaded file</a>
+<h4> Validation </h4>
+Validated? {% if submission.is_validated %} Yes {% else %} No {% endif %}<br/>
+Validation output:<br/>
+{% if submission.check_output|length > 0 %}
+{{ submission.check_output }}
+{% else %}
+(no output)
+{% endif %}
+
+<p/>
+<a href="{{ submission.file.url }}" download>Uploaded file</a>
 
 {% endblock %}
