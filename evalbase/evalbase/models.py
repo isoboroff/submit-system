@@ -170,6 +170,11 @@ def get_submission_path(submission, filename):
                                                         submission.runtag)
 class Submission(models.Model):
     """A Submission is something that got submitted to a Task via a SubmitForm."""
+    class ValidationState(models.TextChoices):
+        WAITING = 'W', 'waiting for validation'
+        FAIL = 'F', 'validation failed'
+        SUCCESS = 'S', 'validation succeeded'
+
     runtag = models.CharField(max_length=15)
     task = models.ForeignKey(
         Task,
@@ -184,7 +189,10 @@ class Submission(models.Model):
         auto_now_add=True)
     file = models.FileField(
         upload_to=get_submission_path)
-    is_validated = models.BooleanField()
+    is_validated = models.CharField(
+        max_length=1,
+        choices=ValidationState.choices,
+        default=ValidationState.WAITING)
     has_evaluation = models.BooleanField()
     check_output = models.TextField(blank=True)
 
