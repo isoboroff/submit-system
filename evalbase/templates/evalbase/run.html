@@ -10,8 +10,8 @@
 {% endif %}
 
 <ul>
-    <li> Conference: {{ submission.task.conference.longname }} ({{ submission.task.conference.shortname }})</li>
-  <li> Task: {{ submission.task.shortname }} </li>
+    <li> Conference: {{ submission.task.conference.longname }}</li>
+  <li> Task: {{ submission.task.longname }} </li>
   <li> Submitted by: {{ submission.submitted_by }} </li>
   <li> Organization: {{ submission.org }} </li>
   <li> Date: {{ submission.date }} </li>
@@ -27,13 +27,20 @@
 </ul>
 
 <h4> Validation </h4>
-Validated? {% if submission.is_validated %} Yes {% else %} No {% endif %}<br/>
-Validation output:<br/>
-{% if submission.check_output|length > 0 %}
-{{ submission.check_output }}
-{% else %}
-(no output)
-{% endif %}
+Validated?
+    {% if submission.is_validated == 'F' %}
+    <span class="text-danger">validation failed</span>
+        {% if submission.check_output|length > 0 %}
+        <p>
+          Validation output:<br/>
+          {{ submission.check_output }}
+        </p>
+        {% endif %}
+    {% elif submission.is_validated == 'S' %}
+    validation succeeded
+    {% else %}
+    waiting for validation
+    {% endif %}
 
 <p/>
 <a href="{{ submission.file.url }}" download>Uploaded file</a>

@@ -39,5 +39,8 @@ def run_check_script(submission, script, *args):
             errlog = errlog_fp.read()
 
     submission.check_output = errlog + '\n' + proc.stdout + '\n' + proc.stderr + '\n'
-    submission.is_validated = (proc.returncode == 0)
+    if proc.returncode == 0:
+        submission.is_validated = Submission.ValidationState.SUCCESS
+    else:
+        submission.is_validated = Submission.ValidationState.FAIL
     submission.save()

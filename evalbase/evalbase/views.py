@@ -357,7 +357,7 @@ def submit_run(request, *args, **kwargs):
                              submitted_by=request.user,
                              runtag=stuff['runtag'],
                              file=request.FILES.get('runfile', None),
-                             is_validated=False,
+                             is_validated=Submission.ValidationState.WAITING,
                              has_evaluation=False
                              )
 
