@@ -14,6 +14,7 @@ gunicorn==21.2.0
 huey==2.5.0
 kombu==5.3.4
 packaging==23.2
+pinax-announcements @ git+https://github.com/openedx/pinax-announcements@716614fd084a85c7faa41a927aafb9753389acbc
 prompt-toolkit==3.0.43
 pytz==2023.3.post1
 six==1.16.0

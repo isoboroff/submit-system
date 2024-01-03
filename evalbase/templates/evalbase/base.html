@@ -1,4 +1,6 @@
 {% load django_bootstrap5 %}
+{% load pinax_announcements_tags %}
+{% load get_fields %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +37,27 @@
       </div>
       <div class="b-example-divider"></div>
       {% endblock %}
+
+      {% announcements as ann_list %}
+      {% if ann_list %}
+      <div class="container">
+        {% for ann in ann_list %}
+        <!--
+            {% for k in ann|get_fields %}
+            {{ k }} -> {{ ann|get_field_value:k }}
+            {% endfor %}
+          -->
+        <form class="form ajax" data-replace-closest=".announcement" action="{% url "pinax_announcements:announcement_dismiss" ann.pk %}" method="post">
+          {% csrf_token %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{ ann.title }}</strong> {{ ann.content }}
+            <button type="submit" class="close btn-close btn btn-default" data-bs-dismiss="alert" aria-label="close">
+            </button>
+          </div>
+        </form>
+        {% endfor %}
+      </div>
+      {% endif %}
 
       <main>
         {% block content %}
