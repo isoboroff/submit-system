@@ -5,3 +5,5 @@ db.sqlite3*
 *~
 venv/
 trec-2023-fixture.json
+*.log
+*.pid
