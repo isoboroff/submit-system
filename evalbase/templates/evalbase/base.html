@@ -4,135 +4,141 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% bootstrap_css %}
-    <title> {% block title %} {% endblock %}</title>
-  </head>
 
-  <body>
-    {% bootstrap_javascript %}
-    <div class="col-lg-10 mx-auto">
-      {% block header %}
-      <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-          <a href="{% url 'home' %}"
-             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <span class="fs-4">Evalbase</span>
+<head>
+  {% bootstrap_css %}
+  <title> {% block title %} {% endblock %}</title>
+</head>
+
+<body>
+  {% bootstrap_javascript %}
+  <div class="col-lg-10 mx-auto">
+    {% block header %}
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="{% url 'home' %}"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <span class="fs-4">Evalbase</span>
+        </a>
+
+        {% if user.is_authenticated %}
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{ user.first_name }}
           </a>
-
-          {% if user.is_authenticated %}
-          <div class="dropdown text-end">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
-               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ user.first_name }}
-            </a>
-            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              <li><a href="{% url 'profile' %}">Profile</a></li>
-              <li><a href="{% url 'logout' %}">Sign out</a></li>
-            </ul>
-          </div>
-          {% endif %}
-
-        </header>
-      </div>
-      <div class="b-example-divider"></div>
-      {% endblock %}
-
-      {% announcements as ann_list %}
-      {% if ann_list %}
-      <div class="container">
-        {% for ann in ann_list %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert" alert_dismiss="{% url "pinax_announcements:announcement_dismiss" ann.pk %}">
-          <strong>{{ ann.title }}</strong> {{ ann.content }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close">
-          </button>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Sign out</a></li>
+          </ul>
         </div>
-        {% endfor %}
+        {% endif %}
+
+      </header>
+    </div>
+    <div class="b-example-divider"></div>
+    {% endblock %}
+
+    {% announcements as ann_list %}
+    {% if ann_list %}
+    <div class="container">
+      {% for ann in ann_list %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" alert_dismiss="{% url "
+        pinax_announcements:announcement_dismiss" ann.pk %}">
+        <strong>{{ ann.title }}</strong> {{ ann.content }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close">
+        </button>
       </div>
-      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
 
-      <main>
-        {% block content %}
-        {% endblock %}
-      </main>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
 
 
-      <div class="container">
-        <footer class="row py-5 my-5 border-top">
-            <ul class="text-center list-inline">
+    <div class="container">
+      <footer class="row py-5 my-5 border-top">
+        <ul class="text-center list-inline">
           <li class="list-inline-item">
             <a href="https://www.nist.gov/">
-              <img src="{% static 'evalbase/logo-2x.png' %}" width="150px" alt="National Institute of Standards and Technology logo" />
-            </a></li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/privacy-policy">Site Privacy</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/oism/accessibility">Accessibility</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/privacy">Privacy Program</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/oism/copyrights">Copyrights</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.commerce.gov/vulnerability-disclosure-policy">Vulnerability Disclosure</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/no-fear-act-policy">No Fear Act Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/foia">FOIA</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.nist.gov/environmental-policy-statement">Environmental Policy</a>
-              </li>
-              <li class="list-inline-item ">
-                <a class="nav-link" href="https://www.nist.gov/summary-report-scientific-integrity">Scientific Integrity</a>
-              </li>
-              <li class="list-inline-item ">
-                <a class="nav-link" href="https://www.nist.gov/nist-information-quality-standards">Information Quality Standards</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.commerce.gov/">Commerce.gov</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.science.gov/">Science.gov</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://www.usa.gov/">USA.gov</a>
-              </li>
-              <li class="list-inline-item">
-                <a class="nav-link" href="https://vote.gov/">Vote.gov</a>
-              </li>
-            </ul>
-                      </p>
+              <img src="{% static 'evalbase/logo-2x.png' %}" width="150px"
+                alt="National Institute of Standards and Technology logo" />
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/privacy-policy">Site Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/oism/accessibility">Accessibility</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/privacy">Privacy Program</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/oism/copyrights">Copyrights</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.commerce.gov/vulnerability-disclosure-policy">Vulnerability
+              Disclosure</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/no-fear-act-policy">No Fear Act Policy</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/foia">FOIA</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.nist.gov/environmental-policy-statement">Environmental Policy</a>
+          </li>
+          <li class="list-inline-item ">
+            <a class="nav-link" href="https://www.nist.gov/summary-report-scientific-integrity">Scientific Integrity</a>
+          </li>
+          <li class="list-inline-item ">
+            <a class="nav-link" href="https://www.nist.gov/nist-information-quality-standards">Information Quality
+              Standards</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.commerce.gov/">Commerce.gov</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.science.gov/">Science.gov</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://www.usa.gov/">USA.gov</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="nav-link" href="https://vote.gov/">Vote.gov</a>
+          </li>
+        </ul>
+        </p>
 
-          </div>
-        </footer>
-      </div>
-   </body>
-  <script>
+    </div>
+    </footer>
+  </div>
+</body>
+<script>
   function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
         }
+      }
     }
     return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
-const alerts = document.getElementsByClassName('alert');
+  }
+  const csrftoken = getCookie('csrftoken');
+  const alerts = document.getElementsByClassName('alert');
   for (var i = 0; i < alerts.length; i++) {
-    alerts[i].addEventListener('closed.bs.alert', async function(e) {
+    alerts[i].addEventListener('closed.bs.alert', async function (e) {
       await fetch(e.target.getAttribute('alert_dismiss'), {
         method: "POST",
         headers: {
@@ -141,5 +147,6 @@ const alerts = document.getElementsByClassName('alert');
       });
     });
   }
-  </script>
+</script>
+
 </html>
