@@ -10,7 +10,6 @@ Django==5.0
 django-bootstrap5==23.3
 gevent==23.9.1
 greenlet==3.0.2
-gunicorn==21.2.0
 huey==2.5.0
 kombu==5.3.4
 packaging==23.2
@@ -21,6 +20,7 @@ six==1.16.0
 soupsieve==2.5
 sqlparse==0.4.4
 typing_extensions==4.9.0
+uWSGI==2.0.23
 vine==5.1.0
 wcwidth==0.2.12
 whitenoise==6.6.0
