@@ -184,3 +184,4 @@ CSP_STYLE_SRC = ("'self'", 'cdn.jsdelivr.net')
 
 # Have CSRF cookies use SameSite: Strict
 CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
