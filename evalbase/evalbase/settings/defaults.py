@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'evalbase.urls'
@@ -171,3 +172,12 @@ HUEY = {
         'health_check_interval': 1,
     },
 }
+
+# django-csp Content Security Policy
+# https://django-csp.readthedocs.io/en/latest/configuration.html
+# https://www.w3.org/TR/CSP/#csp-directives
+
+CSP_DEFAULT_SRC = ("'self'")
+CSP_SCRIPT_SRC = ("'self'", 'cdn.jsdelivr.net')
+CSP_OBJECT_SRC = ("'self'")
+CSP_STYLE_SRC = ("'self'", 'cdn.jsdelivr.net')

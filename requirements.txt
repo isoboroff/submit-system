@@ -8,6 +8,7 @@ click-plugins==1.1.1
 click-repl==0.3.0
 Django==5.0
 django-bootstrap5==23.3
+django-csp==3.7
 gevent==23.9.1
 greenlet==3.0.2
 huey==2.5.0
