@@ -17,6 +17,7 @@ from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
+from django.views.decorators.cache import never_cache
 from .models import *
 from .forms import *
 from .decorators import *
@@ -59,6 +60,7 @@ def profile_view(request):
 
 @evalbase_login_required
 @require_http_methods(['GET', 'POST'])
+@never_cache
 def profile_create_edit(request):
     if request.method == 'GET':
         cur_profile = UserProfile.objects.filter(user=request.user).first()
@@ -138,6 +140,7 @@ def org_edit(request, *args, **kwargs):
 @evalbase_login_required
 @conference_is_open
 @require_http_methods(['GET', 'POST'])
+@never_cache
 def org_create(request, *args, **kwargs):
     '''Create an organization.  This is signing up to participate in
     an evaluation.
