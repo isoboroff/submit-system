@@ -14,21 +14,21 @@
 </ul>
 {% endif %}
 
-{% if object_list %}
 <h2>Tracks</h2>
 <ul>
-  {% for task in object_list %}
+  {% for task in object_list|dictsort:"longname" %}
   <li>{{ task.longname }}
-  <a href="{% url 'submit' conf.shortname task.shortname %}">(submit)</a>
-  {% if task.required %}
-  <span class="text-danger">required!</span>
-  {% endif %}
+    {% if task.task_open %}
+    <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
+    {% else %}
+    (submissions not open)
+    {% endif %}
+    {% if task.required %}
+    <span class="text-danger">required!</span>
+    {% endif %}
   </li>
   {% endfor %}
 </ul>
-{% else %}
-<p>No tracks are accepting submissions right now.</p>
-{% endif %}
 
 {% if myruns %}
 <h2> Runs submitted </h2>

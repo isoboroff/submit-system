@@ -112,6 +112,7 @@ class Task(models.Model):
         on_delete=models.CASCADE)
     required = models.BooleanField()
     task_open = models.BooleanField()
+    deadline = models.DateField(null=True, blank=True)
     checker_file = models.CharField(max_length=30, default="NONE")
 
     def __str__(self):

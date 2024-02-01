@@ -2,6 +2,7 @@ import uuid
 import logging
 import subprocess
 import shutil
+import collections
 from datetime import datetime
 from pathlib import Path
 from django import utils
@@ -260,8 +261,7 @@ def conf_tasks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
     conf = Conference.objects.get(shortname=kwargs['conf'])
     object_list = (Task.objects
-                   .filter(conference=conf)
-                   .filter(task_open=True))
+                   .filter(conference=conf))
     orgs = (Organization.objects
             .filter(members__pk=request.user.pk)
             .filter(conference=conf))
@@ -527,3 +527,25 @@ def view_submission(request, *args, **kwargs):
     context["file"] = run.file
 
     return render(request, template_name, context)
+
+@evalbase_login_required
+@user_is_track_coordinator
+@require_http_methods(['GET'])
+def list_submissions(request, *args, **kwargs):
+    '''List all submissions to a task.'''
+    template_name = 'evalbase/all_runs.html'
+
+    runs = (Submission.objects
+        .filter(task=kwargs['_task'])
+        .filter(task__conference=kwargs['_conf']))
+
+    run_meta = collections.defaultdict(dict)
+    metas = (SubmitMeta.objects
+        .filter(submission__task__conference=kwargs['_conf'])
+        .filter(submission__task=kwargs['_task']))
+    for m in metas:
+        run_meta[m.submission.runtag][m.key] = m.value
+
+    return render(request, template_name, {
+        'runs': runs,
+        'metas': run_meta})
