@@ -107,6 +107,21 @@ def user_is_participant(view_func):
         raise PermissionDenied('User is not a member of a participating group')
     return wrapped_view
 
+def user_is_track_coordinator(view_func):
+    '''Confirm that the user is a coordinator for this track.
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs or 'task' not in kwargs:
+            raise Http404('No such conf')
+        is_coord = (Task.objects
+                    .filter(conference__shortname=kwargs['conf'])
+                    .filter(task__shortname=kwargs['task'])
+                    .filter(task__coordinators__pk=request.user.pk))
+
+        if is_coord:
+            return view_func(request, *args, **kwargs)
+        raise PermissionDenied('User is not a coordinator of this track')
 
 def user_may_edit_submission(view_func):
     '''Confirm that the request.user is either the submittor
@@ -168,7 +183,7 @@ def task_is_open(view_func):
 def agreements_signed(view_func):
     '''Confirm that the user has signed all agreements required by the conf.
     kwargs: conf
-    '''    
+    '''
     @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
         if 'conf' not in kwargs:

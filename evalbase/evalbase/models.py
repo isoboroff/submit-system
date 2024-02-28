@@ -113,6 +113,7 @@ class Task(models.Model):
     required = models.BooleanField()
     task_open = models.BooleanField()
     deadline = models.DateField(null=True, blank=True)
+    coordinators = models.ManyToManyField(User)
     checker_file = models.CharField(max_length=30, default="NONE")
 
     def __str__(self):
