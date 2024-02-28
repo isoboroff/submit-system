@@ -1,6 +1,7 @@
 import functools
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.http import Http404
 from django.db.models import Q
 from django.core.exceptions import PermissionDenied
@@ -127,6 +128,26 @@ def user_may_edit_submission(view_func):
             kwargs['_sub'] = sub
             return view_func(request, *args, **kwargs)
         raise PermissionDenied('User may not edit submission')
+    return wrapped_view
+
+
+def user_is_track_coordinator(view_func):
+    '''Confirm that the user is a track coordinator.'''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs or 'task' not in kwargs:
+            raise Http404('No such conf or track')
+    
+        conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+        task = get_object_or_404(Task, shortname=kwargs['task'], conference=conf)
+        if task.task_open:
+            kwargs['_conf'] = conf
+            kwargs['_task'] = task
+            
+        coords = Group.objects.get(name='coordinator')
+        if coords.user_set.filter(pk=request.user.id).exists():
+            return view_func(request, *args, **kwargs)
+        raise PermissionDenied('User is not a track coordinator')
     return wrapped_view
 
 

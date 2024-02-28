@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'django.contrib.admin.apps.SimpleAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'huey.contrib.djhuey',
     'pinax.announcements',
+    'adminplus',
     'evalbase.templatetags.get_fields',
     'evalbase',
 ]

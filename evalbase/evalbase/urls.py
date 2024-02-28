@@ -19,7 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
+from adminplus.sites import AdminSitePlus
 from evalbase import views
+
+admin.site = AdminSitePlus()
+admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,6 +55,7 @@ urlpatterns = [
     path('agreements/<str:conf>/<str:agreement>/sign', views.sign_agreement, name='sign-agreement'),
     path('conf/<str:conf>/<str:task>/submit', views.submit_run, name='submit'),
     path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='run'),
+    path('conf/<str:conf>/<str:task>/submissions', views.list_submissions, name='list-runs'),
     path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
