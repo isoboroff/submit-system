@@ -1,0 +1,34 @@
+{% extends 'evalbase/base.html' %}
+
+{% block title %} Signups per task {% endblock %}
+
+{% block content %}
+<h1> {{ conf.longname }} </h1>
+
+{% if results %}
+<!--
+    {{ task_counts }}
+  -->
+<h2> Signups per task </h2>
+<table>
+  {% for task, orgs in results.items %}
+  <tr><td>
+    <details>
+      <summary> {{ task }}: {{orgs|length}} </summary>
+      <ul>
+        {% for org in orgs %}
+        <li> {{ org.longname }} ({{ org.shortname }}, contact {{ org.contact_person.first_name }} {{ org.contact_person.last_name }}
+          &lt;{{ org.contact_person.email }}&gt;) </li>
+        {% endfor %}
+      </ul>
+    </details>
+  </td></tr>
+  {% endfor %}
+</table>
+
+
+{% else %}
+(no registrations yet)
+{% endif %}
+
+{% endblock %}

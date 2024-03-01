@@ -8,7 +8,7 @@ from pathlib import Path
 from django import utils
 from django.conf import settings
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +19,7 @@ from django.http import HttpResponseRedirect, Http404, FileResponse, HttpRespons
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
+from django.db.models import Count
 from .models import *
 from .forms import *
 from .decorators import *
@@ -549,3 +550,27 @@ def list_submissions(request, *args, **kwargs):
     return render(request, template_name, {
         'runs': runs,
         'metas': run_meta})
+
+def _user_is_superuser(user):
+    return user.is_superuser
+
+@evalbase_login_required
+@user_passes_test(_user_is_superuser)
+@require_http_methods(['GET'])
+def org_signups_per_task(request, *args, **kwargs):
+    '''List, for all tasks in this conference, how many orgs indicated an interest.
+    '''
+    template_name = 'evalbase/org_signups_per_task.html'
+
+    results = {}
+    conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+    tasks = Task.objects.filter(conference=conf)
+    for task in tasks:
+        results[task] = []
+        for org in task.organization_set.all():
+            results[task].append(org)
+
+    return render(request, template_name, {
+        'conf': conf,
+        'results': results,
+    })

@@ -57,4 +57,11 @@
 {% else %}
 <p>You have not submitted any runs yet.</p>
 {% endif %}
+
+{% if user.is_staff %}
+<h2>Conference reports</h2>
+<ul>
+  <li><a href="{% url 'signups_per_task' conf %}">Signups per task</a></li>
+</ul>
+{% endif %}
 {% endblock %}

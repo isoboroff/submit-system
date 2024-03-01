@@ -54,6 +54,9 @@ urlpatterns = [
     path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
+
+    path('conf/<str:conf>/signups_per_task', views.org_signups_per_task,
+         name='signups_per_task')
 ]
 
 if settings.DEBUG:
