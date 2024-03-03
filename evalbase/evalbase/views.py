@@ -261,7 +261,7 @@ def home_view(request, *args, **kwargs):
 def conf_tasks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
     conf = Conference.objects.get(shortname=kwargs['conf'])
-    object_list = (Task.objects
+    tasks = (Task.objects
                    .filter(conference=conf))
     orgs = (Organization.objects
             .filter(members__pk=request.user.pk)
@@ -270,10 +270,16 @@ def conf_tasks(request, *args, **kwargs):
               .filter(task__conference=conf)
               .filter(org__in=orgs)
               .order_by('task'))
+
     agreements = conf.agreements.exclude(signature__user=request.user.pk)
 
+    tasks_i_coordinate = set()
+    for task in Task.objects.filter(coordinators__pk=request.user.pk):
+        tasks_i_coordinate.add(task.shortname)
+
     return render(request, 'evalbase/tasks.html',
-                  { 'object_list': object_list,
+                  { 'tasks': tasks,
+                    'tasks_i_coordinate': tasks_i_coordinate,
                     'conf': conf,
                     'myruns': myruns,
                     'agreements': agreements })
@@ -531,6 +537,7 @@ def view_submission(request, *args, **kwargs):
 
 @evalbase_login_required
 @user_is_track_coordinator
+@check_conf_and_task
 @require_http_methods(['GET'])
 def list_submissions(request, *args, **kwargs):
     '''List all submissions to a task.'''

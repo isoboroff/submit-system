@@ -1,0 +1,11 @@
+{% extends 'evalbase/base.html' %}
+
+{% block title %} {{ conf }}{{ task }} runs {% endblock %}
+
+{% block content %}
+<ul>
+  {% for r in runs %}
+  <li>{{r.runtag}}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

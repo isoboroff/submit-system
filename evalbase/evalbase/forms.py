@@ -126,7 +126,13 @@ class SubmitFormForm(forms.Form):
 
     def make_runtag_checker(context):
         def thunk(value):
-            tags = Submission.objects.filter(task__conference=context['conf']).filter(runtag=value)
+            if runtag == 'submit' or runtag == 'list':
+                raise ValidationError(
+                    _('Submissions may not be named "submit" or "list"'))
+
+            tags = (Submission.objects
+                    .filter(task__conference=context['conf'])
+                    .filter(runtag=value))
             if tags:
                 raise ValidationError(
                     _('A submission with runtag %(runtag) has already been submitted.'),

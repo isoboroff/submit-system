@@ -116,12 +116,14 @@ def user_is_track_coordinator(view_func):
             raise Http404('No such conf')
         is_coord = (Task.objects
                     .filter(conference__shortname=kwargs['conf'])
-                    .filter(task__shortname=kwargs['task'])
-                    .filter(task__coordinators__pk=request.user.pk))
+                    .filter(shortname=kwargs['task'])
+                    .filter(coordinators__pk=request.user.pk))
 
         if is_coord:
+            kwargs['_is_coord'] = is_coord
             return view_func(request, *args, **kwargs)
         raise PermissionDenied('User is not a coordinator of this track')
+    return wrapped_view
 
 def user_may_edit_submission(view_func):
     '''Confirm that the request.user is either the submittor
@@ -200,4 +202,20 @@ def agreements_signed(view_func):
         return view_func(request, *args, **kwargs)
     return wrapped_view
 
-        
+
+def check_conf_and_task(view_func):
+    '''Check conf and task fields of URL and if they're ok, return
+    the objects in the kwargs.
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs or 'task' not in kwargs:
+            raise Http404('No such conf')
+        conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+        task = get_object_or_404(Task, shortname=kwargs['task'],
+                                 conference=conf)
+
+        kwargs['_conf'] = conf
+        kwargs['_task'] = task
+        return view_func(request, *args, **kwargs)
+    return wrapped_view

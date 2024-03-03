@@ -16,7 +16,7 @@
 
 <h2>Tracks</h2>
 <ul>
-  {% for task in object_list|dictsort:"longname" %}
+  {% for task in tasks|dictsort:"longname" %}
   <li>{{ task.longname }}
     {% if task.task_open %}
     <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
@@ -26,6 +26,11 @@
     {% if task.required %}
     <span class="text-danger">required!</span>
     {% endif %}
+    {% if task.shortname in tasks_i_coordinate %}
+    <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
+      (see all submissions)
+    {% endif %}
+    </a>
   </li>
   {% endfor %}
 </ul>
