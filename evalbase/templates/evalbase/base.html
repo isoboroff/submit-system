@@ -29,7 +29,10 @@
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Sign out</a></li>
+            <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <li><button type="submit" class="btn btn-link">
+                  Sign out</button></li>
           </ul>
         </div>
         {% endif %}
