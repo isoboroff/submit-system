@@ -558,11 +558,11 @@ def list_submissions(request, *args, **kwargs):
         'runs': runs,
         'metas': run_meta})
 
-def _user_is_superuser(user):
-    return user.is_superuser
+def _user_is_staff(user):
+    return user.is_staff
 
 @evalbase_login_required
-@user_passes_test(_user_is_superuser)
+@user_is_staff
 @require_http_methods(['GET'])
 def org_signups_per_task(request, *args, **kwargs):
     '''List, for all tasks in this conference, how many orgs indicated an interest.

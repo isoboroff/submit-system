@@ -125,6 +125,16 @@ def user_is_track_coordinator(view_func):
         raise PermissionDenied('User is not a coordinator of this track')
     return wrapped_view
 
+def user_is_staff(view_func):
+    '''Confirm that the request.user is_staff.
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if request.user.is_staff:
+            return view_func(request, *args, **kwargs)
+        raise PermissionDenied('User is not staff')
+    return wrapped_view
+
 def user_may_edit_submission(view_func):
     '''Confirm that the request.user is either the submittor
     of the kwarg 'runtag' submitted to kwarg 'conf', or that
