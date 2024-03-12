@@ -1,3 +1,5 @@
+import operator
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -51,6 +53,7 @@ class MembersEditForm(forms.Form):
 
         task_choices = [(task.shortname, task.longname)
                         for task in context['all_tasks']]
+        task_choices = sorted(task_choices, key=operator.itemgetter(1))
         fields["task_interest"] = forms.MultipleChoiceField(
             label="Select tasks",
             choices=task_choices,
