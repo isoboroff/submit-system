@@ -36,6 +36,8 @@ def user_is_member_of_org(view_func):
         if (org.owner == request.user or
             org.members.filter(pk=request.user.pk).exists()):
             kwargs['_org'] = org
+            kwargs['_conf'] = get_object_or_404(Conference,
+                                                shortname=kwargs['conf'])
             return view_func(request, *args, **kwargs)
         raise PermissionDenied('User is not member of org')
     return wrapped_view
@@ -56,6 +58,8 @@ def user_owns_org(view_func):
                                 conference__shortname=kwargs['conf'])
         if (org.owner == request.user):
             kwargs['_org'] = org
+            kwargs['_conf'] = get_object_or_404(Conference,
+                                                shortname=kwargs['conf'])
             return view_func(request, *args, **kwargs)
         raise PermissionDenied('User is not org owner')
     return wrapped_view

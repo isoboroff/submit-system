@@ -43,7 +43,15 @@
 	      (none yet)
 	      {% endfor %}
           <a href="{% url 'org-edit' object.conference object.shortname %}">Remove a user from this organization</a>
-
+              <tr>
+                <th> Task interest </th>
+                <td>
+                  {% for task in object.task_interest.all %}
+                  {{ task.longname }} <br/>
+                  {% endfor %}
+                  <a href="{% url 'org-edit' object.conference object.shortname %}">Change track interests.</a>  <p>(Please note, you don't need to specify a track here to participate in that track.  These just help us for planning in the start of the year.)</p>
+                </td>
+              </tr>
             </td>
           </tr>
 

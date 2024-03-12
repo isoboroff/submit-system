@@ -43,7 +43,21 @@ class MembersEditForm(forms.Form):
         member_choices = [(m.id, f'{m.first_name} {m.last_name} ({m.email})')
                           for m in context['members']]
         fields["users"] = forms.MultipleChoiceField(
-            label="Select user(s) to remove", choices=member_choices)
+            label="Select user(s) to remove",
+            choices=member_choices,
+            required=False,
+            widget=forms.CheckboxSelectMultiple
+        )
+
+        task_choices = [(task.shortname, task.longname)
+                        for task in context['all_tasks']]
+        fields["task_interest"] = forms.MultipleChoiceField(
+            label="Select tasks",
+            choices=task_choices,
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+            initial=context['tasks'])
+
         return type('MembersEditForm', (forms.Form,), fields)
 
 

@@ -4,9 +4,10 @@
 
 
 {% block content %}
-    <h4>
-    <b>Removing users from group {{ org }}</b></h4>
-    <p>The only way to re-add them is to resend them the invite link!</p>
+<h4><b>Edit group {{ org }}</b></h4>
+<br/>
+<b>Remove members</b>
+    <p>(The only way to re-add them is to resend them the invite link!)</p>
     <form method="post">
         {% csrf_token %}
         {{ gen_form }}

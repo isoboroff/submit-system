@@ -108,7 +108,9 @@ def profile_create_edit(request):
 @user_is_member_of_org
 @require_http_methods(['GET'])
 def org_view(request, *args, **kwargs):
-    return render(request, 'evalbase/org-detail.html', {'object': kwargs['_org']})
+    return render(request, 'evalbase/org-detail.html',
+                  { 'object': kwargs['_org'],
+                    'conf': kwargs['_conf'] })
 
 
 @evalbase_login_required
@@ -119,7 +121,13 @@ def org_edit(request, *args, **kwargs):
 
     org = kwargs['_org']
     members = org.members.all().exclude(id=request.user.id)
-    context = {'org': org, 'members': members}
+    all_tasks = org.conference.task_set.all()
+    tasks = list(org.task_interest.all().values_list('shortname', flat=True))
+    context = {'org': org,
+               'members': members,
+               'all_tasks': all_tasks,
+               'tasks': tasks,
+               }
 
     if request.method == 'GET':
         form_class = MembersEditForm.get_form_class(context)
@@ -133,10 +141,20 @@ def org_edit(request, *args, **kwargs):
         if form.is_valid():
             cleaned = form.cleaned_data
             org.members.remove(*cleaned['users'])
-        return HttpResponseRedirect(reverse_lazy('org-detail',
-                                                 kwargs={'conf': kwargs['conf'],
-                                                         'org': kwargs['org'],
-                                                         'gen_form': form}))
+            org.task_interest.clear()
+            tasks = map(
+                lambda tname: (Task.objects
+                               .filter(conference=kwargs['_conf'])
+                               .get(shortname=tname)),
+                cleaned['task_interest'])
+            org.task_interest.set(tasks)
+        else:
+            logging.error(form.errors)
+
+        return HttpResponseRedirect(
+            reverse_lazy('org-detail',
+                         kwargs={'conf': kwargs['conf'],
+                                 'org': kwargs['org']}))
 
 
 @evalbase_login_required
