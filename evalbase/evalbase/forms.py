@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
+from django.contrib.auth.models import User
 from .models import *
 
 
@@ -30,6 +31,11 @@ class SignupForm(UserCreationForm):
                   'email',
                   'password1', 'password2')
 
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        if User.objects.filter(email=data):
+            raise ValidationError('An account with this email address already exists.')
+        return data
 
 class ProfileForm(forms.ModelForm):
     class Meta:

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
+from django.db.models.functions import Lower
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
@@ -47,6 +48,14 @@ class Conference(models.Model):
 
 class Organization(models.Model):
     """An Organization is a group that has registered to participate in a Conference."""
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                Lower('shortname'), 'conference',
+                name='case invariant unique pids'
+            ),
+        ]
+
     owner = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
