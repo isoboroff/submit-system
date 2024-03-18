@@ -1,5 +1,14 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+from csvexport.actions import csvexport
 from .models import *
+
+class CustomUserAdmin(UserAdmin):
+    model = User
+    actions = [csvexport]
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(UserProfile)
 
@@ -11,11 +20,13 @@ class TaskInline(admin.TabularInline):
 @admin.register(Conference)
 class ConferenceAdmin(admin.ModelAdmin):
     inlines = [TaskInline]
+    actions = [csvexport]
 
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = [ 'passphrase' ]
+    actions = [csvexport]
 
 class SignatureInline(admin.TabularInline):
     model = Signature

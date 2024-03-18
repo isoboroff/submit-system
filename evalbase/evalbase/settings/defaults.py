@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'huey.contrib.djhuey',
     'pinax.announcements',
+    'csvexport',
     'evalbase.templatetags.get_fields',
     'evalbase',
 ]
@@ -187,3 +188,7 @@ CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SECURE = True
+
+# CSVexport
+CSV_EXPORT_REFERENCE_DEPTH = 3
+CSV_EXPORT_EMPTY_VALUE = ''
