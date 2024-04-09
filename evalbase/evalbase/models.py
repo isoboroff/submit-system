@@ -28,6 +28,17 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('profile')
 
+class UserMeta(models.Model):
+    class UserMetadata(models.IntegerChoices):
+        SLACK_FOR_2024 = 1
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    metafield = models.IntegerField(
+        choices=UserMetadata.choices,
+        default=UserMetadata.SLACK_FOR_2024)
+    value = models.BooleanField(default=False)
+    set_at = models.DateField(auto_now=True)
+
 class Conference(models.Model):
     """A Conference is an evaluation conference instance like TREC 2020."""
     shortname = models.CharField(

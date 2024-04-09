@@ -57,4 +57,23 @@ class SubmitMetaInline(admin.TabularInline):
 class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmitMetaInline]
 
+@admin.register(UserMeta)
+class UserMetaAdmin(admin.ModelAdmin):
+    list_display = [ 'user_username', 'metafield', 'value', 'set_at']
+    actions = ['make_checked', 'make_unchecked']
+    date_hierarchy = 'set_at'
+    list_editable = ['value']
+    list_filter = ['metafield']
+    search_fields = ['user__username']
 
+    @admin.display(ordering='user__username')
+    def user_username(self, obj):
+        return obj.user.username
+
+    @admin.action(description='Mark selected user/meta as checked')
+    def make_checked(self, request, queryset):
+        queryset.update(value=True)
+
+    @admin.action(description='Clear selected user/meta checks')
+    def make_unchecked(self, request, queryset):
+        queryset.update(value=False)
