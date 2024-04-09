@@ -47,6 +47,12 @@ class UserProfileAdmin(admin.ModelAdmin):
     def clear_slacked(modeladmin, request, queryset):
         queryset.update(added_to_slack=False)
 
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ['shortname', 'conference']
+    list_filter = ['conference']
+    filter_horizontal = ['coordinators']
+
 class TaskInline(admin.TabularInline):
     model = Task
     list_display = ('shortname', 'longname', 'required', 'has_file', 'open')
