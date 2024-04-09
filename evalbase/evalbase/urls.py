@@ -60,7 +60,9 @@ urlpatterns = [
     path('', views.home_view, name='home'),
 
     path('conf/<str:conf>/signups_per_task', views.org_signups_per_task,
-         name='signups_per_task')
+         name='signups_per_task'),
+    path('conf/<str:conf>/<str:task>/signups', views.org_signups_per_task,
+         name='task_signups')
 ]
 
 if settings.DEBUG:

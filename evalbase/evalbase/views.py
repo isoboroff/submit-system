@@ -589,7 +589,10 @@ def org_signups_per_task(request, *args, **kwargs):
 
     results = {}
     conf = get_object_or_404(Conference, shortname=kwargs['conf'])
-    tasks = Task.objects.filter(conference=conf)
+    if 'task' in kwargs:
+        tasks = Task.objects.filter(conference=conf, shortname=kwargs['task'])
+    else:
+        tasks = Task.objects.filter(conference=conf)
     for task in tasks:
         results[task] = []
         for org in task.organization_set.all():
