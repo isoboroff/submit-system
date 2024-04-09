@@ -22,6 +22,9 @@ class UserProfile(models.Model):
     created_at = models.DateField(
         auto_now_add=True)
 
+    added_to_slack = models.BooleanField(
+        default=False)
+
     def __str__(self):
         return self.user.username
 

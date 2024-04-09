@@ -10,7 +10,42 @@ class CustomUserAdmin(UserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
-admin.site.register(UserProfile)
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['username', 'email', 'added_to_slack', 'first_name', 'last_name', 'created_at']
+    list_editable = ['added_to_slack']
+    date_hierarchy = 'created_at'
+    list_filter = ['user__member_of__conference__shortname']
+    ordering = ['-created_at', 'user__username']
+    actions = ['mark_slacked', 'clear_slacked', csvexport]
+
+    @admin.display(description='username')
+    def username(self, obj):
+        return obj.user.username
+
+    @admin.display(description='email')
+    def email(self, obj):
+        return obj.user.email
+
+    @admin.display(description='first_name')
+    def first_name(self, obj):
+        return obj.user.first_name
+
+    @admin.display(description='last_name')
+    def last_name(self, obj):
+        return obj.user.last_name
+
+    @admin.display(description='created_at')
+    def created_at(self, obj):
+        return obj.user.created_at
+
+    @admin.action(description='Mark as added to Slack')
+    def mark_slacked(modeladmin, request, queryset):
+        queryset.update(added_to_slack=True)
+
+    @admin.action(description='Clear added to Slack')
+    def clear_slacked(modeladmin, request, queryset):
+        queryset.update(added_to_slack=False)
 
 class TaskInline(admin.TabularInline):
     model = Task
@@ -33,7 +68,7 @@ class SignatureInline(admin.TabularInline):
 
 class AgreementAdmin(admin.ModelAdmin):
     inlines = [SignatureInline]
-        
+
 admin.site.register(Agreement, AgreementAdmin)
 
 
