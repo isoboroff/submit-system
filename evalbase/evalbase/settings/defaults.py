@@ -72,6 +72,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'eb_tags': 'evalbase.templatetags.eb_tags',
+                'csp': 'csp.templatetags.csp'
             }
         },
     },
@@ -179,9 +180,11 @@ HUEY = {
 # https://www.w3.org/TR/CSP/#csp-directives
 
 CSP_DEFAULT_SRC = ("'self'")
-CSP_SCRIPT_SRC = ("'self'", 'cdn.jsdelivr.net')
+CSP_SCRIPT_SRC = ("'self'", 'cdn.jsdelivr.net', "'unsafe-inline'")
+CSP_SCRIPT_SRC_ATTR = ("'unsafe-inline'")
 CSP_OBJECT_SRC = ("'self'")
 CSP_STYLE_SRC = ("'self'", 'cdn.jsdelivr.net')
+# CSP_INCLUDE_NONCE_IN = ['script-src', 'script-src-attr']
 
 # Have CSRF cookies use SameSite: Strict
 CSRF_COOKIE_SAMESITE = 'Strict'

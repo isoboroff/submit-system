@@ -5,6 +5,8 @@
 {% block content %}
 <h1> {{ conf.longname }} </h1>
 
+{{ results_json|json_script:"results" }}
+
 {% if results %}
 <!--
     {{ task_counts }}
@@ -14,11 +16,12 @@
   {% for task, orgs in results.items %}
   <tr><td>
       <details {% if open %} open {% endif %}>
+        <button id="copy-button" task="{{task}}">copy</button>
       <summary> {{ task }}: {{orgs|length}} </summary>
       <ul>
         {% for org in orgs %}
-        <li> {{ org.longname }} ({{ org.shortname }}, contact {{ org.contact_person.first_name }} {{ org.contact_person.last_name }}
-          &lt;{{ org.contact_person.email }}&gt;) </li>
+        <li> {{ org.longname }} ({{ org.shortname }}, contact {{ org.contact_person }}
+          &lt;{{ org.contact_email }}&gt;) </li>
         {% endfor %}
       </ul>
     </details>
@@ -26,6 +29,20 @@
   {% endfor %}
 </table>
 
+<script type="application/javascript" async=False>
+  const results = JSON.parse(document.getElementById('results').textContent);
+  const copy_fn = (async (evt, btn) => {
+    const task = evt.target.getAttribute('task');
+    const textversion = results[task].map((obj) => `${obj.shortname}   ${obj.contact_email}`).join('\n');
+
+    await navigator.clipboard.writeText(textversion);
+  });
+
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', (evt) => copy_fn(evt, btn));
+  });
+</script>
 
 {% else %}
 (no registrations yet)

@@ -594,12 +594,18 @@ def org_signups_per_task(request, *args, **kwargs):
     else:
         tasks = Task.objects.filter(conference=conf)
     for task in tasks:
-        results[task] = []
+        results[task.shortname] = []
         for org in task.organization_set.all():
-            results[task].append(org)
+            orgdict = { 'longname': org.longname,
+                        'shortname': org.shortname,
+                        'contact_person': f'{org.contact_person.first_name} {org.contact_person.last_name}',
+                        'contact_email': org.contact_person.email,
+            }
+            results[task.shortname].append(orgdict)
 
     return render(request, template_name, {
         'conf': conf,
         'results': results,
+        'results_json': results,
         'open': True if len(results) == 1 else False
     })
