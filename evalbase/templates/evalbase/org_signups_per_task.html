@@ -13,7 +13,7 @@
 <table>
   {% for task, orgs in results.items %}
   <tr><td>
-    <details>
+      <details {% if open %} open {% endif %}>
       <summary> {{ task }}: {{orgs|length}} </summary>
       <ul>
         {% for org in orgs %}

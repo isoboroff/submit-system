@@ -601,4 +601,5 @@ def org_signups_per_task(request, *args, **kwargs):
     return render(request, template_name, {
         'conf': conf,
         'results': results,
+        'open': True if len(results) == 1 else False
     })
