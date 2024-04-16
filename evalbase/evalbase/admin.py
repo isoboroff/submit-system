@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.db.models.functions import Lower
 from csvexport.actions import csvexport
 from .models import *
 
@@ -66,8 +67,14 @@ class ConferenceAdmin(admin.ModelAdmin):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ['ci_shortname', 'owner', 'conference']
+    list_filter = ['conference']
     readonly_fields = [ 'passphrase' ]
     actions = [csvexport]
+
+    @admin.display(ordering=Lower('shortname'))
+    def ci_shortname(self, obj):
+        return obj.shortname
 
 class SignatureInline(admin.TabularInline):
     model = Signature
