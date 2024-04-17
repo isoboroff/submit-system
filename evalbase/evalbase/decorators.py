@@ -117,12 +117,14 @@ def user_is_track_coordinator(view_func):
     '''
     @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
-        if 'conf' not in kwargs or 'task' not in kwargs:
-            raise Http404('No such conf')
         if request.user.is_staff:
+            if 'conf' not in kwargs:
+                raise Http404('No such conf')
             is_coord = (Task.objects.
                         filter(conference__shortname=kwargs['conf']))
         else:
+            if 'conf' not in kwargs or 'task' not in kwargs:
+                raise Http404('No such conf or task')
             is_coord = (Task.objects
                         .filter(conference__shortname=kwargs['conf'])
                         .filter(shortname=kwargs['task'])
