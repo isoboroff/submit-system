@@ -112,16 +112,21 @@ def user_is_participant(view_func):
     return wrapped_view
 
 def user_is_track_coordinator(view_func):
-    '''Confirm that the user is a coordinator for this track.
+    '''Confirm that the user is a coordinator for this task.
+    Staff are coordinators for all tasks.
     '''
     @functools.wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
         if 'conf' not in kwargs or 'task' not in kwargs:
             raise Http404('No such conf')
-        is_coord = (Task.objects
-                    .filter(conference__shortname=kwargs['conf'])
-                    .filter(shortname=kwargs['task'])
-                    .filter(coordinators__pk=request.user.pk))
+        if request.user.is_staff:
+            is_coord = (Task.objects.
+                        filter(conference__shortname=kwargs['conf']))
+        else:
+            is_coord = (Task.objects
+                        .filter(conference__shortname=kwargs['conf'])
+                        .filter(shortname=kwargs['task'])
+                        .filter(coordinators__pk=request.user.pk))
 
         if is_coord:
             kwargs['_is_coord'] = is_coord

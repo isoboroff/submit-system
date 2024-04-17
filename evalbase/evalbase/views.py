@@ -580,7 +580,7 @@ def _user_is_staff(user):
     return user.is_staff
 
 @evalbase_login_required
-@user_is_staff
+@user_is_track_coordinator
 @require_http_methods(['GET'])
 def org_signups_per_task(request, *args, **kwargs):
     '''List, for all tasks in this conference, how many orgs indicated an interest.
