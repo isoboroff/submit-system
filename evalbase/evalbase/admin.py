@@ -70,6 +70,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ['ci_shortname', 'owner', 'conference']
     list_filter = ['conference']
     readonly_fields = [ 'passphrase' ]
+    filter_horizontal = [ 'members' ]
     actions = [csvexport]
 
     @admin.display(ordering=Lower('shortname'))
