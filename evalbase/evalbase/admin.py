@@ -16,8 +16,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ['username', 'email', 'added_to_slack', 'first_name', 'last_name', 'created_at']
     list_editable = ['added_to_slack']
     date_hierarchy = 'created_at'
-    list_filter = ['user__member_of__conference__shortname']
+    list_filter = ['user__member_of__conference__shortname', 'added_to_slack']
     ordering = ['-created_at', 'user__username']
+    search_fields = ['user__username', 'user__email', 'user__first_name', 'user__last_name']
     actions = ['mark_slacked', 'clear_slacked', csvexport]
 
     @admin.display(description='username')
@@ -67,15 +68,20 @@ class ConferenceAdmin(admin.ModelAdmin):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ['ci_shortname', 'owner', 'conference']
+    list_display = ['ci_shortname', 'owner_name', 'conference']
     list_filter = ['conference']
     readonly_fields = [ 'passphrase' ]
     filter_horizontal = [ 'members' ]
+    search_fields = ['shortname', 'owner__first_name', 'owner__last_name', 'owner__email']
     actions = [csvexport]
 
     @admin.display(ordering=Lower('shortname'))
     def ci_shortname(self, obj):
         return obj.shortname
+
+    @admin.display(ordering='owner__last_name')
+    def owner_name(self, obj):
+        return f'{obj.owner.first_name} {obj.owner.last_name} ({obj.owner.email})'
 
 class SignatureInline(admin.TabularInline):
     model = Signature
