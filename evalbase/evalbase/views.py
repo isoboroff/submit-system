@@ -333,6 +333,17 @@ def sign_agreement(request, conf, agreement):
     return render(request, template, { 'form': form })
 
 
+@evalbase_login_required
+@require_http_methods(['GET'])
+def view_signature(request, agreement):
+    sigs = Signature.objects.filter(user=request.user)
+    agr = Agreement.objects.get(name=agreement)
+    signature = get_object_or_404(sigs, agreement=agr)
+    template = 'evalbase/' + signature.agreement.template
+
+    return render(request, template, { 'sig': signature })
+
+
 # Submitting, editing, and deleting runs.  This constructs a form based
 # on the form fields defined for this track in the database, and handles
 # its return.

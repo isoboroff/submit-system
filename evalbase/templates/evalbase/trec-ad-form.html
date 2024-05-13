@@ -79,10 +79,14 @@
   and its employees and representatives agree to abide
   by these guidelines.  I am qualified to make this commitment. </P>
 
+{% if form %}
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form %}
   <input type="submit" value="Sign"/>
 </form>
+{% elif sig %}
+(signed) {{ sig.sigtext }} (date) {{ sig.date|date:"D d M Y" }}
+{% endif %}
 
 {% endblock %}

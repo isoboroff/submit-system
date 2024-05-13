@@ -32,7 +32,8 @@
 <p>You have signed the following agreements:</p>
   <ul>
     {% for s in signatures %}
-    <li>{{ s.agreement.longname }}</li>
+    <li><a href="{% url 'sign-detail' s.agreement %}">
+                 {{ s.agreement.longname }}</a></li>
     {% endfor %}
   </ul>
 {% endif %}

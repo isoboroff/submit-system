@@ -50,6 +50,9 @@ urlpatterns = [
     path('conf/<str:conf>', views.conf_tasks, name='tasks'),
     path('agreements/<str:conf>/<str:agreement>/sign',
          views.sign_agreement, name='sign-agreement'),
+    path('agreements/<str:agreement>',
+         views.view_signature, name='sign-detail'),
+
     path('conf/<str:conf>/<str:task>/submit', views.submit_run,
          name='submit'),
     path('conf/<str:conf>/<str:task>/list', views.list_submissions,
