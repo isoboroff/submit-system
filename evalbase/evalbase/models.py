@@ -85,8 +85,8 @@ class Organization(models.Model):
         Conference,
         on_delete=models.PROTECT,
         related_name='participants')
-    task_interest = models.ManyToManyField(
-        to='Task',
+    track_interest = models.ManyToManyField(
+        to='Track',
         #limit_choices_to=Q(conference=conference)
     )
 
@@ -112,9 +112,8 @@ class Signature(models.Model):
     sigtext = models.CharField(max_length=50)
     agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE)
 
-
-class Task(models.Model):
-    """A Task is like a TREC track, a thing in a Conference that people submit things to."""
+class Track(models.Model):
+    '''A track is one or more tasks on a specific problem.'''
     shortname = models.CharField(
         max_length=15)
     longname = models.CharField(
@@ -122,11 +121,15 @@ class Task(models.Model):
     conference = models.ForeignKey(
         Conference,
         on_delete=models.CASCADE)
+    coordinators = models.ManyToManyField(User, blank=True)
+    url = models.URLField(blank=True)
+
+class Task(models.Model):
+    """A Task is like a TREC track, a thing in a Conference that people submit things to."""
+    track = models.ForeignKey(Track, on_delete=models.CASCADE)
     required = models.BooleanField()
     task_open = models.BooleanField()
     deadline = models.DateField(null=True, blank=True)
-    coordinators = models.ManyToManyField(User, blank=True)
-    url = models.URLField(blank=True)
     checker_file = models.CharField(max_length=30, default="NONE")
 
     def __str__(self):
