@@ -121,12 +121,12 @@ def org_edit(request, *args, **kwargs):
 
     org = kwargs['_org']
     members = org.members.all().exclude(id=request.user.id)
-    all_tasks = org.conference.task_set.all()
-    tasks = list(org.task_interest.all().values_list('shortname', flat=True))
+    all_tracks = org.conference.track_set.all()
+    tracks = list(org.track_interest.all().values_list('shortname', flat=True))
     context = {'org': org,
                'members': members,
-               'all_tasks': all_tasks,
-               'tasks': tasks,
+               'all_tracks': all_tracks,
+               'tracks': tracks,
                }
 
     if request.method == 'GET':
@@ -141,13 +141,13 @@ def org_edit(request, *args, **kwargs):
         if form.is_valid():
             cleaned = form.cleaned_data
             org.members.remove(*cleaned['users'])
-            org.task_interest.clear()
-            tasks = map(
-                lambda tname: (Task.objects
+            org.track_interest.clear()
+            tracks = map(
+                lambda tname: (Track.objects
                                .filter(conference=kwargs['_conf'])
                                .get(shortname=tname)),
-                cleaned['task_interest'])
-            org.task_interest.set(tasks)
+                cleaned['track_interest'])
+            org.track_interest.set(tracks)
         else:
             logging.error(form.errors)
 
@@ -179,10 +179,10 @@ def org_create(request, *args, **kwargs):
         longname = forms.CharField(
             label='Full name of your organization',
             max_length=50)
-        task_interest = forms.ModelMultipleChoiceField(
+        track_interest = forms.ModelMultipleChoiceField(
             label='Which tracks are you interested in?',
             widget=forms.CheckboxSelectMultiple,
-            queryset=(Task
+            queryset=(Track
                       .objects
                       .filter(conference=kwargs['_conf'])
                       .order_by('longname')))
@@ -205,7 +205,7 @@ def org_create(request, *args, **kwargs):
                 conference=kwargs['_conf'],
                 passphrase=uuid.uuid4())
             org.save()
-            org.task_interest.set(cleaned['task_interest'])
+            org.track_interest.set(cleaned['track_interest'])
             org.members.add(request.user)
             org.save()
             return HttpResponseRedirect(reverse_lazy('home'))
@@ -276,28 +276,35 @@ def home_view(request, *args, **kwargs):
 @evalbase_login_required
 @user_is_participant
 @require_http_methods(['GET'])
-def conf_tasks(request, *args, **kwargs):
+def conf_tracks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
     conf = Conference.objects.get(shortname=kwargs['conf'])
+    tracks = (Track.objects
+              .filter(conference=conf))
     tasks = (Task.objects
-                   .filter(conference=conf))
+             .filter(track__conference=conf))
     orgs = (Organization.objects
             .filter(members__pk=request.user.pk)
             .filter(conference=conf))
     myruns = (Submission.objects
-              .filter(task__conference=conf)
+              .filter(task__track__conference=conf)
               .filter(org__in=orgs)
               .order_by('task'))
 
     agreements = conf.agreements.exclude(signature__user=request.user.pk)
 
-    tasks_i_coordinate = set()
-    for task in Task.objects.filter(coordinators__pk=request.user.pk):
-        tasks_i_coordinate.add(task.shortname)
+    tracks_i_coordinate = set()
+    for track in Track.objects.filter(coordinators__pk=request.user.pk):
+        tracks_i_coordinate.add(track.shortname)
+
+    task_dict = collections.defaultdict(list)
+    for task in tasks:
+        task_dict[task.track.shortname].append(task)
 
     return render(request, 'evalbase/tasks.html',
-                  { 'tasks': tasks,
-                    'tasks_i_coordinate': tasks_i_coordinate,
+                  { 'tracks': tracks,
+                    'tracks_i_coordinate': tracks_i_coordinate,
+                    'tasks': task_dict,
                     'conf': conf,
                     'myruns': myruns,
                     'agreements': agreements })
@@ -317,7 +324,7 @@ def sign_agreement(request, conf, agreement):
     existing = Signature.objects.filter(user=request.user,
                                         agreement=agrobj)
     if existing:
-        return HttpResponseRedirect(reverse('tasks', kwargs={'conf': conf}))
+        return HttpResponseRedirect(reverse('tracks', kwargs={'conf': conf}))
 
     if request.method == 'POST':
         form = AgreementForm(request.POST)
@@ -326,7 +333,7 @@ def sign_agreement(request, conf, agreement):
                             agreement=agrobj,
                             sigtext=form.cleaned_data['sigtext'])
             sig.save()
-            return HttpResponseRedirect(reverse('tasks', kwargs={'conf': conf}))
+            return HttpResponseRedirect(reverse('tracks', kwargs={'conf': conf}))
     else:
         form = AgreementForm()
 
@@ -574,11 +581,11 @@ def list_submissions(request, *args, **kwargs):
 
     runs = (Submission.objects
         .filter(task=kwargs['_task'])
-        .filter(task__conference=kwargs['_conf']))
+        .filter(task__track__conference=kwargs['_conf']))
 
     run_meta = collections.defaultdict(dict)
     metas = (SubmitMeta.objects
-        .filter(submission__task__conference=kwargs['_conf'])
+        .filter(submission__task__track__conference=kwargs['_conf'])
         .filter(submission__task=kwargs['_task']))
     for m in metas:
         run_meta[m.submission.runtag][m.key] = m.value
@@ -593,26 +600,26 @@ def _user_is_staff(user):
 @evalbase_login_required
 @user_is_track_coordinator
 @require_http_methods(['GET'])
-def org_signups_per_task(request, *args, **kwargs):
-    '''List, for all tasks in this conference, how many orgs indicated an interest.
+def org_signups_per_track(request, *args, **kwargs):
+    '''List, for all tracks in this conference, how many orgs indicated an interest.
     '''
-    template_name = 'evalbase/org_signups_per_task.html'
+    template_name = 'evalbase/org_signups_per_track.html'
 
     results = {}
     conf = get_object_or_404(Conference, shortname=kwargs['conf'])
-    if 'task' in kwargs:
-        tasks = Task.objects.filter(conference=conf, shortname=kwargs['task'])
+    if 'track' in kwargs:
+        tracks = Track.objects.filter(conference=conf, shortname=kwargs['track'])
     else:
-        tasks = Task.objects.filter(conference=conf)
-    for task in tasks:
-        results[task.shortname] = []
-        for org in task.organization_set.all():
+        tracks = Track.objects.filter(conference=conf)
+    for track in tracks:
+        results[track.shortname] = []
+        for org in track.organization_set.all():
             orgdict = { 'longname': org.longname,
                         'shortname': org.shortname,
                         'contact_person': f'{org.contact_person.first_name} {org.contact_person.last_name}',
                         'contact_email': org.contact_person.email,
             }
-            results[task.shortname].append(orgdict)
+            results[track.shortname].append(orgdict)
 
     return render(request, template_name, {
         'conf': conf,

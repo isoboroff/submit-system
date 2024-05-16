@@ -47,7 +47,7 @@ urlpatterns = [
     path('org/<str:conf>/create', views.org_create, name='org-create'),
     path('org/<str:conf>/<str:org>', views.org_view, name='org-detail'),
 
-    path('conf/<str:conf>', views.conf_tasks, name='tasks'),
+    path('conf/<str:conf>', views.conf_tracks, name='tracks'),
     path('agreements/<str:conf>/<str:agreement>/sign',
          views.sign_agreement, name='sign-agreement'),
     path('agreements/<str:agreement>',
@@ -62,10 +62,10 @@ urlpatterns = [
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
 
-    path('conf/<str:conf>/signups_per_task', views.org_signups_per_task,
-         name='signups_per_task'),
-    path('conf/<str:conf>/<str:task>/signups', views.org_signups_per_task,
-         name='task_signups')
+    path('conf/<str:conf>/signups_per_track', views.org_signups_per_track,
+         name='signups_per_track'),
+    path('conf/<str:conf>/<str:track>/signups', views.org_signups_per_track,
+         name='track_signups')
 ]
 
 if settings.DEBUG:

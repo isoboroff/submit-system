@@ -1,9 +1,11 @@
 {% extends 'evalbase/base.html' %}
 {% load django_bootstrap5 %}
 
-{% block title %} Submit - {{ task.conference.shortname }} {{ task.shortname }} {% endblock %}
+{% block title %} Submit - {{ task.track.longname }} {{ task.longname }} {% endblock %}
 
 {% block content %}
+
+<h2>Submission to {{task.track.longname}}, {{task.longname}} task</h2>
 
 {% if form.header_template %}
 {% include form.header_template %}

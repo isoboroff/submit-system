@@ -121,12 +121,12 @@ def user_is_track_coordinator(view_func):
             if 'conf' not in kwargs:
                 raise Http404('No such conf')
             is_coord = (Task.objects.
-                        filter(conference__shortname=kwargs['conf']))
+                        filter(track__conference__shortname=kwargs['conf']))
         else:
             if 'conf' not in kwargs or 'task' not in kwargs:
                 raise Http404('No such conf or task')
             is_coord = (Task.objects
-                        .filter(conference__shortname=kwargs['conf'])
+                        .filter(track__conference__shortname=kwargs['conf'])
                         .filter(shortname=kwargs['task'])
                         .filter(coordinators__pk=request.user.pk))
 
@@ -195,7 +195,7 @@ def task_is_open(view_func):
         if 'conf' not in kwargs or 'task' not in kwargs:
             raise Http404('No such conf or task')
         conf = get_object_or_404(Conference, shortname=kwargs['conf'])
-        task = get_object_or_404(Task, shortname=kwargs['task'], conference=conf)
+        task = get_object_or_404(Task, shortname=kwargs['task'], track__conference=conf)
         if task.task_open:
             kwargs['_conf'] = conf
             kwargs['_task'] = task

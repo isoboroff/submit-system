@@ -15,7 +15,7 @@
         You are currently signed up to participate in:<br/>
         <ul>
           {% for org in my_orgs %}
-          <li> <a href="{% url 'tasks' org.conference.shortname %}">
+          <li> <a href="{% url 'tracks' org.conference.shortname %}">
               {{ org.conference.shortname }}</a>
             (as
             {% if org.owner == user %} the owner {% else %} a member {% endif %}

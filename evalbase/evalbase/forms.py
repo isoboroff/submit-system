@@ -57,15 +57,15 @@ class MembersEditForm(forms.Form):
             widget=forms.CheckboxSelectMultiple
         )
 
-        task_choices = [(task.shortname, task.longname)
-                        for task in context['all_tasks']]
-        task_choices = sorted(task_choices, key=operator.itemgetter(1))
-        fields["task_interest"] = forms.MultipleChoiceField(
-            label="Select tasks",
-            choices=task_choices,
+        track_choices = [(track.shortname, track.longname)
+                        for track in context['all_tracks']]
+        track_choices = sorted(track_choices, key=operator.itemgetter(1))
+        fields["track_interest"] = forms.MultipleChoiceField(
+            label="Select tracks",
+            choices=track_choices,
             widget=forms.CheckboxSelectMultiple,
             required=False,
-            initial=context['tasks'])
+            initial=context['tracks'])
 
         return type('MembersEditForm', (forms.Form,), fields)
 

@@ -124,9 +124,16 @@ class Track(models.Model):
     coordinators = models.ManyToManyField(User, blank=True)
     url = models.URLField(blank=True)
 
+    def __str__(self):
+        return self.longname
+
 class Task(models.Model):
     """A Task is like a TREC track, a thing in a Conference that people submit things to."""
-    track = models.ForeignKey(Track, on_delete=models.CASCADE)
+    shortname = models.CharField(
+        max_length=25)
+    longname = models.CharField(
+        max_length=50)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
     required = models.BooleanField()
     task_open = models.BooleanField()
     deadline = models.DateField(null=True, blank=True)
@@ -140,13 +147,15 @@ class SubmitForm(models.Model):
     """A SubmitForm is a form for submitting something to a Task."""
     task = models.ForeignKey(
         Task,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+        related_name='submit_form'
+    )
     header_template = models.CharField(
         max_length=30,
         blank=True)
 
     def __str__(self):
-        return "/".join([self.task.conference.shortname, self.task.shortname])
+        return "/".join([self.task.track.conference.shortname, self.task.track.shortname, self.task.shortname])
 
 class SubmitFormField(models.Model):
     """A SubmitFormField is a field in a SubmitForm.

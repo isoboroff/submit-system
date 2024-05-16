@@ -49,20 +49,41 @@ class UserProfileAdmin(admin.ModelAdmin):
     def clear_slacked(modeladmin, request, queryset):
         queryset.update(added_to_slack=False)
 
+class SubmitFormFieldInline(admin.TabularInline):
+    model = SubmitFormField
+    extra = 3
+    list_display = ('sequence', 'question', 'meta_key')
+
+@admin.register(SubmitForm)
+class SubmitFormAdmin(admin.ModelAdmin):
+    inlines = [ SubmitFormFieldInline ]
+
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
+    list_display = ['shortname', 'longname', 'track_short', 'required', 'task_open', 'deadline', 'checker_file']
+
+    @admin.display(ordering=Lower('shortname'))
+    def track_short(self, obj):
+        return obj.track.shortname
+
+    @admin.display
+    def submit_form(self, obj):
+        return obj.submit_form
+
+@admin.register(Track)
+class TrackAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'conference']
     list_filter = ['conference']
     filter_horizontal = ['coordinators']
 
-class TaskInline(admin.TabularInline):
-    model = Task
+class TrackInline(admin.TabularInline):
+    model = Track
     list_display = ('shortname', 'longname', 'required', 'has_file', 'open')
     show_change_link = True
 
 @admin.register(Conference)
 class ConferenceAdmin(admin.ModelAdmin):
-    inlines = [TaskInline]
+    inlines = [TrackInline]
     actions = [csvexport]
 
 
@@ -90,18 +111,6 @@ class AgreementAdmin(admin.ModelAdmin):
     inlines = [SignatureInline]
 
 admin.site.register(Agreement, AgreementAdmin)
-
-
-class SubmitFormFieldInline(admin.TabularInline):
-    model = SubmitFormField
-    extra = 3
-    list_display = ('sequence', 'question', 'meta_key')
-
-
-@admin.register(SubmitForm)
-class SubmitFormAdmin(admin.ModelAdmin):
-    inlines = [SubmitFormFieldInline]
-    list_filter = ('task__conference', 'task__shortname')
 
 
 class SubmitMetaInline(admin.TabularInline):

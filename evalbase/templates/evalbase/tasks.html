@@ -16,27 +16,39 @@
 
 <h2>Tracks</h2>
 <ul>
-  {% for task in tasks|dictsort:"longname" %}
+  {% for track in tracks|dictsort:"longname" %}
   <li>
-    {% if task.url %}<a target="_blank" href="{{ task.url }}">{% endif %}
-    {{ task.longname }}
-    {% if task.url %}</a>{% endif %}
-    {% if task.task_open %}
-    <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
-    {% else %}
-    (submissions not open)
-    {% endif %}
-    {% if task.required %}
-    <span class="text-danger">required!</span>
-    {% endif %}
-    {% if task.shortname in tasks_i_coordinate %}
-    <a href="{% url 'task_signups' conf.shortname task.shortname %}">
+    {% if track.url %}<a target="_blank" href="{{ track.url }}">{% endif %}
+    {{ track.longname }}
+    {% if track.url %}</a>{% endif %}
+    {% if track.shortname in tracks_i_coordinate %}
+    <a href="{% url 'track_signups' conf.shortname track.shortname %}">
       (see interested groups)</a>
-    <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
-      (see all submissions)</a>
     {% endif %}
+
+    {% if track.task_set %}
+    <ul>
+      {% for task in track.task_set.all %}
+      <li>
+        {{ task.longname }}
+        {% if task.task_open %}
+        <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
+        {% else %}
+        (submissions not open)
+        {% endif %}
+        {% if task.required %}
+        <span class="text-danger">required!</span>
+        {% endif %}
+        {% if track.shortname in tracks_i_coordinate %}
+        <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
+          (see all submissions)</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
   </li>
-  {% endfor %}
+{% endfor %}
 </ul>
 
 {% if myruns %}
@@ -70,7 +82,7 @@
 {% if user.is_staff %}
 <h2>Conference reports</h2>
 <ul>
-  <li><a href="{% url 'signups_per_task' conf %}">Signups per task</a></li>
+  <li><a href="{% url 'signups_per_track' conf %}">Signups per track</a></li>
 </ul>
 {% endif %}
 {% endblock %}
