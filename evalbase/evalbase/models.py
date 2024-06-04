@@ -55,7 +55,8 @@ class Organization(models.Model):
         constraints = [
             models.UniqueConstraint(
                 Lower('shortname'), 'conference',
-                name='case invariant unique pids'
+                name='org_ids_must_be_unique',
+                violation_error_message='Another organization is already using this ID',
             ),
         ]
 
@@ -76,7 +77,7 @@ class Organization(models.Model):
         on_delete=models.PROTECT,
         related_name='org_contact_for')
     passphrase = models.CharField(
-        max_length=20,
+        max_length=36,
         editable=False)
     members = models.ManyToManyField(
         User,
