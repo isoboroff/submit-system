@@ -187,6 +187,14 @@ def org_create(request, *args, **kwargs):
                       .filter(conference=kwargs['_conf'])
                       .order_by('longname')))
 
+        def clean_shortname(self):
+            data = self.cleaned_data['shortname']
+            if (Organization.objects
+                .filter(shortname=data,
+                        conference=kwargs['_conf'])).exists():
+                raise ValidationError('Another organization is registered with this name.')
+            return data
+
     if request.method == 'GET':
         form = _Form()
         return render(request, 'evalbase/org-create.html',
