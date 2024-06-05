@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django import forms
 from django.db.models.functions import Lower
 from csvexport.actions import csvexport
 from .models import *
@@ -57,6 +58,15 @@ class SubmitFormFieldInline(admin.TabularInline):
 @admin.register(SubmitForm)
 class SubmitFormAdmin(admin.ModelAdmin):
     inlines = [ SubmitFormFieldInline ]
+
+    class TaskChoiceField(forms.ModelChoiceField):
+        def label_from_instance(self, obj):
+            return f'{obj.track.shortname}: {obj.longname}'
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'task':
+            return SubmitFormAdmin.TaskChoiceField(queryset=Task.objects.all())
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
