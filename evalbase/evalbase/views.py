@@ -17,7 +17,7 @@ from django.views import generic
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, MultipleObjectsReturned
 from django.views.decorators.cache import never_cache
 from django.db.models import Count
 from .models import *
@@ -366,7 +366,6 @@ def view_signature(request, agreement):
 @agreements_signed
 @evalbase_login_required
 @user_is_participant
-@task_is_open
 @require_http_methods(['GET', 'POST'])
 def submit_run(request, *args, **kwargs):
     '''This is the view for submitting a run to a task.  Each task has
@@ -376,9 +375,23 @@ def submit_run(request, *args, **kwargs):
     '''
     template_name = 'evalbase/submit.html'
 
-    conf = kwargs['_conf']
-    task = kwargs['_task']
-    submitform = SubmitForm.objects.get(task=task)
+    conf = kwargs['conf']
+    task = kwargs['task']
+    try:
+        conf = Conference.objects.get(shortname=conf)
+        task = Task.objects.get(shortname=task, track__conference=conf)
+        submitform = SubmitForm.objects.get(task=task)
+    except Exception as e:
+        raise Http404(e)
+
+    is_coord = (Track.objects
+                .filter(conference=conf)
+                .filter(task=task)
+                .filter(coordinators__pk=request.user.pk)
+                .exists())
+
+    if not (request.user.is_staff or is_coord or task.task_open):
+        raise Http404('Task is not open')
 
     context = {}
     context['conf'] = conf
@@ -389,6 +402,7 @@ def submit_run(request, *args, **kwargs):
                        .filter(members__pk=request.user.pk)
                        .filter(conference=conf))
     context['mode'] = 'submit'
+    context['open'] = task.task_open
 
     form_class = SubmitFormForm.get_form_class(context)
 

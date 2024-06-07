@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h2>Submission to {{task.track.longname}}, {{task.longname}} task</h2>
+<h2>Submission to {{task.track.longname}}, {{task.longname}}</h2>
 
 {% if form.header_template %}
 {% include form.header_template %}
@@ -15,7 +15,11 @@
 <form enctype="multipart/form-data" method="post">
 {% csrf_token %}
 {% bootstrap_form gen_form %}
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn btn-primary"
+        {% if not open %}
+        disabled
+        {% endif %}
+        >Submit</button>
 </form>
 
 {% endblock %}
