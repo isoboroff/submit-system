@@ -442,7 +442,7 @@ def submit_run(request, *args, **kwargs):
             if task.checker_file and task.checker_file != 'NONE':
                 run_check_script(sub, task.checker_file)
 
-            return HttpResponseRedirect(reverse('tasks',
+            return HttpResponseRedirect(reverse('tracks',
                                             kwargs={'conf': conf}))
         else:
             context['gen_form'] = form
@@ -493,7 +493,7 @@ def edit_submission(request, *args, **kwargs):
 
     run = (Submission.objects
            .filter(submitted_by_id=request.user.id)
-           .filter(task__conference__shortname=kwargs['conf'])
+           .filter(task__track__conference__shortname=kwargs['conf'])
            .filter(runtag=kwargs['runtag'])[0])
 
     form_info = {'conf': conf,
@@ -522,7 +522,7 @@ def edit_submission(request, *args, **kwargs):
             stuff = form.cleaned_data
             run = (Submission.objects
                    .filter(submitted_by_id=request.user.id)
-                   .filter(task__conference__shortname=kwargs['conf'])
+                   .filter(task__track__conference__shortname=kwargs['conf'])
                    .filter(runtag=stuff['runtag'])[0])
             stuff = form.cleaned_data
             org = (Organization.objects
@@ -569,7 +569,7 @@ def delete_submission(request, *args, **kwargs):
         run_dir =  (Path(settings.MEDIA_ROOT) / run.file.name).parent
         shutil.rmtree(run_dir, ignore_errors=True)
         return HttpResponseRedirect(
-            reverse_lazy('tasks', kwargs={'conf': kwargs['conf']}))
+            reverse_lazy('tracks', kwargs={'conf': kwargs['conf']}))
 
 
 @evalbase_login_required

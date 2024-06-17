@@ -149,12 +149,12 @@ class SubmitFormForm(forms.Form):
 
     def make_runtag_checker(context):
         def thunk(value):
-            if runtag == 'submit' or runtag == 'list':
+            if value == 'submit' or value == 'list':
                 raise ValidationError(
                     _('Submissions may not be named "submit" or "list"'))
 
             tags = (Submission.objects
-                    .filter(task__conference=context['conf'])
+                    .filter(task__track__conference=context['conf'])
                     .filter(runtag=value))
             if tags:
                 raise ValidationError(

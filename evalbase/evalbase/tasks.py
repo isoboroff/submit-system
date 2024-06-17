@@ -33,12 +33,12 @@ def run_check_script(submission, script, *args):
                           text=True)
 
     errlog = ''
-    errlog_file = subm_path.with_name(submission.runtag + '.errlog')
+    errlog_file = subm_path.with_name(submission.file.name + '.errlog')
     if errlog_file.exists():
         with open(errlog_file, 'r') as errlog_fp:
             errlog = errlog_fp.read()
 
-    submission.check_output = errlog + '\n' + proc.stdout + '\n' + proc.stderr + '\n'
+    submission.check_output = errlog + '\n'
     if proc.returncode == 0:
         submission.is_validated = Submission.ValidationState.SUCCESS
     else:

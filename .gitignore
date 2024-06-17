@@ -7,3 +7,4 @@ venv/
 trec-2023-fixture.json
 *.log
 *.pid
+.DS_Store

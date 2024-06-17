@@ -158,7 +158,7 @@ def user_may_edit_submission(view_func):
         if 'conf' not in kwargs or 'runtag' not in kwargs:
             raise Http404('No such conf or runtag')
         sub = get_object_or_404(Submission,
-                                Q(task__conference__shortname=kwargs['conf']) &
+                                Q(task__track__conference__shortname=kwargs['conf']) &
                                 Q(runtag=kwargs['runtag']))
         if (sub.submitted_by == request.user or
             request.user == sub.org.owner):

@@ -138,7 +138,7 @@ class Task(models.Model):
     required = models.BooleanField()
     task_open = models.BooleanField()
     deadline = models.DateField(null=True, blank=True)
-    checker_file = models.CharField(max_length=30, default="NONE")
+    checker_file = models.CharField(max_length=50, default="NONE")
 
     def __str__(self):
         # return "/".join([self.conference.shortname, self.shortname])
@@ -192,7 +192,7 @@ class SubmitFormField(models.Model):
         ordering = ['sequence']
 
 def get_submission_path(submission, filename):
-    return 'submissions/{0}/{1}/results/{2}/{3}'.format(submission.task.conference.results_root,
+    return 'submissions/{0}/{1}/results/{2}/{3}'.format(submission.task.track.conference.results_root,
                                                         submission.task.shortname,
                                                         submission.runtag,
                                                         submission.runtag)
@@ -225,7 +225,7 @@ class Submission(models.Model):
     check_output = models.TextField(blank=True)
 
     def __str__(self):
-        return f'{self.task.conference.shortname}/{self.runtag}'
+        return f'{self.task.track.conference.shortname}/{self.runtag}'
 
 
 class SubmitMeta(models.Model):
