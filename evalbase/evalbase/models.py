@@ -142,7 +142,7 @@ class Task(models.Model):
 
     def __str__(self):
         # return "/".join([self.conference.shortname, self.shortname])
-        return self.longname
+        return f'{self.track.conference.shortname}/{self.track.shortname}/{self.shortname}: {self.longname}'
 
 class SubmitForm(models.Model):
     """A SubmitForm is a form for submitting something to a Task."""
