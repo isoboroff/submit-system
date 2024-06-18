@@ -144,6 +144,10 @@ class SubmitFormForm(forms.Form):
                     label=field.question,
                     choices=[('yes', 'Yes'), ('no', 'No')])
 
+            fields[field.meta_key].required = field.required
+            fields[field.meta_key].blank = not field.required
+            fields[field.meta_key].help_text = field.help_text
+
         return type('SubmitFormForm', (forms.Form,), fields)
 
 

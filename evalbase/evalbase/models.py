@@ -185,6 +185,13 @@ class SubmitFormField(models.Model):
     question_type = models.IntegerField(
         choices=QuestionType.choices,
         default=QuestionType.TEXT)
+    required = models.BooleanField(
+        default=True)
+    help_text = models.CharField(
+        max_length=150,
+        blank=True,
+        default='')
+
     def __str__(self):
         return self.meta_key
 

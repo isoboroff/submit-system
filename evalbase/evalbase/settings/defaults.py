@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'pinax.announcements',
     'csvexport',
     'evalbase.templatetags.get_fields',
+    'django_select2',
     'evalbase',
 ]
 
@@ -150,6 +151,11 @@ LOGIN_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CHECK_SCRIPT_PATH = Path(BASE_DIR) / 'checkers'
+
+# Bootstrap5 config
+BOOTSTRAP5 = {
+    'set_placeholder': False
+}
 
 # Huey config
 HUEY = {
