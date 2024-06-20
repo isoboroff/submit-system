@@ -1,0 +1,9 @@
+./empty.seq.P.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) ./empty.seq.P.videoFeatureExtractionResults.xml
+Error: Empty sequence number provided for query 685 in run# 1 of UIT
+Error: Invalid result item sequence number [] for query 685 in run# 1 of UIT
+Error: Empty sequence number provided for query 686 in run# 1 of UIT
+Error: Invalid result item sequence number [] for query 686 in run# 1 of UIT
+
+Finished processing (CheckAdhocSubmissions.java) ./empty.seq.P.videoFeatureExtractionResults.xml

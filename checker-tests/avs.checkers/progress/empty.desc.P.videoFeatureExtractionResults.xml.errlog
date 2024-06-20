@@ -1,0 +1,5 @@
+./empty.desc.P.videoFeatureExtractionResults.xml: Error --- XML validation failed
+[Error] empty.desc.P.videoFeatureExtractionResults.xml:6:108: Attribute "desc" is required and must be specified for element type "videoAdhocSearchRunResult".
+./empty.desc.P.videoFeatureExtractionResults.xml: 754 ms (202 elems, 407 attrs, 385 spaces, 0 chars)
+
+Finished processing (CheckAdhocSubmissions.java) ./empty.desc.P.videoFeatureExtractionResults.xml

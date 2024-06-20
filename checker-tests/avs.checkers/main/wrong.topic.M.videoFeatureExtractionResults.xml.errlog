@@ -1,0 +1,7 @@
+main/wrong.topic.M.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) main/wrong.topic.M.videoFeatureExtractionResults.xml
+Error: Invalid query [608] in run# 1 of PId UIT
+Error: Missing results for query 758 in run# 1 of UIT
+
+Finished processing (CheckAdhocSubmissions.java) main/wrong.topic.M.videoFeatureExtractionResults.xml
