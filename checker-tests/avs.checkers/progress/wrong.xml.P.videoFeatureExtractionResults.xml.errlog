@@ -1,0 +1,4 @@
+./wrong.xml.P.videoFeatureExtractionResults.xml: Error --- XML validation failed
+[Fatal Error] wrong.xml.P.videoFeatureExtractionResults.xml:33:6: Element type "tNum" must be followed by either attribute specifications, ">" or "/>".
+
+Finished processing (CheckAdhocSubmissions.java) ./wrong.xml.P.videoFeatureExtractionResults.xml

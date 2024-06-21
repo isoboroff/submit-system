@@ -1,0 +1,9 @@
+main/invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml: Error --- XML validation failed
+[Error] invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml:6:158: Attribute "trType" with value "Z" must have a value from the list "A D E F ".
+[Error] invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml:6:158: Attribute "class" with value "A" must have a value from the list "M F R ".
+[Error] invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml:6:158: Attribute "task" with value "N" must have a value from the list "M P ".
+[Error] invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml:6:158: Attribute "novelty" with value "M" must have a value from the list "N C ".
+[Error] invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml:6:158: Attribute "priority" with value "19" must have a value from the list "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ".
+main/invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml: 402 ms (202 elems, 448 attrs, 378 spaces, 0 chars)
+
+Finished processing (CheckAdhocSubmissions.java) main/invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml

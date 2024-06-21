@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding='ISO-8859-1'?>
+<!-- DTD for a results of a single TRECVID Adhoc search run -->
+
+
+<!-- A video Adhoc search run result contains the search results for
+a single system (variant) run against all the queries
+-->
+
+<!ELEMENT videoAdhocSearchRunResult (videoAdhocSearchTopicResult+)>
+
+<!-- trtype - system training type (see Guidelines)
+
+     class - processing type ('M' manually assisted,  'F' for "fully automatic", or 'R' for "relevance feedback") 
+
+     task - Task type ('M' Main task, 'P' Progress subtask)
+
+     novelty - Novelty run flag ('N' Novelty run, 'C' Common run - not focused on unique shots)
+
+     pid - short participant ID - taken from the tv*.who.what table in the
+           active participant's area of the TRECVID website
+
+  priority - evaluation priority (1,2,...) If not all runs can be
+             judged, then judging will begin with the run with priorty
+             1 and so on.
+
+     desc - verbal description of the characteristics of this run,
+             how it differs in approach, resources, etc from others
+             runs.
+
+
+-->
+<!ATTLIST videoAdhocSearchRunResult   trType  (A|D|E|F)  #REQUIRED
+	                              class   (M|F|R)   #REQUIRED
+	                              task    (M|P)   #REQUIRED
+                                      novelty (N|C)   #REQUIRED
+                                      pid   CDATA     #REQUIRED 
+                                 priority   (1|2|3|4|5|6|7|8|9|10|11|12|13|14|15) #REQUIRED
+                                     desc   CDATA     #REQUIRED>
+
+
+<!-- A video adhoc search topic result contains the search results for
+a single query.
+-->
+<!ELEMENT videoAdhocSearchTopicResult (item*)>
+
+
+<!-- tNum - number of the topic (Query ID) searched to produce this result
+
+
+     elapsedTime - for manually-assisted and relevance feedback searches, the elapsed time in
+                   seconds from the time the searcher saw the topic
+                   until the searching on that topic ended.
+
+                 - for automatic searches, would be the time in seconds
+                   from the time the system is presented with the
+                   topic until the searching on that topic ended
+
+-->
+
+<!ATTLIST videoAdhocSearchTopicResult   tNum   CDATA  #REQUIRED
+                            elapsedTime   CDATA  #REQUIRED>                            
+
+
+<!-- A result item identifies a video clip retrieved as relevant
+to the topic for this video search result.
+-->
+<!ELEMENT item     EMPTY >
+
+<!-- seqNum - a sequence number 1,2,3,...  The lower the sequence
+number the greater the likelihood the clip meets the need expressed by
+the topic.
+              For Ad-hoc search: up to 1000 items may be returned per topic.
+
+     shotId - the id of the shot from the V3C1 standard master shot reference.
+              This id is unique across files and take the form of shotxxxx_yyyy
+
+elapsedTime - the elapsed time in seconds from the time the searcher
+              saw the topic until this item was added to the result
+
+Explainability options:
+timeStamp   - the timestamp (in seconds) of the frame in the shot used to provide a 
+              bounding box (ulX, ulY, lrX, lrY) to highlght salient regions highly relevant to the query
+              Assume the UpperLeft point in the frame at the timeStamp point has coordinates (0,0)
+              and lrX > ulX, lrY > ulY. 
+ulX         - the upper left X-coordinate (horizontal) in pixels
+ulY         - the upper left Y-coordinate (vertical) in pixels
+lrX         - the lower right X-coordinate (horizontal) in pixels
+lrY         - the lower right Y-coordinate (vertical) in pixels
+--> 
+<!ATTLIST item seqNum      CDATA #REQUIRED
+               shotId      CDATA #REQUIRED
+               elapsedTime CDATA #IMPLIED
+               timeStamp   CDATA #IMPLIED
+               ulX         CDATA #IMPLIED
+               ulY         CDATA #IMPLIED
+               lrX         CDATA #IMPLIED
+               lrY         CDATA #IMPLIED>
+                         
+

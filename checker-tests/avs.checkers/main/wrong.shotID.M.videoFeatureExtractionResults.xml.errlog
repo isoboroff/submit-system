@@ -1,0 +1,7 @@
+main/wrong.shotID.M.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) main/wrong.shotID.M.videoFeatureExtractionResults.xml
+Error: Invalid shot ID [shot14635_200] for query 753 in run# 1 of UIT
+Error: Invalid shot ID [shot10384_] for query 757 in run# 1 of UIT
+
+Finished processing (CheckAdhocSubmissions.java) main/wrong.shotID.M.videoFeatureExtractionResults.xml

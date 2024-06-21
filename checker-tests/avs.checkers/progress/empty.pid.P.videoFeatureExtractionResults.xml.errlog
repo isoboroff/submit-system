@@ -1,0 +1,6 @@
+./empty.pid.P.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) ./empty.pid.P.videoFeatureExtractionResults.xml
+Error: Empty pid provided in run# 1
+
+Finished processing (CheckAdhocSubmissions.java) ./empty.pid.P.videoFeatureExtractionResults.xml

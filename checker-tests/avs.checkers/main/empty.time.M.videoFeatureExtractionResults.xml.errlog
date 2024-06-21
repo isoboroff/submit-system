@@ -1,0 +1,11 @@
+main/empty.time.M.videoFeatureExtractionResults.xml: Error --- Java exception during content checking
+
+Started processing (CheckAdhocSubmissions.java) main/empty.time.M.videoFeatureExtractionResults.xml
+java.lang.NumberFormatException: For input string: "": elapsedTime is not correctly formated
+java.lang.NumberFormatException: For input string: ""
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:565)
+	at java.base/java.lang.Integer.parseInt(Integer.java:685)
+	at CheckAdhocSubmissions.processSinSubmissionFile(CheckAdhocSubmissions.java:328)
+	at CheckAdhocSubmissions.main(CheckAdhocSubmissions.java:83)
+

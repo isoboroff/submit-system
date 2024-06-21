@@ -1,0 +1,9 @@
+./wrong.topic.P.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) ./wrong.topic.P.videoFeatureExtractionResults.xml
+Error: Invalid query [7] in run# 1 of PId UIT
+Error: Invalid query [86] in run# 1 of PId UIT
+Error: Missing results for query 686 in run# 1 of UIT
+Error: Missing results for query 687 in run# 1 of UIT
+
+Finished processing (CheckAdhocSubmissions.java) ./wrong.topic.P.videoFeatureExtractionResults.xml

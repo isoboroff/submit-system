@@ -1,0 +1,11 @@
+perl tv16.check_avs.pl main/all.OK.M.explain.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/all.OK.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/empty.desc.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/empty.pid.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/empty.seq.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/empty.shotid.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/empty.time.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/invalid.trType.class.task.novelty.priority.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/wrong.shotID.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/wrong.topic.M.videoFeatureExtractionResults.xml
+perl tv16.check_avs.pl main/wrong.xml.M.videoFeatureExtractionResults.xml

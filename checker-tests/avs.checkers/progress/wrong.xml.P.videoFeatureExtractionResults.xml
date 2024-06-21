@@ -1,0 +1,271 @@
+
+<!DOCTYPE videoAdhocSearchResults SYSTEM "https://www-nlpir.nist.gov/projects/tv2024/dtds/videoAdhocSearchResults.dtd"> 
+<!-- Partial example video feature extraction results for a run -->
+
+<videoAdhocSearchResults>
+<videoAdhocSearchRunResult trType="A" pid="UIT" class="F"  algo="V" task = "P" novelty = "C" priority="1" desc="This run uses the top secret x-component">
+<videoAdhocSearchTopicResult tNum="681" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="682" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<tNum="683" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="684" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="685" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="686" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="687" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="688" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="689" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="690" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="691" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="692" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="693" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="694" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="695" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="696" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="697" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="698" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="699" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+<videoAdhocSearchTopicResult tNum="700" elapsedTime="5">
+<item seqNum="1" shotId="shot17000_2" />
+<item seqNum="2" shotId="shot11484_3" />
+<item seqNum="3" shotId="shot09010_19" /> 
+<item seqNum="4" shotId="shot10893_2" /> 
+<item seqNum="5" shotId="shot15000_4" /> 
+<item seqNum="6" shotId="shot12635_13" /> 
+<item seqNum="8" shotId="shot14438_20" /> 
+<item seqNum="9" shotId="shot08515_12" /> 
+<!-- ... -->
+<item seqNum="1000" shotId="shot09821_2" />
+</videoAdhocSearchTopicResult>
+
+
+</videoAdhocSearchRunResult>
+
+</videoAdhocSearchResults>
+

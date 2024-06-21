@@ -1,0 +1,6 @@
+main/empty.shotid.M.videoFeatureExtractionResults.xml: Error --- Submission content error(s)
+
+Started processing (CheckAdhocSubmissions.java) main/empty.shotid.M.videoFeatureExtractionResults.xml
+Error: Invalid shot ID [] for query 766 in run# 1 of UIT
+
+Finished processing (CheckAdhocSubmissions.java) main/empty.shotid.M.videoFeatureExtractionResults.xml
