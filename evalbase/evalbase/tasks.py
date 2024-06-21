@@ -19,24 +19,28 @@ def run_check_script(submission, script, *args):
     if not script_path.exists():
         raise FileNotFoundError(script_path)
 
-    subm_dir = SUBM_ROOT / Path(submission.file.name).parent
+    subm_file = SUBM_ROOT / submission.file.name
+
+    subm_dir = SUBM_ROOT / subm_file.parent
     if not subm_dir.exists():
         raise FileNotFoundError(subm_dir)
 
     subm_path = SUBM_ROOT / submission.file.name
-    if not subm_path.exists():
-        raise FileNotFoundError(subm_path)
+    if not subm_file.exists():
+        raise FileNotFoundError(subm_file)
 
-    proc = subprocess.run([script_path, *args, subm_path],
+    proc = subprocess.run([script_path, *args, subm_file.name],
                           cwd=subm_dir,
                           capture_output=True,
                           text=True)
 
-    errlog = ''
-    errlog_file = subm_path.with_name(submission.file.name + '.errlog')
+    errlog = 'no errlog'
+    errlog_file = subm_dir / (subm_file.name + '.errlog')
     if errlog_file.exists():
         with open(errlog_file, 'r') as errlog_fp:
             errlog = errlog_fp.read()
+    else:
+        raise FileNotFoundError(errlog_file)
 
     submission.check_output = errlog + '\n'
     if proc.returncode == 0:
