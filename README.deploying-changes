@@ -1,0 +1,32 @@
+Make sure everything you want to commit is committed.
+
+I have a remote for ir.nist.gov called 'ir'
+
+✗ git remote -v
+gitlab  https://oauth2:token@gitlab.nist.gov/gitlab/soboroff/submit-system.git (fetch)
+gitlab  https://oauth2:token@gitlab.nist.gov/gitlab/soboroff/submit-system.git (push)
+ir      IR:/raids/ir1/submit-system.git (fetch)
+ir      IR:/raids/ir1/submit-system.git (push)
+
+/raids/ir1/submit-system.git is a bare repository, so it can be pushed to.  On IR, the deployed system is checked out at /home/ians/submit-system.
+
+'IR' below refers to a host alias in my .ssh/config file for ssh'ing into IR.  You probably have this set up from Darrin... test with 'ssh IR'.
+
+So, once changes are commited:
+
+#if you haven't added the remote
+git remote add ir IR:/raids/ir1/submit-system.git
+
+git push ir
+
+ssh IR
+
+cd /home/ians/submit-system
+./stop-me.sh
+git checkout main
+git pull          # this merges the changes you pushed
+git checkout deploy
+git merge --no-edit main  # and this merges them into the deployed branch
+./start-me.sh
+
+I have a post-merge hook set up to build any Java classes that came in with the merge.  If you don't see output like that fly by, you should check evalbase/checkers and confirm that there are .class files and they are newer than the .java files.
