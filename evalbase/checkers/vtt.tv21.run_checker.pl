@@ -9,6 +9,7 @@
 # Usage : perl vtt.tv21.run_checker.pl vtt_run_file
 
 use Scalar::Util qw(looks_like_number);
+use File::Basename;
 
 $num_args = $#ARGV+1;
 
@@ -35,10 +36,12 @@ $MAX_ERRORS = 1000;
 #@rem_vid = ();
 
 
-$errlog = $errlog_dir . "/" . $file . ".errlog";
+#$errlog = $errlog_dir . "/" . $file . ".errlog";
+$file = basename($file);
+$errlog = $file . ".errlog";
 
 open RUN, "< $file" or die "Can't open file $!";
-open ERR, "> $errlog" or die "Can't open file $!";
+open ERR, "> $errlog" or die ("Can't open error log for writing: $errlog");
 
 $errors = 0;
 @results = ();
@@ -62,7 +65,7 @@ chomp $line;
 
 if ((uc $taskType ne "D") && (uc $taskType ne "R"))
 {
-    $str = "Error: Task type can only be D (main task) or R (robustness subtask)";
+    $str = "Error: Task type can only be D (main task) or R (robustness subtask)\n";
     &error($str);
     print STDERR "Error: Task type can only be D (main task) or R (robustness subtask)\n";
     $lineCount++;
@@ -84,7 +87,7 @@ chomp $line;
 
 if (uc $df_type[0] ne "I" && uc $df_type[0] ne "V" && uc $df_type[0] ne "B")
 {
-    $str = "Error: Training data type can only be V (using Videos), I (using Images), or B (using both videos and images)";
+    $str = "Error: Training data type can only be V (using Videos), I (using Images), or B (using both videos and images)\n";
     &error($str);
     print STDERR "Error: Training data type can only be V (using Videos), I (using Images), or B (using both videos and images\n";
     $lineCount++;
@@ -92,7 +95,7 @@ if (uc $df_type[0] ne "I" && uc $df_type[0] ne "V" && uc $df_type[0] ne "B")
 
 if (uc $df_type[1] ne "V" && uc $df_type[1] ne "A")
 {
-    $str = "Error: Training feature type can only be V (visual features), or A (both audio and visual features)";
+    $str = "Error: Training feature type can only be V (visual features), or A (both audio and visual features)\n";
     &error($str);
     print STDERR "Error: Training feature type can only be V (visual features), or A (both audio and visual features)\n";
     $lineCount++;
@@ -109,7 +112,7 @@ chomp $line;
 ($tmp,$loss)=split /[=,\s]+/,"$line";
 if (lc $tmp ne "loss")
 {
-    $str = "Error: Loss function not specified";
+    $str = "Error: Loss function not specified\n";
     &error($str);
     print STDERR "Error: Loss function not specified\n";
     $lineCount++;
@@ -135,20 +138,20 @@ if ((uc $taskType eq "D") || (uc $taskType eq "R"))
 
         if ($subVideo < $minVideoID || $subVideo > $maxVideoID)
         {#invalid video ID
-            $str = "Error: invalid video [$subVideo] at line $lineCount of run $file";
+            $str = "Error: invalid video [$subVideo] at line $lineCount of run $file\n";
             print($line);
             &error($str);
             print STDERR "Error: invalid video [$subVideo] at line $lineCount of run $file\n";
         }
         elsif (!looks_like_number($subConf))
         {
-            $str = "Error: video [$subVideo] at line $lineCount of run $file has no confidence score!";
+            $str = "Error: video [$subVideo] at line $lineCount of run $file has no confidence score!\n";
             &error($str);
             print STDERR "Error: video [$subVideo] at line $lineCount of run $file has no confidence score!\n";
         }
         elsif ($subTxt eq "")
         {
-            $str = "Error: video [$subVideo] at line $lineCount of run $file has empty textual description!";
+            $str = "Error: video [$subVideo] at line $lineCount of run $file has empty textual description!\n";
             &error($str);
             print STDERR "Error: video [$subVideo] at line $lineCount of run $file has empty textual description!\n";
         }
@@ -158,7 +161,7 @@ if ((uc $taskType eq "D") || (uc $taskType eq "R"))
             $results[$subVideo]++;
             if ($results[$subVideo] > 1)
             {   #multiple submissions detected for the same video URL
-                $str = "Error: video [$subVideo] has multiple submissions (line $lineCount) of run $file";
+                $str = "Error: video [$subVideo] has multiple submissions (line $lineCount) of run $file\n";
                  &error($str);
                 print STDERR "Error: video [$subVideo] has multiple submissions (line $lineCount) of run $file\n";
             }
@@ -173,7 +176,7 @@ if ((uc $taskType eq "D") || (uc $taskType eq "R"))
     {
         if ($results[$x] < 1)
         {#missing video URL.
-            $str = "Error: video ID [$x] is missing from run $file";
+            $str = "Error: video ID [$x] is missing from run $file\n";
             &error($str);
             print STDERR "Error: video ID [$x] is missing from run $file\n";
         }
