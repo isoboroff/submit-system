@@ -1,0 +1,8 @@
+#!/bin/bash
+
+find . -name "*.java" -print | while read jcode; do
+    jclass=${jcode/java/class}
+    if [ ! -e "$jclass" -o "$jcode" -nt "$jclass" ]; then
+       javac $jcode
+    fi
+done
