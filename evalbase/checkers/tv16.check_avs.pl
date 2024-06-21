@@ -46,11 +46,11 @@ my $result = "";
 my $script_home = dirname(__FILE__);
 
 $results_file = shift or die $usage;
-
-$errlog = $errlog_dir . "/" . $results_file . ".errlog";
+$results_file = basename($results_file);
+$errlog = $results_file . ".errlog";
 
 open ERRLOG, ">$errlog"
-    or &sys_error("Can't open error log for writing:$errlog"); # Causes exit
+    or die("Can't open error log for writing:$errlog"); # Causes exit
 
 #--------------------------------------------------------------------------
 # Validate the submission file against the DTD
@@ -74,7 +74,6 @@ else
 {
 
 ############ Note : usage of 2>&1 in backticks probably calls /bin/bash (same environment as ir.gov). However in devel mode without backticks this shouldn't work (in tcsh)
-
     $result = `java -cp $script_home CheckAdhocSubmissions $results_file "$script_home/../aux" 2>&1`; # ir.gov
 
     # Never got to Java?
