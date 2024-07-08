@@ -129,6 +129,7 @@ class SubmitFormForm(forms.Form):
             elif field.question_type == SubmitFormField.QuestionType.CHECKBOX:
                 choices = list(map(lambda x: (x,x), field.choices.split(',')))
                 fields[field.meta_key] = forms.MultipleChoiceField(
+                    label=field.question,
                     widget=forms.CheckboxSelectMultiple,
                     choices=choices)
 
