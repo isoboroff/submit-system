@@ -234,7 +234,7 @@ def check_conf_and_task(view_func):
             raise Http404('No such conf')
         conf = get_object_or_404(Conference, shortname=kwargs['conf'])
         task = get_object_or_404(Task, shortname=kwargs['task'],
-                                 conference=conf)
+                                 track__conference=conf)
 
         kwargs['_conf'] = conf
         kwargs['_task'] = task
