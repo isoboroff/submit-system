@@ -233,7 +233,7 @@ public class CheckAdhocSubmissions{
 		String runclass = getAttribute("class",attributes,runIndex,null,null,null);
 		//		String targetData = getAttribute("targetData",attributes,runIndex,null,null,null);
 
-		readPids(pidHash, auxPath+"/tv24.pid");
+		readPids(pidHash, auxPath+"/tv24.pids");
 		String sysid = getAttribute("pid",attributes,runIndex,null,null,null);
 		if (sysid.equals("")) {
 		    System.err.println("Error: Empty pid provided in run# "+runIndex);
