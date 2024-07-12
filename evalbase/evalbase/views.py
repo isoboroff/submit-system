@@ -402,6 +402,7 @@ def submit_run(request, *args, **kwargs):
                        .filter(members__pk=request.user.pk)
                        .filter(conference=conf))
     context['mode'] = 'submit'
+    context['testing'] = submitform.testing
     context['open'] = task.task_open
 
     form_class = SubmitFormForm.get_form_class(context)

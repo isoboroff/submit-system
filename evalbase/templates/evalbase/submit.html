@@ -16,7 +16,7 @@
 {% csrf_token %}
 {% bootstrap_form gen_form %}
 <button type="submit" class="btn btn-primary"
-        {% if not open %}
+        {% if not open and not testing %}
         disabled
         {% endif %}
         >Submit</button>

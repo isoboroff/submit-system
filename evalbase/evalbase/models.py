@@ -154,6 +154,8 @@ class SubmitForm(models.Model):
     header_template = models.CharField(
         max_length=30,
         blank=True)
+    testing = models.BooleanField(default=False)
+
 
     def __str__(self):
         return "/".join([self.task.track.conference.shortname, self.task.track.shortname, self.task.shortname])
