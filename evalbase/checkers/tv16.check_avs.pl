@@ -74,7 +74,7 @@ else
 {
 
 ############ Note : usage of 2>&1 in backticks probably calls /bin/bash (same environment as ir.gov). However in devel mode without backticks this shouldn't work (in tcsh)
-    $result = `java -cp $script_home CheckAdhocSubmissions $results_file "$script_home/../aux" 2>&1`; # ir.gov
+    $result = `java -cp $script_home CheckAdhocSubmissions $results_file "$script_home/aux" 2>&1`; # ir.gov
 
     # Never got to Java?
     if ($result !~ /Started processing/s)
