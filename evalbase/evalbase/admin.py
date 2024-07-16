@@ -50,6 +50,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     def clear_slacked(modeladmin, request, queryset):
         queryset.update(added_to_slack=False)
 
+
 class SubmitFormFieldInline(admin.TabularInline):
     model = SubmitFormField
     extra = 3
@@ -58,6 +59,7 @@ class SubmitFormFieldInline(admin.TabularInline):
 @admin.register(SubmitForm)
 class SubmitFormAdmin(admin.ModelAdmin):
     inlines = [ SubmitFormFieldInline ]
+    actions = ["replicate_form"]
 
     class TaskChoiceField(forms.ModelChoiceField):
         def label_from_instance(self, obj):
@@ -67,6 +69,17 @@ class SubmitFormAdmin(admin.ModelAdmin):
         if db_field.name == 'task':
             return SubmitFormAdmin.TaskChoiceField(queryset=Task.objects.all())
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    @admin.action(description='Make a copy of a submission form')
+    def replicate_form(modeladmin, request, queryset):
+        for a_form in queryset.all():
+            the_fields = a_form.submitformfield_set.all()
+            a_form.pk = None
+            a_form.id = None
+            a_form._state.adding = True
+            a_form.save()
+            a_form.submitformfield_set.set(the_fields)
+            a_form.save()
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
