@@ -297,7 +297,7 @@ def conf_tracks(request, *args, **kwargs):
     myruns = (Submission.objects
               .filter(task__track__conference=conf)
               .filter(org__in=orgs)
-              .order_by('task'))
+              .order_by('task', 'date'))
 
     agreements = conf.agreements.exclude(signature__user=request.user.pk)
 
