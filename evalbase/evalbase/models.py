@@ -1,3 +1,6 @@
+import shutil
+from pathlib import Path
+
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
@@ -232,6 +235,11 @@ class Submission(models.Model):
         default=ValidationState.WAITING)
     has_evaluation = models.BooleanField()
     check_output = models.TextField(blank=True)
+
+    def delete(self, *args, **kwargs):
+        run_dir =  (Path(settings.MEDIA_ROOT) / self.file.name).parent
+        shutil.rmtree(run_dir, ignore_errors=True)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return f'{self.task.track.conference.shortname}/{self.runtag}'

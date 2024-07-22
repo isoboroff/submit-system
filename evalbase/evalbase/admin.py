@@ -134,4 +134,6 @@ class SubmitMetaInline(admin.TabularInline):
 class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmitMetaInline]
 
-
+    def delete_queryset(self, request, queryset):
+        for submission in queryset:
+            submission.delete()
