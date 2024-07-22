@@ -11,129 +11,151 @@ def read_json(data_path):
         data_items = json.load(rfile)
     return data_items
 
+class Errlog():
+    '''This is meant to be used in a context manager, for example
+    with Errlog(foo) as log:
+        ...
+    If not, be sure to call .close() when done.
+    '''
+    def __init__(self, runfile, max_errors=25):
+        self.filename = runfile + '.errlog'
+        self.fp = open(self.filename, 'w')
+        self.error_count = 0
+        self.max_errors = max_errors
+
+    def __enter__(self):
+        return self
+
+    def close(self):
+        if self.error_count == 0:
+            print('No errors', file=self.fp)
+        self.fp.close()
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+    def error(self, msg):
+        print(f'ERROR {msg}', file=self.fp)
+        self.error_count += 1
+        assert self.error_count <= self.max_errors, 'Too many errors'
+
+    def warn(self, msg):
+        print(f'WARNING {msg}', file=self.fp)
+
+    def say(self, msg):
+        print(f'{msg}', file=self.fp)
+
 
 def check_fields(data_path, question_size=52):
     #### check the json file contains the required fields
     data_items = read_json(data_path)
     if len(data_items) != question_size:
-        print(
+        log.error(
             f"submitted prediction json file doesn't have predictions for all {question_size} questions!"
         )
-        sys.exit(0)
 
     for data_item in data_items:
         if "question_id" not in data_item:
-            print(
+            log.error(
                 f"submitted prediction json file doesn't have required 'question_id' field for {data_item}!"
             )
-            sys.exit(0)
 
         if data_item["question_id"] == "" or data_item["question_id"] == None:
-            print(
+            log.error(
                 f"submitted prediction json file have empty 'question_id' field for {data_item}"
             )
-            sys.exit(0)
 
         if "relevant_videos" not in data_item:
-            print(
+            log.error(
                 f"submitted prediction json file doesn't have required 'relevant_videos' field for {data_item}!"
             )
-            sys.exit(0)
 
         if (
             "relevant_videos" in data_item
             and type(data_item["relevant_videos"]) is not list
         ):
-            print(
+            log.error(
                 f"submitted prediction json file doesn't have 'relevant_videos' list for {data_item}!"
             )
-            sys.exit(0)
 
         if len(data_item["relevant_videos"]) == 0:
-            print(
+            log.error(
                 f"submitted prediction json file have zero 'relevant_videos' for questiond id {data_item['question_id']}!"
             )
-            sys.exit(0)
 
         for rel_vid_item in data_item["relevant_videos"]:
             if type(rel_vid_item) is not dict:
-                print(
+                log.error(
                     f"submitted prediction json file have following issue: the data type is not dictionary for one of the 'relevant_videos' related to questiond id {data_item['question_id']}!"
                 )
-                sys.exit(0)
 
             if "video_id" not in rel_vid_item:
-                print(
+                log.error(
                     f"submitted prediction json file doesn't have required 'video_id' field for questiond id {data_item['question_id']}!"
                 )
-                sys.exit(0)
 
             if rel_vid_item["video_id"] == "" or rel_vid_item["video_id"] == None:
-                print("'video_id' field can not be empty")
-                sys.exit(0)
+                log.error("'video_id' field can not be empty")
 
             if "relevant_score" not in rel_vid_item:
-                print(
+                log.error(
                     f"submitted prediction json file doesn't have required 'relevant_score' field for questiond id {data_item['question_id']}!"
                 )
-                sys.exit(0)
 
             if (
                 rel_vid_item["relevant_score"] == ""
                 or rel_vid_item["relevant_score"] == None
             ):
-                print(
+                log.error(
                     f"'relevant_score' field can not be empty for for questiond id {data_item['question_id']}!"
                 )
 
-                sys.exit(0)
 
             if type(rel_vid_item["relevant_score"]) not in [float, int]:
-                print(
+                log.error(
                     f"'relevant_score' field must be int/float value for questiond id {data_item['question_id']}!"
                 )
-                sys.exit(0)
 
             if "answer_start_second" not in rel_vid_item:
-                print(
+                log.error(
                     f"submitted prediction json file doesn't have required 'answer_start_second' field for questiond id {data_item['question_id']} and relevant_video {rel_vid_item['video_id']}!"
                 )
-                sys.exit(0)
 
             if "answer_end_second" not in rel_vid_item:
-                print(
+                log.error(
                     f"submitted prediction json file doesn't have required 'answer_end_second' field for questiond id {data_item['question_id']} and relevant_video {rel_vid_item['video_id']}!"
                 )
-                sys.exit(0)
 
             if (
                 rel_vid_item["answer_start_second"] == ""
                 or rel_vid_item["answer_start_second"] == None
             ):
-                print("'answer_start_second' field can not be empty")
-                sys.exit(0)
+                log.error("'answer_start_second' field can not be empty")
 
             if (
                 rel_vid_item["answer_end_second"] == ""
                 or rel_vid_item["answer_end_second"] == None
             ):
-                print("'answer_start_second' field can not be empty")
-                sys.exit(0)
+                log.error("'answer_start_second' field can not be empty")
 
             if type(rel_vid_item["answer_start_second"]) not in [float, int] or type(
                 rel_vid_item["answer_end_second"]
             ) not in [float, int]:
-                print(
+                log.error(
                     "'answer_start_second'/'answer_end_second' field must be int/float value!"
                 )
-                sys.exit(0)
 
 
 def check_file_name_and_type(submission_file):
     ### check the file name
-    if os.path.basename(submission_file) != "predictions.json":
-        print("submission json file name is invalid!")
-        sys.exit(0)
+    # if os.path.basename(submission_file) != "predictions.json":
+    #    log.error("submission json file name is invalid!")
+    try:
+        with open(submission_file, 'r') as fp:
+            testing = json.load(fp)
+    except ValueError:
+        log.error('File is not JSON')
+    return False
 
 
 def check_non_ascii_characters(submission_file_path):
@@ -142,8 +164,7 @@ def check_non_ascii_characters(submission_file_path):
     for data_item in data_item_list:
         for key, value in data_item.items():
             if not str(value).isascii():
-                print(f"Non-ascii characters in the file: {value}")
-                sys.exit(0)
+                log.error(f"Non-ascii characters in the file: {value}")
     return True
 
 
@@ -154,7 +175,12 @@ def read_and_validate_json(submission_file_path):
     check_fields(submission_file_path)
     check_non_ascii_characters(submission_file_path)
 
-    print("Submission file validated successfully!!")
+    if log.error_count > 0:
+        log.error("Submission file has errors, please fix and resubmit")
+        sys.exit(255)
+    else:
+        log.say("Submission file validated successfully!!")
+        sys.exit(0)
 
 
 def main():
@@ -163,4 +189,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    with Errlog(sys.argv[1]) as log:
+        main()
