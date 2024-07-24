@@ -33,13 +33,19 @@
         {{ task.longname }}
         {% if task.task_open %}
         <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
+        {% elif track.shortname in tracks_i_coordinate or user.is_staff %}
+          {% for submitform in task.submit_form.all %}
+            {% if submitform.testing %}
+              <a href="{% url 'submit' conf.shortname task.shortname %}">(submission form for testing)</a>
+            {% endif %}
+          {% endfor %}
         {% else %}
         (submissions not open)
         {% endif %}
         {% if task.required %}
         <span class="text-danger">required!</span>
         {% endif %}
-        {% if track.shortname in tracks_i_coordinate %}
+        {% if track.shortname in tracks_i_coordinate or user.is_staff %}
         <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
           (see all submissions)</a>
         {% endif %}
