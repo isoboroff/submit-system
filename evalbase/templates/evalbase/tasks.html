@@ -46,8 +46,10 @@
         <span class="text-danger">required!</span>
         {% endif %}
         {% if track.shortname in tracks_i_coordinate or user.is_staff %}
+        {% if task.submission_set.exists %}
         <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
           (see all submissions)</a>
+        {% endif %}
         {% endif %}
       </li>
       {% endfor %}
