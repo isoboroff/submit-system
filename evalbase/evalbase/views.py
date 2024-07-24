@@ -54,8 +54,10 @@ def profile_view(request):
         return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
     context = {'userprofile': profile,
                'orgs': (Organization.objects
-                        .filter(Q(members=request.user)|Q(owner=request.user))
-                        .filter(conference__complete=False)),
+                        .filter(
+                            Q(members=request.user)|Q(owner=request.user))
+                        .filter(conference__complete=False)
+                        .distinct()),
                'signatures': Signature.objects.filter(user=request.user)}
     return render(request, 'evalbase/profile_view.html', context)
 
