@@ -127,7 +127,7 @@ def user_is_track_coordinator(view_func):
                 raise Http404('No such conf or track')
             is_coord = (Track.objects
                         .filter(conference__shortname=kwargs['conf'])
-                        .filter(shortname=kwargs['track'])
+                        .filter(shortname=kwargs['task'])
                         .filter(coordinators__pk=request.user.pk))
 
         if is_coord:
