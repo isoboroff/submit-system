@@ -3,9 +3,25 @@
 {% block title %} {{ conf }}{{ task }} runs {% endblock %}
 
 {% block content %}
-<ul>
+<table class="sortable table">
+  <thead>
+    <tr>
+      <th>Runtag</th>
+      <th>Org</th>
+      <th>Date</th>
+      {% for m in runs.0.submitmeta_set.all %}
+        <th>{{ m.key }}</th>
+      {% endfor %}
+  </thead>
   {% for r in runs %}
-  <li>{{r.runtag}}</li>
+  <tr>
+    <td>{{ r.runtag }}</td>
+    <td>{{ r.org.shortname }}</td>
+    <td>{{ r.date }}</td>
+    {% for m in r.submitmeta_set.all %}
+      <td>{{ m.value }}</td>
+    {% endfor %}
+  </tr>
   {% endfor %}
-</ul>
+</table>
 {% endblock %}
