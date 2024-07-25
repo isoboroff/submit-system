@@ -125,10 +125,9 @@ def user_is_track_coordinator(view_func):
         else:
             if 'conf' not in kwargs or 'task' not in kwargs:
                 raise Http404('No such conf or track')
-            is_coord = (Track.objects
-                        .filter(conference__shortname=kwargs['conf'])
-                        .filter(shortname=kwargs['task'])
-                        .filter(coordinators__pk=request.user.pk))
+            task = get_object_or_404(Task, shortname=kwargs['task'])
+            track = task.track
+            is_coord = track.coordinators.filter(pk=request.user.pk)
 
         if is_coord:
             kwargs['_is_coord'] = is_coord
