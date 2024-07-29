@@ -1,7 +1,7 @@
 import functools
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
@@ -214,11 +214,17 @@ def agreements_signed(view_func):
         signed = True
         for ag in conf.agreements.all():
             signed = False
+            to_sign = ag
             for sig in ag.signature_set.all():
                 if sig.user == request.user:
                     signed = True
         if not signed:
-            raise PermissionDenied('You haven\'t signed the necessary agreements')
+            # raise PermissionDenied('You haven\'t signed the necessary agreements')
+            return HttpResponseRedirect(
+                reverse('sign-agreement',
+                        kwargs={'conf': conf,
+                                'agreement': to_sign}))
+
         return view_func(request, *args, **kwargs)
     return wrapped_view
 

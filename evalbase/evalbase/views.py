@@ -16,7 +16,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, MultipleObjectsReturned
 from django.views.decorators.cache import never_cache
 from django.db.models import Count
@@ -302,6 +302,10 @@ def conf_tracks(request, *args, **kwargs):
               .order_by('task', 'date'))
 
     agreements = conf.agreements.exclude(signature__user=request.user.pk)
+    if agreements:
+        return HttpResponseRedirect(reverse_lazy('sign-agreement',
+                                     kwargs={'conf': conf,
+                                             'agreement': agreements[0]}))
 
     tracks_i_coordinate = set()
     for track in Track.objects.filter(coordinators__pk=request.user.pk):

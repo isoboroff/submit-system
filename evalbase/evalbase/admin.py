@@ -61,6 +61,7 @@ class SubmitFormAdmin(admin.ModelAdmin):
     inlines = [ SubmitFormFieldInline ]
     actions = ["replicate_form"]
     save_as = True
+    view_on_site = True
 
     class TaskChoiceField(forms.ModelChoiceField):
         def label_from_instance(self, obj):
@@ -122,6 +123,7 @@ class SignatureInline(admin.TabularInline):
 
 class AgreementAdmin(admin.ModelAdmin):
     inlines = [SignatureInline]
+    search_fields = ['signature__user']
 
 admin.site.register(Agreement, AgreementAdmin)
 
