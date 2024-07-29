@@ -6,8 +6,9 @@
 <html lang="en">
 
 <head>
+
   {% bootstrap_css %}
-  <script src="{% static 'evalbase/sorttable.js' %}">
+
   <title> {% block title %} {% endblock %}</title>
 </head>
 
@@ -124,6 +125,8 @@
     </footer>
   </div>
 </body>
+<script src="{% static 'evalbase/sorttable.js' %}">
+
 <script>
   function getCookie(name) {
     let cookieValue = null;
