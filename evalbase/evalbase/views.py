@@ -580,18 +580,36 @@ def delete_submission(request, *args, **kwargs):
 
 
 @evalbase_login_required
-@user_may_edit_submission
 @require_http_methods(['GET'])
 def view_submission(request, *args, **kwargs):
     '''View a submission.'''
     template_name = 'evalbase/run.html'
 
     context = {}
-    run = kwargs['_sub']
+    conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+    run = Submission.objects.filter(runtag=kwargs['runtag']).filter(task__shortname=kwargs['task'])[0]
+
+    is_coord =             run.task.track.coordinators.filter(pk=request.user.pk)
+    if not (request.user.is_staff or
+            request.user == run.submitted_by or
+            request.user == run.org.owner or
+            is_coord):
+        result = []
+        if not request.user.is_staff:
+            result.append('staff')
+        if not request.user == run.submitted_by:
+            result.append('submitter')
+        if not request.user == run.org.owner:
+            result.append('org lead')
+        if not is_coord:
+            result.append('track coordinator')
+        raise PermissionDenied(f'User is not one of [{", ".join(result)}]')
 
     context['submission'] = run
     context['metas'] = (SubmitMeta.objects
                         .filter(submission_id=run.id))
+    context['may_edit'] = (request.user == run.submitted_by or
+                           request.user == run.org.owner)
     field_descs = {}
     for meta in context['metas']:
         field_descs[meta.key] = meta.form_field.question
@@ -620,6 +638,7 @@ def list_submissions(request, *args, **kwargs):
         run_meta[m.submission.runtag][m.key] = m.value
 
     return render(request, template_name, {
+        'conf': kwargs['_conf'],
         'runs': runs,
         'metas': run_meta})
 

@@ -15,7 +15,7 @@
   </thead>
   {% for r in runs %}
   <tr>
-    <td>{{ r.runtag }}</td>
+    <td><a href="{% url 'run' conf.shortname r.task.shortname r.runtag %}">{{ r.runtag }}</a></td>
     <td>{{ r.org.shortname }}</td>
     <td>{{ r.date }}</td>
     {% for m in r.submitmeta_set.all %}
