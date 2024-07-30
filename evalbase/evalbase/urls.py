@@ -21,7 +21,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 from evalbase import views
 
-urlpatterns = [
+urlpatterns = ([
     path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls')),
 
@@ -67,7 +67,6 @@ urlpatterns = [
     path('conf/<str:conf>/<str:track>/signups', views.org_signups_per_track,
          name='track_signups')
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
