@@ -127,7 +127,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'
@@ -196,7 +196,7 @@ CSP_STYLE_SRC = ("'self'", 'cdn.jsdelivr.net')
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Strict'
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 
 # CSVexport
 CSV_EXPORT_REFERENCE_DEPTH = 3
