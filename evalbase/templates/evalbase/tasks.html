@@ -75,10 +75,12 @@
     waiting for validation
     {% endif %}
 
-    {% if run.submitted_by == user or user.is_staff %}
-    <a href="{% url 'run-delete' conf.shortname run.task.shortname run.runtag %}">
-      (delete run)
-    </a>
+    {% if run.task.task_open %}
+      {% if run.submitted_by == user or user.is_staff %}
+        <a href="{% url 'run-delete' conf.shortname run.task.shortname run.runtag %}">
+        (delete run)
+        </a>
+      {% endif %}
     {% endif %}
   </li>
   {% endfor %}
