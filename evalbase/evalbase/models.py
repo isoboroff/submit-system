@@ -141,7 +141,7 @@ class Task(models.Model):
     required = models.BooleanField()
     task_open = models.BooleanField()
     deadline = models.DateField(null=True, blank=True)
-    checker_file = models.CharField(max_length=50, default="NONE")
+    checker_file = models.CharField(max_length=500, default="NONE")
 
     def __str__(self):
         # return "/".join([self.conference.shortname, self.shortname])
