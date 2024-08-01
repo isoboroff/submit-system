@@ -135,6 +135,8 @@ class SubmitMetaInline(admin.TabularInline):
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmitMetaInline]
+    list_display = ['runtag', 'task', 'org', 'date', 'is_validated']
+    list_filter = ['task']
 
     def delete_queryset(self, request, queryset):
         for submission in queryset:
