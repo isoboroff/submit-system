@@ -85,8 +85,10 @@ def check_retrieval_run(args, log):
                     log.error(count, f'Unknown test topic ({topic})')
                     # end checks for this line
                     continue
-                elif args.topics:
+                elif args.topics.match(topic):
                     topics_docs[topic] = {}
+                else:
+                    log.error(count, f'Unknown tests topic ({topic})')
 
             if q0 != 'Q0' and not warned_about_q0:
                 log.error(count, f'Field 2 is "{q0}" and not Q0')
