@@ -1,0 +1,15 @@
+The checker scripts have an API of sorts which they inherited from trecsubmit.
+
+1. Take the runtag as the last argument
+2. Any output should go into <runtag>.errlog
+3. If there are errors, exit 255, else exit 0
+4. The script should expect that the run file is in the working directory.
+5. extra data files (like topic numbers) can do in aux/ in the checkers directory.
+
+I have a Python script for checking a standard TREC format run in evalbase/checkers/check-stdtrec.py that might make a handy example.  It has a class for managing the errlog file.
+
+To add a checker script, git clone https://gitlab.nist.gov/gitlab/soboroff/submit-system.  Put your checker in evalbase/checkers, any extra data files in evalbase/checkers/aux, and some test cases in checker-tests/ (this directory is at the top level, outside the actual application).
+
+If you already have submit-system cloned, use ‘git pull’ to make sure it’s up to date before you start coding.
+
+Send your code changes to Gitlab with ‘git push -o merge_request.create’.
