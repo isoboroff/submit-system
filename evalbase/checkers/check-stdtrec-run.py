@@ -52,10 +52,16 @@ def check_retrieval_run(args, log):
     topics_docs = {}
 
     if args.topicfile:
-        with open(args.topicfile, 'r') as fp:
+        topicfile = Path(args.topicfile)
+        if not topicfile.exists():
+            topicfile = Path(sys.path[0]) / args.topicfile
+            if not topicfile.exists():
+                raise FileNotFoundError(f'{args.topicfile} not found')
+
+        with open(topicfile, 'r') as fp:
             for line in fp:
                 t = line.strip()
-                topics.add(t)
+                topics[t] = 0
                 topics_docs[t] = dict()
 
     with open(args.runfile, 'r') as run:
@@ -144,7 +150,6 @@ if __name__ == '__main__':
     ap.add_argument('runfile')
 
     args = ap.parse_args()
-
     with Errlog(args.runfile) as log:
         try:
             result = check_retrieval_run(args, log)
