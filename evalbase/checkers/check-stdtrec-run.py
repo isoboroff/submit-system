@@ -133,14 +133,17 @@ if __name__ == '__main__':
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
+    def make_re(s):
+        return re.compile(s, re.IGNORECASE)
+
     ap.add_argument('-t', '--topics',
-                    type=re.compile,
+                    type=make_re,
                     default=re.compile(r'\d+'),
                     help='Regular expression for topics')
     ap.add_argument('-f', '--topicfile',
                     help='File containing topic IDs')
     ap.add_argument('-d', '--docnos',
-                    type=re.compile,
+                    type=make_re,
                     default=re.compile(r'\w+'),
                     help='Regular expression for docnos')
     ap.add_argument('-m', '--maxret',
