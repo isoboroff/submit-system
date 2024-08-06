@@ -228,7 +228,8 @@ class Submission(models.Model):
     date = models.DateField(
         auto_now_add=True)
     file = models.FileField(
-        upload_to=get_submission_path)
+        upload_to=get_submission_path,
+        max_length=500)
     is_validated = models.CharField(
         max_length=1,
         choices=ValidationState.choices,
