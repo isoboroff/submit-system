@@ -215,7 +215,7 @@ class Submission(models.Model):
         FAIL = 'F', 'validation failed'
         SUCCESS = 'S', 'validation succeeded'
 
-    runtag = models.CharField(max_length=15)
+    runtag = models.CharField(max_length=150)
     task = models.ForeignKey(
         Task,
         on_delete=models.PROTECT)
@@ -255,7 +255,7 @@ class SubmitMeta(models.Model):
         SubmitFormField,
         on_delete=models.PROTECT)
     key = models.CharField(max_length=15)
-    value = models.CharField(max_length=250)
+    value = models.CharField(max_length=2500)
 
     def __str__(self):
         return f'{self.submission.runtag} {self.key}:{self.value}'
