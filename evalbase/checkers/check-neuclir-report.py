@@ -46,13 +46,12 @@ class Errlog():
     def warn(self, line, msg):
         print(f'WARNING Line {line}: {msg}', file=self.fp)
 
-UUID = re.compile('^[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z', re.I)
+UUID = re.compile(r'^[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z', re.I)
 
 def check_neuclir_report_run(args, log):
     the_runtag = None
 
     topics = collections.Counter()
-    topics_docs = {}
 
     if args.topicfile:
         topicfile = Path(args.topicfile)
@@ -65,8 +64,6 @@ def check_neuclir_report_run(args, log):
             for line in fp:
                 t = line.strip()
                 topics[t] = 0
-                topics_docs[t] = set()
-                print(t)
 
     with open(args.runfile, 'r') as run:
         count = 0
@@ -108,6 +105,11 @@ def check_neuclir_report_run(args, log):
                 if coll not in ['neuclir/1/zho','neuclir/1/rus','neuclir/1/fas']:
                     error(count, f'Bogus collection id {coll}')
 
+            if not obj['sentences']:
+                log.error(count, f'No report sentences for request {request_id}')
+                # skip sentence checks
+                continue
+
             for s in obj['sentences']:
                 if not ('text' in s and
                         'citations' in s):
@@ -117,18 +119,19 @@ def check_neuclir_report_run(args, log):
                 length += len(unicodedata.normalize('NFKC', s['text']))
 
                 if len(s['citations']) > 2:
-                    log.error(count, 'Too many citations')
+                    log.error(count, 'Too many citations (max 2 per sentence)')
 
+                these_sites = set()
                 for cite in s['citations']:
                     if not UUID.match(cite):
                         log.error(count, 'Bogus docid in citation')
-                    if cite in topics_docs[request_id]:
+                    if cite in these_sites:
                         log.error(count, 'Repeated citation')
 
-                    topics_docs[request_id].add(cite)
+                    these_sites.add(cite)
 
             if length > 2000:
-                log.error(count, f'Report is too long {length}')
+                log.error(count, f'Report is too long ({length} chars)')
 
             topics[request_id] += 1
 
@@ -151,10 +154,6 @@ if __name__ == '__main__':
     ap.add_argument('-f', '--topicfile',
                     required=True,
                     help='File containing topic IDs')
-    ap.add_argument('-d', '--docnos',
-                    type=re.compile,
-                    default=re.compile(r'\w+'),
-                    help='Regular expression for docnos')
     ap.add_argument('runfile')
 
     args = ap.parse_args()
