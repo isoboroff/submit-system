@@ -136,6 +136,7 @@ class SubmitMetaInline(admin.TabularInline):
 class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmitMetaInline]
     list_display = ['runtag', 'task', 'org', 'date', 'is_validated']
+    readonly_fields = ['date']
     list_filter = ['task']
     search_fields = ['runtag']
 
