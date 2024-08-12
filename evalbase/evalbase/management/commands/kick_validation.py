@@ -6,6 +6,9 @@ class Command(BaseCommand):
     help = 'Kick validation for any submissions waiting for validation in the specified task'
 
     def add_arguments(self, parser):
+        parser.add_argument('-f', '--force',
+                            action='store_true',
+                            help='Force validation to run on all submissions')
         parser.add_argument('task')
 
     def handle(self, *args, **options):
@@ -16,10 +19,16 @@ class Command(BaseCommand):
         run_one = False
         if task.checker_file and task.checker_file != 'NONE':
             for sub in Submission.objects.filter(task=task):
-                if sub.is_validated == Submission.ValidationState.WAITING:
+                if (options['force'] or
+                    sub.is_validated == Submission.ValidationState.WAITING):
                     checktask = run_check_script(sub, task.checker_file)
                     print('Running', task.checker_file, 'for submission',
                           sub, '(', checktask, ')')
                     run_one = True
+                else:
+                    print(f'Skipping {sub}, {sub.is_validated}')
+        else:
+            print('Task has no checker to run')
+
         if not run_one:
             print('No submissions to check')

@@ -106,40 +106,50 @@ def check_neuclir_report_run(args, log):
                     error(count, f'Bogus collection id {coll}')
 
             if not obj['sentences']:
-                log.error(count, f'No report sentences for request {request_id}')
+                log.warn(count, f'No report sentences for request {request_id}')
                 # skip sentence checks
-                continue
+                # continue
 
-            for s in obj['sentences']:
-                if not ('text' in s and
-                        'citations' in s):
-                    log.error(count, 'Entry sentence is missing a field')
-                    continue
+            else:
+                new_sents = []
+                for s in obj['sentences']:
+                    if not ('text' in s and
+                            'citations' in s):
+                        log.error(count, 'Entry sentence is missing a field')
+                        continue
 
-                length += len(unicodedata.normalize('NFKC', s['text']))
+                    length += len(unicodedata.normalize('NFKC', s['text']))
+                    if length > 2000:
+                        continue
 
-                if len(s['citations']) > 2:
-                    log.error(count, 'Too many citations (max 2 per sentence)')
+                    if len(s['citations']) > 2:
+                        log.error(count, 'Too many citations (max 2 per sentence)')
 
-                these_sites = set()
-                for cite in s['citations']:
-                    if not UUID.match(cite):
-                        log.error(count, 'Bogus docid in citation')
-                    if cite in these_sites:
-                        log.error(count, 'Repeated citation')
+                    these_sites = set()
+                    for cite in s['citations']:
+                        if not UUID.match(cite):
+                            log.error(count, 'Bogus docid in citation')
+                        if cite in these_sites:
+                            log.error(count, 'Repeated citation')
 
-                    these_sites.add(cite)
+                        these_sites.add(cite)
 
-            if length > 2000:
-                log.error(count, f'Report is too long ({length} chars)')
+                    new_sents.append(s)
+
+                if length > 2000:
+                    log.warn(count, f'Report is too long ({length} chars), sentences dropped')
+                obj['sentences'] = new_sents
 
             topics[request_id] += 1
 
+            with open(args.runfile + '.normalized', 'a') as outfp:
+                print(json.dumps(obj), file=outfp)
+
     for topic in topics:
         if topics[topic] == 0:
-            log.error(count, f'No reports returned for request {topic}')
+            log.warn(count, f'No report returned for request {topic}')
         elif topics[topic] > 1:
-            log.error(count, f'Too many reports ({topics[topic]}) generated for reuqest {topic}')
+            log.error(count, f'Too many reports ({topics[topic]}) generated for request {topic}')
 
 
 
