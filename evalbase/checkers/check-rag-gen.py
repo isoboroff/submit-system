@@ -142,7 +142,8 @@ def check_rag_gen_run(args, log):
             # Check answer sentences
             length = 0
             for sent in obj['answer']:
-                tokenized = unicodedata.normalize('NFKC', sent['text'])
+                text = sent['text'].strip()
+                tokenized = unicodedata.normalize('NFKC', text)
                 tokens = tokenized.split()
                 length += len(tokens)
 
