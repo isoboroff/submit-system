@@ -180,12 +180,12 @@ class SubmitFormField(models.Model):
         SubmitForm,
         on_delete=models.CASCADE)
     question = models.CharField(
-        max_length=100)
+        max_length=250)
     choices = models.CharField(
-        max_length=100,
+        max_length=250,
         blank=True)
     meta_key = models.CharField(
-        max_length=15)
+        max_length=25)
     sequence = models.IntegerField()
     question_type = models.IntegerField(
         choices=QuestionType.choices,
@@ -193,7 +193,7 @@ class SubmitFormField(models.Model):
     required = models.BooleanField(
         default=True)
     help_text = models.CharField(
-        max_length=150,
+        max_length=500,
         blank=True,
         default='')
 
