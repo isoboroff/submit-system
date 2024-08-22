@@ -21,8 +21,9 @@ class Errlog():
         ...
     If not, be sure to call .close() when done.
     '''
-    def __init__(self, runfile, max_errors=25):
+    def __init__(self, runfile, max_errors=930):
         self.filename = runfile + '.errlog'
+        print(f'Writing errors to {self.filename}')
         self.fp = open(self.filename, 'w')
         self.error_count = 0
         self.max_errors = max_errors
@@ -50,6 +51,20 @@ class Errlog():
 MARCODOC = re.compile(r'^msmarco_v2\.1_doc_\d+_\d+#\d+_\d+$')
 TOPICNO = re.compile(r'^2024-\d+$')
 
+def fix_rag_answer(obj, current_length, count):
+    log.warn(count, f"Attempting to fix RAG answer of length {current_length}")
+    while current_length > 400 and obj['answer']:
+        last_sentence = obj['answer'].pop()
+        text = last_sentence['text'].strip()
+        tokenized = unicodedata.normalize('NFKC', text)
+        tokens = tokenized.split()
+        current_length -= len(tokens)
+        log.warn(count, f"Removing a sentence from the end: {text}")
+        log.warn(count, f"Updated length: {current_length}")
+
+    obj['response_length'] = current_length
+    return obj, current_length
+
 def check_rag_gen_run(args, log):
     the_runtag = None
 
@@ -68,8 +83,8 @@ def check_rag_gen_run(args, log):
                 t, q = line.strip().split('\t')
                 topics[t] = 0
                 queries[t] = q
-
-    with open(args.runfile, 'r') as run:
+    write_fixed_file = args.runfile + '.fixed'
+    with open(args.runfile, 'r') as run, open(write_fixed_file, 'w') as fixed_run:
         count = 0
         for line in run:
             count += 1
@@ -124,7 +139,7 @@ def check_rag_gen_run(args, log):
             # Check references
             refs = set()
             for ref in obj['references']:
-                if not MSMARCODOC.match(ref):
+                if not MARCODOC.match(ref):
                     log.error(count, f'Invalid reference docno {ref}')
                 elif ref in refs:
                     log.error(count, f'Duplicate document {ref} in references')
@@ -137,7 +152,7 @@ def check_rag_gen_run(args, log):
 
             # Check response length
             if obj['response_length'] > 400:
-                log.error(count, f'Response length is too long')
+                log.warn(count, f'Reported response_length is too long')
 
             # Check answer sentences
             length = 0
@@ -147,24 +162,32 @@ def check_rag_gen_run(args, log):
                 tokens = tokenized.split()
                 length += len(tokens)
 
-                if len(sent['citations']) > num_refs:
-                    log.error(count, 'Response sentence has more citations than reference list')
+                if len(sent['citations']) >= 1 and (max(sent['citations']) + 1 > num_refs or min(sent['citations']) < 0):
+                    log.warn(count, 'Response sentence has a citation that is out of bounds')
+                if len(sent['citations']) != len(set(sent['citations'])):
+                    log.warn(count, 'Response sentence has duplicate citations')
+                    sent['citations'] = list(set(sent['citations']))
                 cites = set()
                 for cite in sent['citations']:
                     if cite < 0 or cite >= num_refs:
                         log.error(count, f'Response sentence has invalid citation {cite}')
                     elif cite in cites:
-                        log.error(count, f'Duplicate citation {cite}')
+                        log.warn(count, f'Duplicate citation {cite}')
                     else:
                         cites.add(cite)
+                sent['citations'] = list(cites)
 
             if length > 400:
-                log.error(count, f'Report is too long ({length} words)')
+                log.warn(count, f'RAG answer is too long ({length} words)')
+                update_obj, length, = fix_rag_answer(obj, length, count)
+                obj = update_obj
+                
             if length != obj['response_length']:
-                log.warn(count, f'Reported response length ({obj["response_length"]}) is not equal to actual response length ({length})')
-
-            topics[request_id] += 1
-
+                log.warn(count, f'Reported RAG answer ({obj["response_length"]}) is not equal to actual response length ({length}), maybe you did not NFCK normalize the text or strip characters?')
+                obj['response_length'] = length
+            topics[topic_id] += 1
+            fixed_run.write(json.dumps(obj) + '\n')
+    print(f'Wrote fixed run to {write_fixed_file}')
     for topic in topics:
         if topics[topic] == 0:
             log.warn(count, f'No response returned for topic {topic}')
@@ -190,7 +213,7 @@ if __name__ == '__main__':
 
     with Errlog(args.runfile) as log:
         try:
-            result = check_neuclir_report_run(args, log)
+            result = check_rag_gen_run(args, log)
         except Exception as e:
             log.error(-1, e)
             traceback.print_exc()
