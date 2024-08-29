@@ -296,7 +296,9 @@ def validate(
     and then calls `validate_run` to perform the validation.
     """
     run_file_name = PurePath(run_file_path).name
-    fileHandler = logging.FileHandler(filename=f"{run_file_name}.errlog")
+    log_file_name = PurePath(run_file_path).parent / f'{run_file_name}.errlog'
+    print(log_file_name)
+    fileHandler = logging.FileHandler(filename=log_file_name)
     fileHandler.setFormatter(formatter)
     logger.addHandler(fileHandler)
 

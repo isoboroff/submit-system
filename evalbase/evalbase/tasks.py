@@ -7,6 +7,9 @@ from huey.contrib.djhuey import task, db_task, on_commit_task
 from .models import *
 from django.conf import settings
 
+#    else:
+#        raise FileNotFoundError(errlog_file)
+
 SUBM_ROOT = Path(settings.MEDIA_ROOT)
 
 @task()
@@ -31,7 +34,7 @@ def run_check_script(submission, script, *args):
 
     proc = subprocess.run([script_path, *args, subm_file.name],
                           cwd=subm_dir,
-                          capture_output=True,
+                          stderr=subprocess.STDOUT,
                           text=True)
 
     errlog = 'no errlog'
@@ -39,10 +42,12 @@ def run_check_script(submission, script, *args):
     if errlog_file.exists():
         with open(errlog_file, 'r') as errlog_fp:
             errlog = errlog_fp.read()
-    else:
-        raise FileNotFoundError(errlog_file)
 
-    submission.check_output = errlog + '\n'
+    if proc.stdout:
+        submission.check_output = proc.stdout + '\n' + errlog + '\n'
+    else:
+        submission.check_output = errlog + '\n'
+
     if proc.returncode == 0:
         submission.is_validated = Submission.ValidationState.SUCCESS
     else:
