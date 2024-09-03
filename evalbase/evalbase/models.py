@@ -182,7 +182,7 @@ class SubmitFormField(models.Model):
     question = models.CharField(
         max_length=1000)
     choices = models.CharField(
-        max_length=500,
+        max_length=1000,
         blank=True)
     meta_key = models.CharField(
         max_length=25)
