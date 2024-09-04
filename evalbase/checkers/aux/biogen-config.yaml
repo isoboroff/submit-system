@@ -1,0 +1,2 @@
+path_to_valid_pmids: aux/pubmed_ids_last_20_years.json.gz
+path_to_topics: aux/BioGen2024topics-json.txt
