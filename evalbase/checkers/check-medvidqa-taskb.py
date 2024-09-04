@@ -52,7 +52,7 @@ def check_fields(data_path, log, sample_size=90):
     data_items = read_json(data_path)
     if len(data_items) != sample_size:
         log.error(
-            f"submitted prediction json file doesn't have predictions for all {question_size} segments!"
+            f"submitted prediction json file doesn't have predictions for all {sample_size} segments!"
         )
 
     for data_item in data_items:
