@@ -1,0 +1,602 @@
+{
+    "Q2_A1": {
+        "foveal regeneration": [
+            [
+                "SUBSTITUTE",
+                "how well the fovea repaired itself"
+            ],
+            [
+                "EXPLAIN",
+                "(a part of the retina) regeneration"
+            ]
+        ],
+        "visual acuity": [
+            [
+                "SUBSTITUTE",
+                "visual sharpness"
+            ],
+            [
+                "OMIT",
+                ""
+            ],
+            [
+                "GENERALIZE",
+                "standard eyesight charts"
+            ]
+        ],
+        "rhegmatogenous retinal detachment": [
+            [
+                "SUBSTITUTE",
+                "a common retinal detachment"
+            ],
+            [
+                "EXPLAIN",
+                "come apart from the wall of the eye"
+            ],
+            [
+                "GENERALIZE",
+                "retinal detachment"
+            ]
+        ],
+        "retinal": [
+            [
+                "EXPLAIN",
+                "the light-sensitive layer inside the eye"
+            ],
+            [
+                "OMIT",
+                ""
+            ],
+            [
+                "SUBSTITUTE",
+                "light-sensitive layer inside the eye"
+            ]
+        ],
+        "macula-off RRD": [
+            [
+                "EXPLAIN",
+                "eye fluid has entered the incorrect area"
+            ],
+            [
+                "SUBSTITUTE",
+                "detached central part"
+            ]
+        ],
+        "spectral-domain optical coherence tomography": [
+            [
+                "SUBSTITUTE",
+                "methods to look at cross-sections of macular regions"
+            ],
+            [
+                "GENERALIZE",
+                "methods"
+            ],
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "Snellen chart": [
+            [
+                "SUBSTITUTE",
+                "standard eyesight charts"
+            ],
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "best-corrected VA": [
+            [
+                "SUBSTITUTE",
+                "vision (corrected with glasses)"
+            ]
+        ],
+        "external limiting membrane (ELM)-ellipsoid zone": [
+            [
+                "GENERALIZE",
+                "various layers of the retina"
+            ]
+        ],
+        "EZ-retinal pigment epithelium": [
+            [
+                "SUBSTITUTE",
+                "tissues around retina"
+            ],
+            [
+                "EXPLAIN",
+                "a particular layer of the retina"
+            ],
+            [
+                "GENERALIZE",
+                "tissues responsible for vision"
+            ]
+        ],
+        "Best-corrected visual acuity": [
+            [
+                "SUBSTITUTE",
+                "vision clarity (with glasses or contacts if needed)"
+            ]
+        ],
+        "EZ-RPE": [
+            [
+                "EXPLAIN",
+                "a particular layer of the retina"
+            ],
+            [
+                "GENERALIZE",
+                "layer of the retina"
+            ],
+            [
+                "SUBSTITUTE",
+                "Inner eye"
+            ]
+        ],
+        "Multiple regression analysis": [
+            [
+                "SUBSTITUTE",
+                "Statistical analysis"
+            ],
+            [
+                "GENERALIZE",
+                "Analysis"
+            ],
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "BCVA": [
+            [
+                "SUBSTITUTE",
+                "Vision"
+            ]
+        ],
+        "foveal bulge": [
+            [
+                "SUBSTITUTE",
+                "The bulge in the center of the field of vision"
+            ],
+            [
+                "EXPLAIN",
+                "cuplike depression in the eye"
+            ]
+        ],
+        "cone": [
+            [
+                "EXPLAIN",
+                "color vision cells"
+            ],
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "RPE": [
+            [
+                "EXPLAIN",
+                "a particular layer of the retina"
+            ],
+            [
+                "GENERALIZE",
+                "layer of the retina"
+            ],
+            [
+                "SUBSTITUTE",
+                "Inner eye"
+            ]
+        ],
+        "retinal detachment": [
+            [
+                "SUBSTITUTE",
+                "a common retinal detachment"
+            ],
+            [
+                "EXPLAIN",
+                "come apart from the wall of the eye"
+            ],
+            [
+                "GENERALIZE",
+                "retinal detachment"
+            ]
+        ],
+        "RRD": [
+            [
+                "SUBSTITUTE",
+                "common retinal detachment"
+            ],
+            [
+                "EXPLAIN",
+                "breaks of the retina that result in light flashes or \"dark curtains\" in vision"
+            ],
+            [
+                "GENERALIZE",
+                "retinal detachment"
+            ]
+        ],
+        "a bulge in the fovea": [
+            [
+                "SUBSTITUTE",
+                "The bulge in the center of the field of vision"
+            ],
+            [
+                "EXPLAIN",
+                "cuplike depression in the eye"
+            ]
+        ],
+        "VA": [
+            [
+                "SUBSTITUTE",
+                "vision clarity"
+            ],
+            [
+                "OMIT",
+                ""
+            ],
+            [
+                "GENERALIZE",
+                "standard eyesight charts"
+            ]
+        ],
+        "EZ": [
+            [
+                "GENERALIZE",
+                "various layers of the retina"
+            ]
+        ],
+        "Snellen chart visual acuity": [
+            [
+                "GENERALIZE",
+                "standard eyesight charts"
+            ],
+            [
+                "SUBSTITUTE",
+                "vision clarity"
+            ],
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "vitrectomy": [
+            [
+                "SUBSTITUTE",
+                "removing fluid from the eye."
+            ]
+        ],
+        "controls": [
+            [
+                "SUBSTITUTE",
+                "comparison"
+            ]
+        ],
+        "involved": [
+            [
+                "affected"
+            ]
+        ],
+        "regression": [
+            [
+                "SUBSTITUTE",
+                "Statistical"
+            ]
+        ],
+        "cone interdigitation zone": [
+            [
+                "GENERALIZE",
+                "inner eye areas"
+            ]
+        ],
+        "pectral-domain optical coherence tomography": [
+            [
+                "OMIT",
+                ""
+            ]
+        ],
+        "CIZ": [
+            [
+                "GENERALIZE",
+                "inner eye areas"
+            ]
+        ]
+    },
+    "Q2_A2": {},
+    "Q2_A3": {},
+    "Q2_A4": {},
+    "Q2_A5": {},
+    "Q2_A6": {},
+    "Q2_A7": {},
+    "Q2_A8": {},
+    "Q2_A9": {},
+    "Q2_A10": {},
+    "Q3_A1": {},
+    "Q3_A2": {},
+    "Q3_A3": {},
+    "Q3_A4": {},
+    "Q3_A5": {},
+    "Q3_A6": {},
+    "Q3_A7": {},
+    "Q3_A8": {},
+    "Q3_A9": {},
+    "Q3_A10": {},
+    "Q4_A1": {},
+    "Q4_A2": {},
+    "Q4_A3": {},
+    "Q4_A4": {},
+    "Q4_A5": {},
+    "Q4_A6": {},
+    "Q4_A7": {},
+    "Q4_A8": {},
+    "Q4_A9": {},
+    "Q4_A10": {},
+    "Q5_A1": {},
+    "Q5_A2": {},
+    "Q5_A3": {},
+    "Q5_A4": {},
+    "Q5_A5": {},
+    "Q5_A6": {},
+    "Q5_A7": {},
+    "Q5_A8": {},
+    "Q5_A9": {},
+    "Q5_A10": {},
+    "Q6_A1": {},
+    "Q6_A2": {},
+    "Q6_A3": {},
+    "Q6_A4": {},
+    "Q6_A5": {},
+    "Q6_A6": {},
+    "Q6_A7": {},
+    "Q6_A8": {},
+    "Q6_A9": {},
+    "Q6_A10": {},
+    "Q7_A1": {},
+    "Q7_A2": {},
+    "Q7_A3": {},
+    "Q7_A4": {},
+    "Q7_A5": {},
+    "Q7_A6": {},
+    "Q7_A7": {},
+    "Q7_A8": {},
+    "Q7_A9": {},
+    "Q7_A10": {},
+    "Q8_A1": {},
+    "Q8_A2": {},
+    "Q8_A3": {},
+    "Q8_A4": {},
+    "Q8_A5": {},
+    "Q8_A6": {},
+    "Q8_A7": {},
+    "Q8_A8": {},
+    "Q8_A9": {},
+    "Q8_A10": {},
+    "Q9_A1": {},
+    "Q9_A2": {},
+    "Q9_A3": {},
+    "Q9_A4": {},
+    "Q9_A5": {},
+    "Q9_A6": {},
+    "Q9_A7": {},
+    "Q9_A8": {},
+    "Q9_A9": {},
+    "Q9_A10": {},
+    "Q19_A1": {},
+    "Q19_A2": {},
+    "Q19_A3": {},
+    "Q19_A4": {},
+    "Q19_A5": {},
+    "Q19_A6": {},
+    "Q19_A7": {},
+    "Q19_A8": {},
+    "Q19_A9": {},
+    "Q19_A10": {},
+    "Q20_A1": {},
+    "Q20_A2": {},
+    "Q20_A3": {},
+    "Q20_A4": {},
+    "Q20_A5": {},
+    "Q20_A6": {},
+    "Q20_A7": {},
+    "Q20_A8": {},
+    "Q20_A9": {},
+    "Q20_A10": {},
+    "Q21_A1": {},
+    "Q21_A2": {},
+    "Q21_A3": {},
+    "Q21_A4": {},
+    "Q21_A5": {},
+    "Q21_A6": {},
+    "Q21_A7": {},
+    "Q21_A8": {},
+    "Q21_A9": {},
+    "Q21_A10": {},
+    "Q22_A1": {},
+    "Q22_A2": {},
+    "Q22_A3": {},
+    "Q22_A4": {},
+    "Q22_A5": {},
+    "Q22_A6": {},
+    "Q22_A7": {},
+    "Q22_A8": {},
+    "Q22_A9": {},
+    "Q22_A10": {},
+    "Q23_A1": {},
+    "Q23_A2": {},
+    "Q23_A3": {},
+    "Q23_A4": {},
+    "Q23_A5": {},
+    "Q23_A6": {},
+    "Q23_A7": {},
+    "Q23_A8": {},
+    "Q23_A9": {},
+    "Q23_A10": {},
+    "Q24_A1": {},
+    "Q24_A2": {},
+    "Q24_A3": {},
+    "Q24_A4": {},
+    "Q24_A5": {},
+    "Q24_A6": {},
+    "Q24_A7": {},
+    "Q24_A8": {},
+    "Q24_A9": {},
+    "Q24_A10": {},
+    "Q25_A1": {},
+    "Q25_A2": {},
+    "Q25_A3": {},
+    "Q25_A4": {},
+    "Q25_A5": {},
+    "Q25_A6": {},
+    "Q25_A7": {},
+    "Q25_A8": {},
+    "Q25_A9": {},
+    "Q25_A10": {},
+    "Q26_A1": {},
+    "Q26_A2": {},
+    "Q26_A3": {},
+    "Q26_A4": {},
+    "Q26_A5": {},
+    "Q26_A6": {},
+    "Q26_A7": {},
+    "Q26_A8": {},
+    "Q26_A9": {},
+    "Q26_A10": {},
+    "Q27_A1": {},
+    "Q27_A2": {},
+    "Q27_A3": {},
+    "Q27_A4": {},
+    "Q27_A5": {},
+    "Q27_A6": {},
+    "Q27_A7": {},
+    "Q27_A8": {},
+    "Q27_A9": {},
+    "Q27_A10": {},
+    "Q28_A1": {},
+    "Q28_A2": {},
+    "Q28_A3": {},
+    "Q28_A4": {},
+    "Q28_A5": {},
+    "Q28_A6": {},
+    "Q28_A7": {},
+    "Q28_A8": {},
+    "Q28_A9": {},
+    "Q28_A10": {},
+    "Q29_A1": {},
+    "Q29_A2": {},
+    "Q29_A3": {},
+    "Q29_A4": {},
+    "Q29_A5": {},
+    "Q29_A6": {},
+    "Q29_A7": {},
+    "Q29_A8": {},
+    "Q29_A9": {},
+    "Q29_A10": {},
+    "Q30_A1": {},
+    "Q30_A2": {},
+    "Q30_A3": {},
+    "Q30_A4": {},
+    "Q30_A5": {},
+    "Q30_A6": {},
+    "Q30_A7": {},
+    "Q30_A8": {},
+    "Q30_A9": {},
+    "Q30_A10": {},
+    "Q31_A1": {},
+    "Q31_A2": {},
+    "Q31_A3": {},
+    "Q31_A4": {},
+    "Q31_A5": {},
+    "Q31_A6": {},
+    "Q31_A7": {},
+    "Q31_A8": {},
+    "Q31_A9": {},
+    "Q31_A10": {},
+    "Q32_A1": {},
+    "Q32_A2": {},
+    "Q32_A3": {},
+    "Q32_A4": {},
+    "Q32_A5": {},
+    "Q32_A6": {},
+    "Q32_A7": {},
+    "Q32_A8": {},
+    "Q32_A9": {},
+    "Q32_A10": {},
+    "Q33_A1": {},
+    "Q33_A2": {},
+    "Q33_A3": {},
+    "Q33_A4": {},
+    "Q33_A5": {},
+    "Q33_A6": {},
+    "Q33_A7": {},
+    "Q33_A8": {},
+    "Q33_A9": {},
+    "Q33_A10": {},
+    "Q34_A1": {},
+    "Q34_A2": {},
+    "Q34_A3": {},
+    "Q34_A4": {},
+    "Q34_A5": {},
+    "Q34_A6": {},
+    "Q34_A7": {},
+    "Q34_A8": {},
+    "Q34_A9": {},
+    "Q34_A10": {},
+    "Q35_A1": {},
+    "Q35_A2": {},
+    "Q35_A3": {},
+    "Q35_A4": {},
+    "Q35_A5": {},
+    "Q35_A6": {},
+    "Q35_A7": {},
+    "Q35_A8": {},
+    "Q35_A9": {},
+    "Q35_A10": {},
+    "Q36_A1": {},
+    "Q36_A2": {},
+    "Q36_A3": {},
+    "Q36_A4": {},
+    "Q36_A5": {},
+    "Q36_A6": {},
+    "Q36_A7": {},
+    "Q36_A8": {},
+    "Q36_A9": {},
+    "Q36_A10": {},
+    "Q37_A1": {},
+    "Q37_A2": {},
+    "Q37_A3": {},
+    "Q37_A4": {},
+    "Q37_A5": {},
+    "Q37_A6": {},
+    "Q37_A7": {},
+    "Q37_A8": {},
+    "Q37_A9": {},
+    "Q37_A10": {},
+    "Q38_A1": {},
+    "Q38_A2": {},
+    "Q38_A3": {},
+    "Q38_A4": {},
+    "Q38_A5": {},
+    "Q38_A6": {},
+    "Q38_A7": {},
+    "Q38_A8": {},
+    "Q38_A9": {},
+    "Q38_A10": {},
+    "Q39_A1": {},
+    "Q39_A2": {},
+    "Q39_A3": {},
+    "Q39_A4": {},
+    "Q39_A5": {},
+    "Q39_A6": {},
+    "Q39_A7": {},
+    "Q39_A8": {},
+    "Q39_A9": {},
+    "Q39_A10": {},
+    "Q40_A1": {},
+    "Q40_A2": {},
+    "Q40_A3": {},
+    "Q40_A4": {},
+    "Q40_A5": {},
+    "Q40_A6": {},
+    "Q40_A7": {},
+    "Q40_A8": {},
+    "Q40_A9": {},
+    "Q40_A10": {}
+}
