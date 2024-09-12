@@ -7,8 +7,11 @@ import collections
 from pathlib import Path
 import json
 
-# Check a PLABA task 1 (terms) run for errors
-
+# Check a standard trec_eval formatted run for errors:
+# - missing or non-matching runtag
+# - incorrect or missing topics (documents)
+# - fewer or more than 10 questions per topic
+# - question numbers are numbers between 1 and 10
 
 labels = {'SUBSTITUTE', 'GENERALIZE', 'EXPLAIN', 'EXEMPLIFY', 'OMIT'}
 task1Bset = False
@@ -72,15 +75,15 @@ def check_retrieval_run(args, log):
         except Exception as e:
             log.error(f"Couldn't parse run file as JSON ({e})")
             return
-
+        
         for akey in test.keys():
-            if akey not in data:
+            if akey not in data.keys():
                 log.error(f'{akey} missing');
                 continue
             global task1Bset, task1Cset
             try:
                 for term, repls in data[akey].items():
-                    if isinstance(repls, collections.abc.Sequence) and not isinstance(repls, str):
+                    if not isinstance(repls, str):
                         if task1Bset:
                             if not task1B:
                                 log.error(f'To participate in Task 1B, all terms must have labels; found labels for {term} in {akey} but not for first term')
@@ -89,6 +92,9 @@ def check_retrieval_run(args, log):
                             task1B = True
                         for repl in repls:
                             task1B = True
+                            if len(repl) == 0:
+                                log.error(f'Term "{term}" in {akey} has empty label array')
+                                continue
                             if repl[0] not in labels:
                                 log.error(f'Invalid label "{repl[0]}" for term "{term}" in {akey}; labels must be one of {{{",".join(labels)}}}')
                             if task1Cset and task1C:
