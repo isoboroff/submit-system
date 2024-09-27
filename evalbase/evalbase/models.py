@@ -259,3 +259,22 @@ class SubmitMeta(models.Model):
 
     def __str__(self):
         return f'{self.submission.runtag} {self.key}:{self.value}'
+
+
+def get_eval_path(evaluation, filename):
+    run_path = get_submission_path(evaluation.submission, 'foo')
+    eval_path = Path(run_path).with_name(f'{evaluation.submisson.runtag}.{evaluation.name}')
+    return eval_path
+
+
+class Evaluation(models.Model):
+    """Evaluations are output files from scoring programs like trec_eval.  These are how results are delivered to participants.  They are kept in the run results directory so you can use get_submission_path() to know where they go."""
+    submission = models.ForeignKey(
+        Submission,
+        on_delete=models.PROTECT)
+    name = models.CharField(max_length=20)
+    filename = models.FileField(
+        upload_to=get_eval_path)
+
+    def __str__(self):
+        return f'{self.submission.runtag}:{self.name}'

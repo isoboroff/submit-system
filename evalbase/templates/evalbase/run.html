@@ -4,48 +4,59 @@
 {% block title %} {{ submission.runtag }} {% endblock %}
 
 {% block content %}
-<h4>Submission {{ submission.runtag }}</h4>
-{% if submission.task.task_open %}
-<a href = "{% url 'edit-task' submission.task.track.conference.shortname submission.task.shortname submission.runtag %}">Edit this submission</a>
-{% endif %}
-
-<ul>
-  <li> Conference: {{ submission.task.track.conference.longname }}</li>
-  <li> Track: {{ submission.task.track.longname }}</li>
-  <li> Task: {{ submission.task.longname }} </li>
-  <li> Submitted by: {{ submission.submitted_by }} </li>
-  <li> Organization: {{ submission.org }} </li>
-  <li> Date: {{ submission.date }} </li>
-
-</ul>
-
-<h4> Run metadata </h4>
-
-<ul>
-  {% for m in metas %}
-  <li> {{ fields|get_item:m.key }} : {{ m.value }} </li>
-  {% endfor %}
-</ul>
-
-<h4> Validation </h4>
-Validated?
-    {% if submission.is_validated == 'F' %}
-    <span class="text-danger">validation failed</span>
-        {% if submission.check_output|length > 0 %}
-        <p>
-          Validation output:<br/>
-          <pre>
-            {{ submission.check_output }}
-          </pre>
-        </p>
-        {% endif %}
-    {% elif submission.is_validated == 'S' %}
-    validation succeeded
-    {% else %}
-    waiting for validation
+    <h4>Submission {{ submission.runtag }}</h4>
+    {% if submission.task.task_open %}
+        <a href = "{% url 'edit-task' submission.task.track.conference.shortname submission.task.shortname submission.runtag %}">Edit this submission</a>
     {% endif %}
 
-<p/>
-<a href="{{ submission.file.url }}" download>Uploaded file</a>
+    <ul>
+        <li> Conference: {{ submission.task.track.conference.longname }}</li>
+        <li> Track: {{ submission.task.track.longname }}</li>
+        <li> Task: {{ submission.task.longname }} </li>
+        <li> Submitted by: {{ submission.submitted_by }} </li>
+        <li> Organization: {{ submission.org }} </li>
+        <li> Date: {{ submission.date }} </li>
+
+    </ul>
+
+    <h4> Run metadata </h4>
+
+    <ul>
+        {% for m in metas %}
+            <li> {{ fields|get_item:m.key }} : {{ m.value }} </li>
+        {% endfor %}
+    </ul>
+
+    <h4> Validation </h4>
+    Validated?
+    {% if submission.is_validated == 'F' %}
+        <span class="text-danger">validation failed</span>
+        {% if submission.check_output|length > 0 %}
+            <p>
+                Validation output:<br/>
+    <pre>
+            {{ submission.check_output }}
+    </pre>
+            </p>
+        {% endif %}
+    {% elif submission.is_validated == 'S' %}
+        validation succeeded
+    {% else %}
+        waiting for validation
+    {% endif %}
+
+    <h4> Evaluation outputs </h4>
+    {% if submission.evaluation_set %}
+        <ul>
+            {% for eval in submission.evaluation_set %}
+                <li><a href="{{ eval.file.url }}"> {{ eval.name }} </a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        Nothing yet
+    {% endif %}
+
+    <p/>
+    <a href="{{ submission.file.url }}" download>Uploaded file</a>
 
 {% endblock %}
