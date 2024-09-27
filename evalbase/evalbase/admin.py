@@ -143,3 +143,18 @@ class SubmissionAdmin(admin.ModelAdmin):
     def delete_queryset(self, request, queryset):
         for submission in queryset:
             submission.delete()
+
+@admin.register(Evaluation)
+class EvaluationAdmin(admin.ModelAdmin):
+    list_display = ['get_runtag', 'get_task', 'name', 'date']
+    list_filter = ['name', 'submission__task']
+    search_fields = ['get_runtag']
+
+    def get_runtag(self, obj):
+        return obj.submission.runtag
+
+    def get_task(self, obj):
+        return obj.submission.task.shortname
+
+    def get_queryset(self, request):
+        return super(EvaluationAdmin, self).get_queryset(request).select_related('submission')

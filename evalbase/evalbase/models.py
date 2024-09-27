@@ -263,7 +263,7 @@ class SubmitMeta(models.Model):
 
 def get_eval_path(evaluation, filename):
     run_path = get_submission_path(evaluation.submission, 'foo')
-    eval_path = Path(run_path).with_name(f'{evaluation.submisson.runtag}.{evaluation.name}')
+    eval_path = Path(run_path).with_name(f'{evaluation.submission.runtag}.{evaluation.name}')
     return eval_path
 
 
@@ -274,7 +274,9 @@ class Evaluation(models.Model):
         on_delete=models.PROTECT)
     name = models.CharField(max_length=20)
     filename = models.FileField(
-        upload_to=get_eval_path)
+        upload_to=get_eval_path,
+        max_length=250)
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.submission.runtag}:{self.name}'

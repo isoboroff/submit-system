@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from evalbase.models import Task, Submission, Evaluation
 
@@ -42,25 +43,30 @@ class Command(BaseCommand):
             eval = options['eval']
 
             for run in Submission.objects.filter(task=task):
-                evalpath = options['dir'] / f'{run.runtag}.{eval}'
+                evalpath = options['directory'] / f'{run.runtag}.{eval}'
                 if not evalpath.exists():
-                    evaldir = options['dir'] / run.runtag
+                    evaldir = options['directory'] / run.runtag
                     if not (evaldir.exists() and evaldir.is_dir()):
                         raise CommandError(f'Can\'t find {eval} eval for run {run.runtag} here or in directory {evaldir}')
                     evalpath = evaldir / f'{run.runtag}.{eval}'
                     if not evalpath.exists():
                         raise CommandError(f'Can\'t find {eval} eval for run {run.runtag} in directory {evaldir}')
 
-                old_eval = Evaluation.objects.get(submission=run, name=eval)
-                if old_eval:
-                    if options['force']:
-                        old_eval.delete()
-                    else:
-                        raise CommandError(f'Found existing eval.  To overwrite, use -f')
+                try:
+                    old_eval = Evaluation.objects.get(submission=run, name=eval)
+                    if old_eval:
+                        if options['force']:
+                            old_eval.delete()
+                        else:
+                            raise CommandError(f'Found existing eval.  To overwrite, use -f')
+                except Evaluation.DoesNotExist:
+                    pass
 
                 new_eval = Evaluation()
                 new_eval.name = eval
                 new_eval.submission = run
                 with evalpath.open(mode='r') as fp:
-                    new_eval.filename = evalpath
+                    new_eval.filename = File(fp, name=evalpath.name)
                     new_eval.save()
+
+                print(f'Evaluation {eval} for {run.runtag} imported.')
