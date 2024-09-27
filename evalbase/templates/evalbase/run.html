@@ -48,15 +48,13 @@
         waiting for validation
     {% endif %}
 
-    <h4> Evaluation outputs </h4>
     {% if submission.evaluation_set %}
+    <h4> Evaluation outputs </h4>
         <ul>
             {% for eval in submission.evaluation_set.all %}
                 <li><a href="{{ eval.filename.url }}"> {{ eval.name }} </a>
             {% endfor %}
         </ul>
-    {% else %}
-        Nothing yet
     {% endif %}
 
 {% endblock %}
