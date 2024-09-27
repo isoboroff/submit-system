@@ -1,0 +1,5 @@
+ERROR Line 1: Unrecognized docno bad-docno05
+ERROR Line 4: Column 4 (rank) -4 must be a positive integer
+ERROR Line 10: Run tag inconsistent ("trec-run.missing-runtag" instead of "trec-run.bad")
+ERROR Line 76004: 63fc0ee3-93d8-4312-aa94-6757645332d4 retrieved more than once for topic 275
+ERROR Line 76004: Too many documents (1003) retrieved for topic 275
