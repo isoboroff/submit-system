@@ -16,10 +16,8 @@
         <li> Submitted by: {{ submission.submitted_by }} </li>
         <li> Organization: {{ submission.org }} </li>
         <li> Date: {{ submission.date }} </li>
-    <p/>
-    <li><a href="{{ submission.file.url }}" download>Submission file</a></li>
-
-
+        <p/>
+        <li><a href="{{ submission.file.url }}" download>Submission file</a></li>
     </ul>
 
     <h4> Run metadata </h4>
@@ -47,14 +45,15 @@
     {% else %}
         waiting for validation
     {% endif %}
-
-    {% if submission.evaluation_set %}
-    <h4> Evaluation outputs </h4>
-        <ul>
+    </p>
+    {% block evals %}
+      {% if submission.evaluation_set %}
+        <h4> Evaluation outputs </h4>
+          <ul>
             {% for eval in submission.evaluation_set.all %}
-                <li><a href="{{ eval.filename.url }}"> {{ eval.name }} </a>
+            <li><a href="{{ eval.filename.url }}"> {{ eval.name }} </a>
             {% endfor %}
-        </ul>
-    {% endif %}
-
+          </ul>
+      {% endif %}
+    {% endblock %}
 {% endblock %}
