@@ -14,6 +14,9 @@
 </ul>
 {% endif %}
 
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
 <h2>Tracks</h2>
 <ul>
   {% for track in tracks|dictsort:"longname" %}
@@ -58,11 +61,19 @@
   </li>
 {% endfor %}
 </ul>
+    </div>
+    <div class="col">
 
-{% if myruns %}
+      {% if myruns %}
+      {% regroup myruns by task as task_list %}
+      
 <h2> Runs submitted </h2>
 <ul>
-  {% for run in myruns %}
+  {% for task in task_list %}
+  <details>
+    <summary> {{ task.grouper.track.shortname }}, {{ task.grouper.longname }}: {{ task.list|length }}</summary>
+  <ul>
+  {% for run in task.list %}
   <li> <a href="{% url 'run' conf.shortname run.task.shortname run.runtag %}">
       {{ run.runtag }}</a> : {{ run.task.shortname }}; on {{ run.date }}; by 
     {{ run.submitted_by }} ( {{ run.org.shortname }} ); 
@@ -84,6 +95,9 @@
     {% endif %}
   </li>
   {% endfor %}
+  </ul>
+  </details>
+  {% endfor %}
 </ul>
 {% else %}
 <p>You have not submitted any runs yet.</p>
@@ -95,4 +109,7 @@
   <li><a href="{% url 'signups_per_track' conf %}">Signups per track</a></li>
 </ul>
 {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}
