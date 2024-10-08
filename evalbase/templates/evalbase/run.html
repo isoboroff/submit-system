@@ -47,13 +47,21 @@
     {% endif %}
     </p>
     {% block evals %}
-      {% if submission.evaluation_set %}
+      {% if submission.evaluation_set.exists %}
         <h4> Evaluation outputs </h4>
           <ul>
             {% for eval in submission.evaluation_set.all %}
             <li><a href="{{ eval.filename.url }}"> {{ eval.name }} </a>
             {% endfor %}
           </ul>
+          {% if submission.task.statsfile_set.exists %}
+            <h4>Task statistics</h4>
+            <ul>
+              {% for sfile in submission.task.statsfile_set.all %}
+              <li><a href="{{ sfile.filename.url }}"> {{ sfile.name }} </a>
+              {% endfor %}
+            </ul>
+          {% endif %}
       {% endif %}
     {% endblock %}
 {% endblock %}

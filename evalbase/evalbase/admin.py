@@ -158,3 +158,7 @@ class EvaluationAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super(EvaluationAdmin, self).get_queryset(request).select_related('submission')
+
+@admin.register(StatsFile)
+class StatsFileAdmin(admin.ModelAdmin):
+    list_display = ['name', 'task', 'date']

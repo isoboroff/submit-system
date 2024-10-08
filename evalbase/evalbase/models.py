@@ -204,12 +204,15 @@ class SubmitFormField(models.Model):
         ordering = ['sequence']
 
 def get_submission_path(submission, filename):
-    return 'submissions/{0}/{1}/results/{2}/{3}'.format(submission.task.track.conference.results_root,
-                                                        submission.task.shortname,
-                                                        submission.runtag,
-                                                        submission.runtag)
+    return 'submissions/{0}/{1}/results/{2}/{3}'.format(
+        submission.task.track.conference.results_root,
+        submission.task.shortname,
+        submission.runtag,
+        submission.runtag)
+
 class Submission(models.Model):
     """A Submission is something that got submitted to a Task via a SubmitForm."""
+
     class ValidationState(models.TextChoices):
         WAITING = 'W', 'waiting for validation'
         FAIL = 'F', 'validation failed'
@@ -266,6 +269,12 @@ def get_eval_path(evaluation, filename):
     eval_path = Path(run_path).with_name(f'{evaluation.submission.runtag}.{evaluation.name}')
     return eval_path
 
+def get_stats_path(statsfile, filename):
+    return 'submissions/{0}/{1}/tables/{2}'.format(
+        statsfile.task.track.conference.results_root,
+        statsfile.task.shortname,
+        statsfile.name
+    )
 
 class Evaluation(models.Model):
     """Evaluations are output files from scoring programs like trec_eval.  These are how results are delivered to participants.  They are kept in the run results directory so you can use get_submission_path() to know where they go."""
@@ -280,3 +289,18 @@ class Evaluation(models.Model):
 
     def __str__(self):
         return f'{self.submission.runtag}:{self.name}'
+
+
+class StatsFile(models.Model):
+    '''StatsFiles are statistics, like min/med/max tables, that go with a particular task evaluation.'''
+    name = models.CharField(max_length=20)
+    task = models.ForeignKey(
+        Task,
+        on_delete=models.PROTECT)
+    filename = models.FileField(
+        upload_to=get_stats_path,
+        max_length=250)
+    date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.task.shortname}:{self.name}'
