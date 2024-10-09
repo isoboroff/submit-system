@@ -204,7 +204,7 @@ class SubmitFormField(models.Model):
         ordering = ['sequence']
 
 def get_submission_path(submission, filename):
-    return 'submissions/{0}/{1}/results/{2}/{3}'.format(
+    return '{0}/{1}/results/{2}/{3}'.format(
         submission.task.track.conference.results_root,
         submission.task.shortname,
         submission.runtag,
@@ -270,7 +270,7 @@ def get_eval_path(evaluation, filename):
     return eval_path
 
 def get_stats_path(statsfile, filename):
-    return 'submissions/{0}/{1}/tables/{2}'.format(
+    return '{0}/{1}/tables/{2}'.format(
         statsfile.task.track.conference.results_root,
         statsfile.task.shortname,
         statsfile.name
