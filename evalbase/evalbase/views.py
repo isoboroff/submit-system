@@ -580,6 +580,7 @@ def delete_submission(request, *args, **kwargs):
 
 
 @evalbase_login_required
+@check_conf_and_task
 @require_http_methods(['GET'])
 def view_submission(request, *args, **kwargs):
     '''View a submission.'''
@@ -617,6 +618,66 @@ def view_submission(request, *args, **kwargs):
     context["file"] = run.file
 
     return render(request, template_name, context)
+
+
+@evalbase_login_required
+@check_conf_and_task
+@require_http_methods(['GET'])
+def view_eval(request, *args, **kwargs):
+    '''View an evaluation score output.'''
+    run = Submission.objects.filter(runtag=kwargs['runtag']).filter(task__shortname=kwargs['task'])[0]
+
+    is_coord = run.task.track.coordinators.filter(pk=request.user.pk)
+    if not (request.user.is_staff or
+            request.user == run.submitted_by or
+            request.user == run.org.owner or
+            is_coord):
+        result = []
+        if not request.user.is_staff:
+            result.append('staff')
+        if not request.user == run.submitted_by:
+            result.append('submitter')
+        if not request.user == run.org.owner:
+            result.append('org lead')
+        if not is_coord:
+            result.append('track coordinator')
+        raise PermissionDenied(f'User is not one of [{", ".join(result)}]')
+
+    eval = run.evaluation_set.filter(name=kwargs['eval'])
+    with open(eval.filename.path, 'r') as eval_fp:
+        eval_txt = eval_fp.read()
+    return HttpResponse(eval_txt,
+                        headers={'Content-Type': 'text/plain'})
+
+
+@evalbase_login_required
+@check_conf_and_task
+@require_http_methods(['GET'])
+def download_submission_file(request, *args, **kwargs):
+    '''Get the actual submitted run.'''
+    run = Submission.objects.filter(runtag=kwargs['runtag']).filter(task__shortname=kwargs['task'])[0]
+
+    is_coord = run.task.track.coordinators.filter(pk=request.user.pk)
+    if not (request.user.is_staff or
+            request.user == run.submitted_by or
+            request.user == run.org.owner or
+            is_coord):
+        result = []
+        if not request.user.is_staff:
+            result.append('staff')
+        if not request.user == run.submitted_by:
+            result.append('submitter')
+        if not request.user == run.org.owner:
+            result.append('org lead')
+        if not is_coord:
+            result.append('track coordinator')
+        raise PermissionDenied(f'User is not one of [{", ".join(result)}]')
+
+    with open(run.file.path, 'r') as run_fp:
+        run_txt = run_fp.read()
+    return HttpResponse(run_txt,
+                        headers={'Content-Type': 'text/plain'})
+
 
 @evalbase_login_required
 @user_is_track_coordinator

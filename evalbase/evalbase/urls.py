@@ -57,7 +57,9 @@ urlpatterns = ([
          name='submit'),
     path('conf/<str:conf>/<str:task>/list', views.list_submissions,
          name='task_submissions'),
-    path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='run'),
+    path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='runfile'),
+    path('run/<str:conf>/<str:task>/<str:runtag>/run', views.download_submission_file, name='runfile'),
+    path('run/<str:conf>/<str:task>/<str:runtag>/<str:eval>', views.view_eval, name='eval'),
     path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('', views.home_view, name='home'),
@@ -67,6 +69,6 @@ urlpatterns = ([
     path('conf/<str:conf>/<str:track>/signups', views.org_signups_per_track,
          name='track_signups')
 ]
-+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 )

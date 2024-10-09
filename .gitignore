@@ -9,3 +9,4 @@ trec-2023-fixture.json
 *.pid
 .DS_Store
 *.class
+submissions/

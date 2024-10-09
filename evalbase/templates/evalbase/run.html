@@ -17,7 +17,7 @@
         <li> Organization: {{ submission.org }} </li>
         <li> Date: {{ submission.date }} </li>
         <p/>
-        <li><a href="{{ submission.file.url }}" download>Submission file</a></li>
+        <li><a href="{% url 'runfile' submission.task.track.conference.shortname submission.task.shortname submission.runtag %}" download>Submission file</a></li>
     </ul>
 
     <h4> Run metadata </h4>
