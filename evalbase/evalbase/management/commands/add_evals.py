@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
@@ -28,10 +29,16 @@ class Command(BaseCommand):
                             help='Overwrite existing evals',
                             action='store_true')
 
+    def find(filename, startpath):
+        for root, dir, files in os.walk(startpath):
+            if filename in files:
+                return Path(root) / filename
+        return None
+
     def handle(self, *args, **options):
         if options['task'] == 'list':
             tasks = (Task.objects
-                     .filter(track__conference=option['conf']))
+                     .filter(track__conference=options['conf']))
             for t in tasks:
                 print(t.shortname, t.longname)
 
@@ -43,14 +50,13 @@ class Command(BaseCommand):
             eval = options['eval']
 
             for run in Submission.objects.filter(task=task):
-                evalpath = options['directory'] / f'{run.runtag}.{eval}'
-                if not evalpath.exists():
-                    evaldir = options['directory'] / run.runtag
-                    if not (evaldir.exists() and evaldir.is_dir()):
-                        raise CommandError(f'Can\'t find {eval} eval for run {run.runtag} here or in directory {evaldir}')
-                    evalpath = evaldir / f'{run.runtag}.{eval}'
-                    if not evalpath.exists():
-                        raise CommandError(f'Can\'t find {eval} eval for run {run.runtag} in directory {evaldir}')
+                evalfile = f'{run.runtag}.{eval}'
+                evalpath = Command.find(evalfile, options['directory'])
+                if not evalpath:
+                    evalfile = evalfile.replace(' ', '_')
+                    evalpath = Command.find(evalfile, options['directory'])
+                    if not evalpath:
+                        raise CommandError(f'Can\'t find {eval} eval for run {run.runtag}')
 
                 try:
                     old_eval = Evaluation.objects.get(submission=run, name=eval)
