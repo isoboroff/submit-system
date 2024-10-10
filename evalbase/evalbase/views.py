@@ -3,6 +3,8 @@ import logging
 import subprocess
 import shutil
 import collections
+import zipfile
+import tempfile
 from datetime import datetime
 from pathlib import Path
 from django import utils
@@ -648,6 +650,43 @@ def view_eval(request, *args, **kwargs):
         eval_txt = eval_fp.read()
     return HttpResponse(eval_txt,
                         headers={'Content-Type': 'text/plain'})
+
+
+@evalbase_login_required
+@check_conf_and_task
+@require_http_methods(['GET'])
+def download_all_my_evals(request, *args, **kwargs):
+    task = kwargs['_task']
+
+    my_evals = (Evaluation.objects
+                .filter(submission__task=task)
+                .filter(submission__submitted_by=request.user))
+    
+    my_org_evals = (Evaluation.objects
+                    .filter(submission__task=task)
+                    .filter(submission__submitted_by__member_of__owner=request.user))
+    
+    evals = my_evals.union(my_org_evals)
+    if not evals.exists():
+        raise Http404
+
+    with tempfile.SpooledTemporaryFile() as tmp:
+        with zipfile.ZipFile(tmp, 'w', compression=zipfile.ZIP_DEFLATED) as zipf:
+            for e in evals:
+                zipf.write(e.filename.path, 
+                           arcname=Path(e.filename.name).name)
+            for s in StatsFile.objects.filter(task=task):
+                zipf.write(s.filename.path, 
+                           arcname=Path(s.filename.name).name)
+            
+            zipf.close()
+
+        tmp.flush()
+        tmp.seek(0)
+        data = tmp.read()
+        return HttpResponse(content=data,
+                            headers={'Content-Type': 'application/zip',
+                                     'Content-Disposition': 'attachment; filename=evals.zip'})
 
 
 @evalbase_login_required
