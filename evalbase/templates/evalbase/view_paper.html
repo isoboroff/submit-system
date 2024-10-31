@@ -1,0 +1,17 @@
+{% extends 'evalbase/base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Upload a paper{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-md-cenger">
+            <div class="col-8">
+                {{ object.title }}
+                {{ object.author_block }}
+                {{ object.org.longname }} ({{ object.org.shortname }})
+                {{ object.conf.longname }}
+                {{ for t in object.tracks }}
+                {{ t.longname}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'evalbase/base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Upload a paper{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-md-cenger">
+            <div class="col-8">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_field form.title show_help=True placeholder='We At TREC' %}
+                    {% bootstrap_field form.author_block show_help=True placeholder='Ian Soboroff (NIST)' %}
+                    {% bootstrap_field form.file %}
+                    {% bootstrap_field form.submitted_by %}
+                    {% bootstrap_field form.org %}
+                    {% bootstrap_field form.tracks %}
+                    {% bootstrap_button type="submit" content="Upload" %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

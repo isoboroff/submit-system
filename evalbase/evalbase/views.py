@@ -22,6 +22,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, MultipleObjectsReturned
 from django.views.decorators.cache import never_cache
 from django.db.models import Count
+from django.db.models.query import QuerySet
 from .models import *
 from .forms import *
 from .decorators import *
@@ -292,7 +293,12 @@ def conf_tracks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
     conf = Conference.objects.get(shortname=kwargs['conf'])
     tracks = (Track.objects
-              .filter(conference=conf))
+              .filter(conference=conf)
+              .exclude(shortname='papers'))
+    papers = (Track.objects
+              .filter(conference=conf)
+              .filter(shortname='papers')
+              .first())
     tasks = (Task.objects
              .filter(track__conference=conf))
     orgs = (Organization.objects
@@ -319,6 +325,7 @@ def conf_tracks(request, *args, **kwargs):
 
     return render(request, 'evalbase/tasks.html',
                   { 'tracks': tracks,
+                    'papers': papers,
                     'tracks_i_coordinate': tracks_i_coordinate,
                     'tasks': task_dict,
                     'conf': conf,
@@ -404,6 +411,7 @@ def submit_run(request, *args, **kwargs):
     context = {}
     context['conf'] = conf
     context['task'] = task
+    context['track'] = task.track
     context['form'] = submitform
     context['user'] = request.user
     context['orgs'] = (Organization.objects
@@ -428,11 +436,21 @@ def submit_run(request, *args, **kwargs):
                    .filter(shortname=stuff['org'])
                    .filter(members__pk=request.user.pk)
                    .filter(conference=context['conf']))[0]
+            
+            if context['track'].shortname == 'papers':
+                num_papers = (Submission.objects
+                              .filter(task__track__conference=context['conf'])
+                              .filter(task=context['task'])
+                              .filter(org=org)
+                              .count())
+                runtag = f'{org.shortname}-{context["task"].shortname}-{num_papers + 1}'
+            else:
+                runtag = stuff['runtag']
 
             sub = Submission(task=context['task'],
                              org = org,
                              submitted_by=request.user,
-                             runtag=stuff['runtag'],
+                             runtag=runtag,
                              file=request.FILES.get('runfile', None),
                              is_validated=Submission.ValidationState.WAITING,
                              has_evaluation=False
@@ -442,11 +460,21 @@ def submit_run(request, *args, **kwargs):
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
             for field in custom_fields:
-                smeta = SubmitMeta(submission=sub,
-                                   form_field=field,
-                                   key=field.meta_key,
-                                   value=stuff[field.meta_key])
-                smeta.save()
+                if isinstance(stuff[field.meta_key], QuerySet):
+                    for thing in stuff[field.meta_key]:
+                        key = field.meta_key
+                        value = thing.shortname
+                        smeta = SubmitMeta(submission=sub,
+                                           form_field=field,
+                                           key=key,
+                                           value=value)
+                        smeta.save()
+                else:
+                    smeta = SubmitMeta(submission=sub, 
+                                       form_field=field,
+                                       key=field.meta_key,
+                                       value=stuff[field.meta_key])
+                    smeta.save()
 
             if task.checker_file and task.checker_file != 'NONE':
                 run_check_script(sub, task.checker_file)

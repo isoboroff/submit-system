@@ -1,123 +1,130 @@
 {% extends 'evalbase/base.html' %}
-
-{% block title %} Open Tasks -- {{ conf.shortname }} {% endblock %}
-
+{% block title %}Open Tasks -- {{ conf.shortname }}{% endblock %}
 {% block content %}
-<h1> {{ conf.longname }} </h1>
-
-{% if agreements %}
-<p>You need to sign the following participation agreement(s):</p>
-<ul>
-  {% for agreement in agreements %}
-  <li><a href="{% url 'sign-agreement' conf agreement %}">{{ agreement.longname }}</a></li>
-  {% endfor %}
-</ul>
-{% endif %}
-
-<div class="container">
-  <div class="row align-items-start">
-    <div class="col">
-<h2>Tracks</h2>
-<ul>
-  {% for track in tracks|dictsort:"longname" %}
-  <li>
-    {% if track.url %}<a target="_blank" href="{{ track.url }}">{% endif %}
-    {{ track.longname }}
-    {% if track.url %}</a>{% endif %}
-    {% if track.shortname in tracks_i_coordinate %}
-    <a href="{% url 'track_signups' conf.shortname track.shortname %}">
-      (see interested groups)</a>
-    {% endif %}
-
-    {% if track.task_set %}
+  <h1>{{ conf.longname }}</h1>
+  {% if agreements %}
+    <p>You need to sign the following participation agreement(s):</p>
     <ul>
-      {% for task in track.task_set.all %}
-      <li>
-        {{ task.longname }}
-        {% if task.task_open %}
-        <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
-        {% elif track.shortname in tracks_i_coordinate or user.is_staff %}
-          {% for submitform in task.submit_form.all %}
-            {% if submitform.testing %}
-              <a href="{% url 'submit' conf.shortname task.shortname %}">(submission form for testing)</a>
-            {% endif %}
-          {% endfor %}
-        {% else %}
-        (submissions not open)
-        {% endif %}
-        {% if task.required %}
-        <span class="text-danger">required!</span>
-        {% endif %}
-        {% if track.shortname in tracks_i_coordinate or user.is_staff %}
-        {% if task.submission_set.exists %}
-        <a href="{% url 'task_submissions' conf.shortname task.shortname %}">
-          (see all submissions)</a>
-        {% endif %}
-        {% endif %}
-      </li>
+      {% for agreement in agreements %}
+        <li>
+          <a href="{% url 'sign-agreement' conf agreement %}">{{ agreement.longname }}</a>
+        </li>
       {% endfor %}
     </ul>
   {% endif %}
-  </li>
-{% endfor %}
-</ul>
-    </div>
-    <div class="col">
-
-      {% if myruns %}
-      {% regroup myruns by task as task_list %}
-      
-<h2> Runs submitted </h2>
-<ul>
-  {% for task in task_list %}
-  <details>
-    <summary> 
-      {{ task.grouper.track.shortname }}, {{ task.grouper.longname }}: 
-      {{ task.list|length }} 
-      {% if task.grouper.submission_set.first.evaluation_set.exists %}
-      <a href="{% url 'evals-zip' conf.shortname task.grouper.shortname %}">
-        (evals)
-      </a>
-      {% endif %}
-    </summary>
-  <ul>
-  {% for run in task.list %}
-  <li> <a href="{% url 'run' conf.shortname run.task.shortname run.runtag %}">
-      {{ run.runtag }}</a> : {{ run.task.shortname }}; on {{ run.date }}; by 
-    {{ run.submitted_by }} ( {{ run.org.shortname }} ); 
-
-    {% if run.is_validated == 'F' %}
-    <span class="text-danger">validation failed</span>
-    {% elif run.is_validated == 'S' %}
-    validated
-    {% else %}
-    waiting for validation
-    {% endif %}
-
-    {% if run.task.task_open %}
-      {% if run.submitted_by == user or user.is_staff %}
-        <a href="{% url 'run-delete' conf.shortname run.task.shortname run.runtag %}">
-        (delete run)
-        </a>
-      {% endif %}
-    {% endif %}
-  </li>
-  {% endfor %}
-  </ul>
-  </details>
-  {% endfor %}
-</ul>
-{% else %}
-<p>You have not submitted any runs yet.</p>
-{% endif %}
-
-{% if user.is_staff %}
-<h2>Conference reports</h2>
-<ul>
-  <li><a href="{% url 'signups_per_track' conf %}">Signups per track</a></li>
-</ul>
-{% endif %}
+  <div class="container">
+    <div class="row align-items-start">
+      <div class="col">
+        {% if papers %}
+          <h2>Paper submission</h2>
+          <ul>
+            {% for pub in papers.task_set.all %}
+              <li>
+                {{ pub.longname }}
+                {% if pub.task_open %}
+                  <a href="{% url 'submit' conf.shortname pub.shortname %}">(submit, deadline {{ pub.deadline|default_if_none:"TBD" }})</a>
+                {% elif user.is_staff %}
+                  {% for submitform in pub.submit_form.all %}
+                    {% if submitform.testing %}
+                      <a href="{% url 'submit' conf.shortname pub.shortname %}">(submission form for testing)</a>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  (submissions not open)
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <h2>Tracks</h2>
+        <ul>
+          {% for track in tracks|dictsort:"longname" %}
+            <li>
+              {% if track.url %}<a target="_blank" href="{{ track.url }}">{% endif %}
+                {{ track.longname }}
+                {% if track.url %}</a>{% endif %}
+              {% if track.shortname in tracks_i_coordinate %}
+                <a href="{% url 'track_signups' conf.shortname track.shortname %}">(see interested groups)</a>
+              {% endif %}
+              {% if track.task_set %}
+                <ul>
+                  {% for task in track.task_set.all %}
+                    <li>
+                      {{ task.longname }}
+                      {% if task.task_open %}
+                        <a href="{% url 'submit' conf.shortname task.shortname %}">(submit, deadline {{ task.deadline|default_if_none:"TBD" }})</a>
+                      {% elif track.shortname in tracks_i_coordinate or user.is_staff %}
+                        {% for submitform in task.submit_form.all %}
+                          {% if submitform.testing %}
+                            <a href="{% url 'submit' conf.shortname task.shortname %}">(submission form for testing)</a>
+                          {% endif %}
+                        {% endfor %}
+                      {% else %}
+                        (submissions not open)
+                      {% endif %}
+                      {% if task.required %}<span class="text-danger">required!</span>{% endif %}
+                      {% if track.shortname in tracks_i_coordinate or user.is_staff %}
+                        {% if task.submission_set.exists %}
+                          <a href="{% url 'task_submissions' conf.shortname task.shortname %}">(see all submissions)</a>
+                        {% endif %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col">
+        {% if myruns %}
+          {% regroup myruns by task as task_list %}
+          <h2>Runs submitted</h2>
+          <ul>
+            {% for task in task_list %}
+              <details>
+                <summary>
+                  {{ task.grouper.track.shortname }}, {{ task.grouper.longname }}:
+                  {{ task.list|length }}
+                  {% if task.grouper.submission_set.first.evaluation_set.exists %}
+                    <a href="{% url 'evals-zip' conf.shortname task.grouper.shortname %}">(evals)</a>
+                  {% endif %}
+                </summary>
+                <ul>
+                  {% for run in task.list %}
+                    <li>
+                      <a href="{% url 'run' conf.shortname run.task.shortname run.runtag %}">{{ run.runtag }}</a> : {{ run.task.shortname }}; on {{ run.date }}; by
+                      {{ run.submitted_by }} ( {{ run.org.shortname }} );
+                      {% if run.is_validated == 'F' %}
+                        <span class="text-danger">validation failed</span>
+                      {% elif run.is_validated == 'S' %}
+                        validated
+                      {% else %}
+                        waiting for validation
+                      {% endif %}
+                      {% if run.task.task_open %}
+                        {% if run.submitted_by == user or user.is_staff %}
+                          <a href="{% url 'run-delete' conf.shortname run.task.shortname run.runtag %}">(delete run)</a>
+                        {% endif %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </details>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>You have not submitted any runs yet.</p>
+        {% endif %}
+        {% if user.is_staff %}
+          <h2>Conference reports</h2>
+          <ul>
+            <li>
+              <a href="{% url 'signups_per_track' conf %}">Signups per track</a>
+            </li>
+          </ul>
+        {% endif %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

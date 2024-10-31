@@ -1,6 +1,7 @@
 import operator
 
 from django import forms
+from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
@@ -103,11 +104,10 @@ class SubmitFormForm(forms.Form):
 
         if context['mode'] == 'submit':
             fields['runfile'] = forms.FileField(label='Submission file')
-            fields['runtag'] = forms.CharField(
-                label='Runtag: a short identifier for the run',
-                validators=[SubmitFormForm.make_runtag_checker(context)])
-        else:
-            fields['runtag'] = forms.CharField(label='runtag')
+            if context['track'].shortname != 'papers':
+                fields['runtag'] = forms.CharField(
+                    label='Runtag: a short identifier for the run',
+                    validators=[SubmitFormForm.make_runtag_checker(context)])
 
         # Set up custom fields
         other_fields = (SubmitFormField.objects
@@ -127,11 +127,19 @@ class SubmitFormForm(forms.Form):
                     choices=choices)
 
             elif field.question_type == SubmitFormField.QuestionType.CHECKBOX:
-                choices = list(map(lambda x: (x,x), field.choices.split(',')))
-                fields[field.meta_key] = forms.MultipleChoiceField(
-                    label=field.question,
-                    widget=forms.CheckboxSelectMultiple,
-                    choices=choices)
+                if field.choices.startswith('TRACKS'):
+                    fields[field. meta_key] = forms.ModelMultipleChoiceField(
+                        label=field.question,
+                        widget=forms.CheckboxSelectMultiple,
+                        queryset=(Track.objects
+                                  .filter(conference=context['conf'])
+                                  .exclude(shortname='papers')))
+                else:
+                    choices = list(map(lambda x: (x,x), field.choices.split(',')))
+                    fields[field.meta_key] = forms.MultipleChoiceField(
+                        label=field.question,
+                        widget=forms.CheckboxSelectMultiple,
+                        choices=choices)
 
             elif field.question_type == SubmitFormField.QuestionType.EMAIL:
                 fields[field.meta_key] = forms.EmailField(label=field.question)
