@@ -740,10 +740,10 @@ def download_submission_file(request, *args, **kwargs):
             result.append('track coordinator')
         raise PermissionDenied(f'User is not one of [{", ".join(result)}]')
 
-    with open(run.file.path, 'r') as run_fp:
-        run_txt = run_fp.read()
-    return HttpResponse(run_txt,
-                        headers={'Content-Type': 'text/plain'})
+    with open(run.file.path, 'rb') as run_fp:
+        run_content = run_fp.read()
+    return HttpResponse(run_content,
+                        headers={'Content-Type': 'application/octet-stream'})
 
 
 @evalbase_login_required
