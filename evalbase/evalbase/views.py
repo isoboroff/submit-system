@@ -674,7 +674,7 @@ def view_eval(request, *args, **kwargs):
             result.append('track coordinator')
         raise PermissionDenied(f'User is not one of [{", ".join(result)}]')
 
-    eval = run.evaluation_set.filter(name=kwargs['eval'])
+    eval = run.evaluation_set.filter(name=kwargs['eval'])[0]
     with open(eval.filename.path, 'r') as eval_fp:
         eval_txt = eval_fp.read()
     return HttpResponse(eval_txt,
