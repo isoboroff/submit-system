@@ -603,8 +603,9 @@ def delete_submission(request, *args, **kwargs):
 
     elif request.method == 'POST':
         run.delete()
-        run_dir =  (Path(settings.MEDIA_ROOT) / run.file.name).parent
-        shutil.rmtree(run_dir, ignore_errors=True)
+        # This should be handled by django_cleanup now.
+        #run_dir =  (Path(settings.MEDIA_ROOT) / run.file.name).parent
+        #shutil.rmtree(run_dir, ignore_errors=True)
         return HttpResponseRedirect(
             reverse_lazy('tracks', kwargs={'conf': kwargs['conf']}))
 
@@ -702,11 +703,10 @@ def download_all_my_evals(request, *args, **kwargs):
         with zipfile.ZipFile(tmp, 'w', compression=zipfile.ZIP_DEFLATED) as zipf:
             for e in evals:
                 zipf.write(e.filename.path, 
-                           arcname=Path(e.filename.name).name)
+                           arcname=f'{e.submission.runtag}.{e.name}')
             for s in StatsFile.objects.filter(task=task):
                 zipf.write(s.filename.path, 
-                           arcname=Path(s.filename.name).name)
-            
+                           arcname=f'{s.task.shortname}.{s.name}')
             zipf.close()
 
         tmp.flush()
@@ -743,7 +743,8 @@ def download_submission_file(request, *args, **kwargs):
     with open(run.file.path, 'rb') as run_fp:
         run_content = run_fp.read()
     return HttpResponse(run_content,
-                        headers={'Content-Type': 'application/octet-stream'})
+                        headers={'Content-Type': 'application/octet-stream',
+                                 'Content-Disposition': f'inline; filename="{run.runtag}'})
 
 
 @evalbase_login_required
