@@ -22,6 +22,7 @@ django-admin-csvexport==2.2
 django-adminplus==0.6
 django-appconf==1.0.6
 django-bootstrap5==24.2
+django-cleanup==9.0.0
 django-csp==3.7
 django-modeltree==0.5
 django-select2==8.1.2

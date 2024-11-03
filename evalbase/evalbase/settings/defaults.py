@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'csvexport',
     'evalbase.templatetags.get_fields',
     'django_select2',
+    'django_cleanup.apps.CleanupConfig',
     'evalbase',
 ]
 
