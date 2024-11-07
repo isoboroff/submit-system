@@ -293,7 +293,7 @@ class Evaluation(models.Model):
 
 class StatsFile(models.Model):
     '''StatsFiles are statistics, like min/med/max tables, that go with a particular task evaluation.'''
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     task = models.ForeignKey(
         Task,
         on_delete=models.PROTECT)
