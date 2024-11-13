@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import sys
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from evalbase.models import Task, Submission, Evaluation
@@ -27,6 +28,10 @@ class Command(BaseCommand):
 
         parser.add_argument('-f', '--force',
                             help='Overwrite existing evals',
+                            action='store_true')
+        
+        parser.add_argument('-m', '--missing-ok',
+                            help='Skip over missing evaluations with a warning',
                             action='store_true')
 
     def find(filename, startpath):
@@ -56,7 +61,10 @@ class Command(BaseCommand):
                     evalfile = evalfile.replace(' ', '_')
                     evalpath = Command.find(evalfile, options['directory'])
                     if not evalpath:
-                        raise CommandError(f'Can\'t find {eval} eval for run {run.runtag}')
+                        if args.missing_ok:
+                            print(f'Can\'t find {eval} eval for run {run.runtag}', file=sys.stderr)
+                        else:
+                            raise CommandError(f'Can\'t find {eval} eval for run {run.runtag}')
 
                 try:
                     old_eval = Evaluation.objects.get(submission=run, name=eval)
