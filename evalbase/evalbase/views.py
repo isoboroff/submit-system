@@ -27,6 +27,7 @@ from .models import *
 from .forms import *
 from .decorators import *
 from .tasks import run_check_script
+from .utils import infinite_defaultdict
 
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
@@ -716,6 +717,34 @@ def download_all_my_evals(request, *args, **kwargs):
                             headers={'Content-Type': 'application/zip',
                                      'Content-Disposition': 'attachment; filename=evals.zip'})
 
+@evalbase_login_required
+@check_conf_and_task
+@conference_in_event_phase
+@require_http_methods(['GET'])
+def show_appendix(request, *args, **kwargs):
+    template_name = 'evalbase/appendix.html'
+    evals = Evaluation.objects.filter(submission__task=kwargs['_task'])
+    eval_table = collections.defaultdict(dict)
+    runs = []
+    measures = set() # set(['map', 'ndcg_cut_10', 'P10', 'recip_rank'])
+    for eval in evals:
+        with open(eval.filename.path, 'r') as eval_file:
+            for line in eval_file:
+                # assumes a trec_eval format file
+                measure, topic, score = line.strip().split()
+                if topic != 'all':
+                    continue
+                #if measure not in measures:
+                #    continue
+                measures.add(measure)
+                runs.append(eval.submission.runtag)
+                eval_table[eval.submission.runtag][measure] = score
+    context = {}
+    context['scores'] = dict(eval_table)
+    context['runs'] = runs
+    context['measures'] = list(measures)
+    return render(request, template_name, context=context)
+    
 
 @evalbase_login_required
 @check_conf_and_task
