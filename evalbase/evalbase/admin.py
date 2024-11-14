@@ -72,6 +72,17 @@ class SubmitFormAdmin(admin.ModelAdmin):
             return SubmitFormAdmin.TaskChoiceField(queryset=Task.objects.all())
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+    @admin.action(description='Make a copy of a submission form')
+    def replicate_form(modeladmin, request, queryset):
+        for a_form in queryset.all():
+            the_fields = a_form.submitformfield_set.all()
+            a_form.pk = None
+            a_form.id = None
+            a_form._state.adding = True
+            a_form.save()
+            a_form.submitformfield_set.set(the_fields)
+            a_form.save()
+
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'longname', 'track_short', 'required', 'task_open', 'deadline', 'checker_file']
@@ -166,3 +177,14 @@ class StatsFileAdmin(admin.ModelAdmin):
 @admin.register(Appendix)
 class AppendixAdmin(admin.ModelAdmin):
     list_display = ['task', 'name']
+    actions = ["replicate_appendix"]
+    
+    @admin.action(description='Make a copy of an appendix page')
+    def replicate_appendix(modeladmin, request, queryset):
+        for an_app in queryset.all():
+            an_app.pk = None
+            an_app.id = None
+            an_app._state.adding = True
+            an_app.save()
+
+
