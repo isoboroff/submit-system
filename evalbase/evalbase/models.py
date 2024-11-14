@@ -48,6 +48,7 @@ class Conference(models.Model):
     results_root = models.CharField(
         max_length=15,
         default='{0}/{1}'.format(shortname, 'runs'))
+    event_phase = models.BooleanField()
 
     def __str__(self):
         return self.shortname
