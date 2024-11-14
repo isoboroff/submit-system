@@ -13,7 +13,9 @@
             </thead>
             {% for run, vals in scores.items %}
                 <tr>
-                    <th>{{ run }}</th>
+                    <th>
+                        <a href="{% url 'run' conf=conf.shortname task=task.shortname runtag=run %}">{{ run }}</a>
+                    </th>
                     <td>{{ runs|get_item:run }}</td>
                     {% for m in measures %}<td>{{ vals|get_item:m }}</td>{% endfor %}
                 </tr>

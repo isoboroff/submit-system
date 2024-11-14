@@ -758,6 +758,8 @@ def show_appendix(request, *args, **kwargs):
     context['scores'] = dict(eval_table)
     context['runs'] = runs
     context['measures'] = measures.keys()
+    context['task'] = kwargs['_task']
+    context['conf'] = kwargs['_conf']
     return render(request, template_name, context=context)
     
 
