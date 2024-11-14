@@ -305,3 +305,18 @@ class StatsFile(models.Model):
 
     def __str__(self):
         return f'{self.task.shortname}:{self.name}'
+
+
+class Appendix(models.Model):
+    '''Information for displaying an appendix page'''
+    task = models.ForeignKey(
+        Task,
+        on_delete=models.PROTECT)
+    name = models.CharField(max_length=40)
+    # Fields in the evaluation file (assumed to be tidy and columnar)
+    measure_name_field = models.IntegerField()
+    topic_field = models.IntegerField()
+    score_field = models.IntegerField()
+    # Measures to display, or "all"
+    measures = models.JSONField(max_length=1024)
+    sort_column = models.CharField(max_length=20)  #not yet used
