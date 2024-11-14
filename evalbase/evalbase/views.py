@@ -723,26 +723,41 @@ def download_all_my_evals(request, *args, **kwargs):
 @require_http_methods(['GET'])
 def show_appendix(request, *args, **kwargs):
     template_name = 'evalbase/appendix.html'
+    if 'name' in kwargs:
+        appendix = get_object_or_404(Appendix, name=kwargs['name'], task=kwargs['_task'])
+    else:
+        appendix = Appendix.objects.filter(task=kwargs['_task'])[0]
+        
     evals = Evaluation.objects.filter(submission__task=kwargs['_task'])
     eval_table = collections.defaultdict(dict)
-    runs = []
-    measures = set() # set(['map', 'ndcg_cut_10', 'P10', 'recip_rank'])
+    runs = {}
+    if appendix.measures == "all":
+        measures = {}
+    else:
+        measures = { m: 0 for m in appendix.measures }
+        
     for eval in evals:
+        runs[eval.submission.runtag] = eval.submission.org
         with open(eval.filename.path, 'r') as eval_file:
             for line in eval_file:
                 # assumes a trec_eval format file
-                measure, topic, score = line.strip().split()
+                fields = line.strip().split()
+                measure = fields[appendix.measure_name_field]
+                topic = fields[appendix.topic_field]
+                score = fields[appendix.score_field]
                 if topic != 'all':
                     continue
-                #if measure not in measures:
-                #    continue
-                measures.add(measure)
-                runs.append(eval.submission.runtag)
-                eval_table[eval.submission.runtag][measure] = score
+                if measure == 'runid':
+                    continue
+                if appendix.measures == "all":
+                    eval_table[eval.submission.runtag][measure] = score
+                    measures[measure] = 1
+                elif measure in measures:
+                    eval_table[eval.submission.runtag][measure] = score
     context = {}
     context['scores'] = dict(eval_table)
     context['runs'] = runs
-    context['measures'] = list(measures)
+    context['measures'] = measures.keys()
     return render(request, template_name, context=context)
     
 

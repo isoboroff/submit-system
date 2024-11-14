@@ -162,3 +162,7 @@ class EvaluationAdmin(admin.ModelAdmin):
 @admin.register(StatsFile)
 class StatsFileAdmin(admin.ModelAdmin):
     list_display = ['name', 'task', 'date']
+    
+@admin.register(Appendix)
+class AppendixAdmin(admin.ModelAdmin):
+    list_display = ['task', 'name']

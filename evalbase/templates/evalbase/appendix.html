@@ -2,22 +2,22 @@
 {% load eb_tags %}
 {% block title %}Appendix{% endblock %}
 {% block content %}
-    <table class="sortable fixtable">
-        <thead>
-            <tr>
-                <th>Runtag</th>
-                {% for m in measures %}<th>{{ m }}</th>{% endfor %}
-            </tr>
-        </thead>
-        {% for run, vals in scores.items %}
-            <tr>
-                <th>{{ run }}</th>
-                {% for m in measures %}
-                    <td>
-                        <!-- {{v}} -->{{ vals|get_item:m }}
-                    </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container-fluid tablediv">
+        <table class="sortable fixtable">
+            <thead>
+                <tr>
+                    <th>Runtag</th>
+                    <th>PID</th>
+                    {% for m in measures %}<th>{{ m }}</th>{% endfor %}
+                </tr>
+            </thead>
+            {% for run, vals in scores.items %}
+                <tr>
+                    <th>{{ run }}</th>
+                    <td>{{ runs|get_item:run }}</td>
+                    {% for m in measures %}<td>{{ vals|get_item:m }}</td>{% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

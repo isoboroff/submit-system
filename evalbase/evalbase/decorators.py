@@ -245,3 +245,38 @@ def check_conf_and_task(view_func):
         kwargs['_task'] = task
         return view_func(request, *args, **kwargs)
     return wrapped_view
+
+def check_conf(view_func):
+    '''Check conf and task fields of URL and if they're ok, return
+    the objects in the kwargs.
+    '''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if 'conf' not in kwargs:
+            raise Http404('No such conf')
+        conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+        
+        kwargs['_conf'] = conf
+        return view_func(request, *args, **kwargs)
+    return wrapped_view
+
+def conference_in_event_phase(view_func):
+    '''Check that the conference is in the event-phase.  This is
+    the conference itself, when some additional views become
+    available.'''
+    @functools.wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if '_conf' in kwargs:
+            conf = kwargs['_conf']
+        elif 'conf' in kwargs:
+            conf = get_object_or_404(Conference, shortname=kwargs['conf'])
+            kwargs['_conf'] = conf
+        else:
+            raise Http404('No such conf')
+
+        if conf.event_phase == True:
+            return view_func(request, *args, **kwargs)
+        else:
+            raise Http404('Conference not in event phase')
+    return wrapped_view
+       
