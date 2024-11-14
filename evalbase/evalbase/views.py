@@ -293,6 +293,11 @@ def home_view(request, *args, **kwargs):
 def conf_tracks(request, *args, **kwargs):
     '''List the tracks in a conference.'''
     conf = Conference.objects.get(shortname=kwargs['conf'])
+    agreements = conf.agreements.exclude(signature__user=request.user.pk)
+    if agreements:
+        return HttpResponseRedirect(reverse_lazy('sign-agreement',
+                                     kwargs={'conf': conf,
+                                             'agreement': agreements[0]}))
     tracks = (Track.objects
               .filter(conference=conf)
               .exclude(shortname='papers'))
@@ -309,13 +314,13 @@ def conf_tracks(request, *args, **kwargs):
               .filter(task__track__conference=conf)
               .filter(org__in=orgs)
               .order_by('task', 'date'))
-
-    agreements = conf.agreements.exclude(signature__user=request.user.pk)
-    if agreements:
-        return HttpResponseRedirect(reverse_lazy('sign-agreement',
-                                     kwargs={'conf': conf,
-                                             'agreement': agreements[0]}))
-
+    appendices = None
+    if conf.event_phase or conf.complete:
+        appendices = (Appendix.objects
+                      .filter(task__track__conference=conf)
+                      .order_by('task__track__shortname', 'task__shortname'))
+        appendices = { app.task.shortname: [ app ] for app in appendices }
+ 
     tracks_i_coordinate = set()
     for track in Track.objects.filter(coordinators__pk=request.user.pk):
         tracks_i_coordinate.add(track.shortname)
@@ -331,6 +336,7 @@ def conf_tracks(request, *args, **kwargs):
                     'tasks': task_dict,
                     'conf': conf,
                     'myruns': myruns,
+                    'appendices': appendices,
                     'agreements': agreements })
 
 
@@ -594,6 +600,8 @@ def edit_submission(request, *args, **kwargs):
 
 @evalbase_login_required
 @user_may_edit_submission
+@check_conf_and_task
+@task_is_open
 @require_http_methods(['GET', 'POST'])
 def delete_submission(request, *args, **kwargs):
     template = 'evalbase/submission_confirm_delete.html'
@@ -626,6 +634,7 @@ def view_submission(request, *args, **kwargs):
     if not (request.user.is_staff or
             request.user == run.submitted_by or
             request.user == run.org.owner or
+            kwargs['_conf'].event_phase or
             is_coord):
         result = []
         if not request.user.is_staff:
@@ -663,6 +672,7 @@ def view_eval(request, *args, **kwargs):
     if not (request.user.is_staff or
             request.user == run.submitted_by or
             request.user == run.org.owner or
+            kwargs['_conf'].event_phase or
             is_coord):
         result = []
         if not request.user.is_staff:
@@ -729,6 +739,11 @@ def show_appendix(request, *args, **kwargs):
         appendix = Appendix.objects.filter(task=kwargs['_task'])[0]
         
     evals = Evaluation.objects.filter(submission__task=kwargs['_task'])
+    if 'name' in kwargs:
+        evals = evals.filter(name=kwargs['name'])
+    if appendix.queryset_field and appendix.queryset_qtype and appendix.queryset_target:
+        filter = appendix.queryset_field + '__' + appendix.queryset_qtype
+        evals = evals.filter(**{filter: appendix.queryset_target})
     eval_table = collections.defaultdict(dict)
     runs = {}
     if appendix.measures == "all":
@@ -754,12 +769,20 @@ def show_appendix(request, *args, **kwargs):
                     measures[measure] = 1
                 elif measure in measures:
                     eval_table[eval.submission.runtag][measure] = score
+    if appendix.sort_column and appendix.sort_column in measures:
+        sorted_keys = sorted(eval_table, 
+                             key=lambda x: eval_table[x][appendix.sort_column], 
+                             reverse=True)
+        tmp_dict = { runtag: eval_table[runtag] for runtag in sorted_keys }
+        eval_table = tmp_dict
+        
     context = {}
     context['scores'] = dict(eval_table)
     context['runs'] = runs
     context['measures'] = measures.keys()
     context['task'] = kwargs['_task']
     context['conf'] = kwargs['_conf']
+    context['name'] = appendix.name
     return render(request, template_name, context=context)
     
 

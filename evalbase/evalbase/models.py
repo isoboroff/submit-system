@@ -319,4 +319,7 @@ class Appendix(models.Model):
     score_field = models.IntegerField()
     # Measures to display, or "all"
     measures = models.JSONField(max_length=1024)
-    sort_column = models.CharField(max_length=20)  #not yet used
+    sort_column = models.CharField(max_length=20, blank=True, null=True)
+    queryset_field = models.CharField(max_length=25, blank=True, null=True)
+    queryset_qtype = models.CharField(max_length=25, blank=True, null=True)
+    queryset_target = models.CharField(max_length=25, blank=True, null=True)

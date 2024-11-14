@@ -1,4 +1,5 @@
 from django import template
+from evalbase import settings
 
 register = template.Library()
 

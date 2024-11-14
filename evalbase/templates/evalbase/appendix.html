@@ -1,7 +1,8 @@
 {% extends 'evalbase/base.html' %}
 {% load eb_tags %}
-{% block title %}Appendix{% endblock %}
+{% block title %}Appendix: {{ task.track.longname }} {{ task.longname }}, ({{ name }}){% endblock %}
 {% block content %}
+    <h4>Appendix, {{ task.track.longname }}, {{ task.longname }} ({{ name }})</h4>
     <div class="container-fluid tablediv">
         <table class="sortable fixtable">
             <thead>

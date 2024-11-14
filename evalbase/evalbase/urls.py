@@ -61,6 +61,7 @@ urlpatterns = ([
          name='task_submissions'),
     path('conf/<str:conf>/<str:task>/evals', views.download_all_my_evals, name='evals-zip'),
     path('conf/<str:conf>/<str:task>/appendix', views.show_appendix, name='appendix'),
+    path('conf/<str:conf>/<str:task>/appendix/<str:name>', views.show_appendix, name='appendix'),    
     path('run/<str:conf>/<str:task>/<str:runtag>', views.view_submission, name='run'),
     path('run/<str:conf>/<str:task>/<str:runtag>/run', views.download_submission_file, name='runfile'),
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),

@@ -1,4 +1,5 @@
 {% extends 'evalbase/base.html' %}
+{% load eb_tags %}
 {% block title %}Open Tasks -- {{ conf.shortname }}{% endblock %}
 {% block content %}
   <h1>{{ conf.longname }}</h1>
@@ -68,6 +69,11 @@
                           <a href="{% url 'task_submissions' conf.shortname task.shortname %}">(see all submissions)</a>
                         {% endif %}
                       {% endif %}
+                      {% if appendices|get_item:task.shortname %}
+                        {% for appendix in appendices|get_item:task.shortname %}
+                          <a href="{% url 'appendix' conf.shortname task.shortname appendix.name %}">(Appendix ({{ appendix.name }}))</a>
+                        {% endfor %}
+                      {% endif %}
                     </li>
                   {% endfor %}
                 </ul>
@@ -115,6 +121,18 @@
           </ul>
         {% else %}
           <p>You have not submitted any runs yet.</p>
+        {% endif %}
+        {% if appendices %}
+          <h2>Appendices</h2>
+          <ul>
+            {% for t, apps in appendices.items %}
+              {% for app in apps %}
+                <li>
+                  <a href="{% url 'appendix' conf.shortname t app.name %}">{{ app.task.track.longname }}, {{ app.task.longname }} ({{ app.name }})</a>
+                </li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
         {% endif %}
         {% if user.is_staff %}
           <h2>Conference reports</h2>
