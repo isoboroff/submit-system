@@ -179,7 +179,8 @@ class SubmitFormField(models.Model):
 
     submit_form = models.ForeignKey(
         SubmitForm,
-        on_delete=models.CASCADE)
+        null=True,
+        on_delete=models.SET_NULL)
     question = models.CharField(
         max_length=1000)
     choices = models.CharField(
