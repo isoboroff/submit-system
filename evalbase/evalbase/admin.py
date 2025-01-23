@@ -75,13 +75,8 @@ class SubmitFormAdmin(admin.ModelAdmin):
     @admin.action(description='Make a copy of a submission form')
     def replicate_form(modeladmin, request, queryset):
         for a_form in queryset.all():
-            the_fields = a_form.submitformfield_set.all()
-            a_form.pk = None
-            a_form.id = None
-            a_form._state.adding = True
-            a_form.save()
-            a_form.submitformfield_set.set(the_fields)
-            a_form.save()
+            new_form = a_form.copy()
+            new_form.save()
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):

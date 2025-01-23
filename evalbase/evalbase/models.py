@@ -160,9 +160,19 @@ class SubmitForm(models.Model):
         blank=True)
     testing = models.BooleanField(default=False)
 
-
     def __str__(self):
         return "/".join([self.task.track.conference.shortname, self.task.track.shortname, self.task.shortname])
+    
+    def copy(self):
+        '''Copy a form and its fields.  The new fields are saved to the database.
+        Don't forget to save the new model instance.'''
+        new_form = SubmitForm(task=self.task, header_template=self.header_template, testing=self.testing)
+        new_form.save()
+        for field in self.submitformfield_set.all():
+            new_field = field.copy()
+            new_field.submit_form = new_form
+            new_field.save()
+        return new_form
 
 class SubmitFormField(models.Model):
     """A SubmitFormField is a field in a SubmitForm.
@@ -179,8 +189,7 @@ class SubmitFormField(models.Model):
 
     submit_form = models.ForeignKey(
         SubmitForm,
-        null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.CASCADE)
     question = models.CharField(
         max_length=1000)
     choices = models.CharField(
@@ -201,6 +210,17 @@ class SubmitFormField(models.Model):
 
     def __str__(self):
         return self.meta_key
+    
+    def copy(self):
+        '''Copy a field.  Don't forget to save() it.'''
+        new_sff = SubmitFormField(question=self.question,
+                                  choices=self.choices,
+                                  meta_key=self.meta_key,
+                                  sequence=self.sequence,
+                                  question_type=self.question_type,
+                                  required=self.required,
+                                  help_text=self.help_text)
+        return new_sff
 
     class Meta:
         ordering = ['sequence']
