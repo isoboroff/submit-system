@@ -81,7 +81,8 @@ class SubmitFormAdmin(admin.ModelAdmin):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'longname', 'track_short', 'required', 'task_open', 'deadline', 'checker_file']
-
+    list_filter = ['track__conference']
+    
     @admin.display(ordering=Lower('shortname'))
     def track_short(self, obj):
         return obj.track.shortname

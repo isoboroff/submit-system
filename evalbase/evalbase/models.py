@@ -39,7 +39,7 @@ class Conference(models.Model):
     shortname = models.CharField(
         max_length=15)
     longname = models.CharField(
-        max_length=50)
+        max_length=150)
     open_signup = models.BooleanField()
     tech_contact = models.EmailField()
     admin_contact = models.EmailField()
