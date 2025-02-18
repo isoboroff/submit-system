@@ -1,64 +1,70 @@
 {% extends 'evalbase/base.html' %}
 {% load django_bootstrap5 %}
-
 {% block title %}{{ object.shortname }}{% endblock %}
-
 {% block content %}
-<div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col-8">
-      <p>Registration for {{ object.conference.longname }}</p>
-      <table class="table table-borderless">
-        <tbody>
-          <tr>
-            <th> Name </th>
-            <td> {{ object.longname }} </td>
-          </tr>
-          <tr>
-            <th> Owner </th>
-            <td> {{ object.owner }} ({{ object.owner.first_name }}
-	      {{ object.owner.last_name }},
-	      <a href="mailto:{{ object.owner.email }}">
-	        {{ object.owner.email }}</a>)</td>
-          </tr>
-          <tr>
-            <th> Contact </th>
-            <td> {{ object.contact_person }}  ({{ object.contact_person.first_name }}
-	      {{ object.contact_person.last_name }},
-	      <a href="mailto:{{ object.contact_person.email }}">
-	        {{ object.contact_person.email }}</a>)</td>
-          </tr>
-          {% if user == object.owner and object.conference.open_signup %}
-          <tr>
-            <th> To join </th>
-            <td> Use <a href="{% url 'org-join' object.passphrase %}">this URL</a> to invite people to join your organization.</td>
-          </tr>
-          <tr>
-            <th> Members </th>
-            <td>
-	      {% for m in object.members.all %}
-	      {{ m }} ({{ m.first_name }} {{ m.last_name }},
-	      <a href="mailto:{{ m.email }}">{{ m.email }}</a>)<br/>
-	      {% empty %}
-	      (none yet)
-	      {% endfor %}
-          <a href="{% url 'org-edit' object.conference object.shortname %}">Remove a user from this organization</a>
-              <tr>
-                <th> Task interest </th>
-                <td>
-                  {% for track in object.track_interest.all %}
-                  {{ track.longname }} <br/>
-                  {% endfor %}
-                  <a href="{% url 'org-edit' object.conference object.shortname %}">Change track interests.</a>  <p>(Please note, you don't need to specify a track here to participate in that track.  These just help us for planning in the start of the year.)</p>
-                </td>
-              </tr>
-            </td>
-          </tr>
-
-          {% endif %}
-        </tbody>
-      </table>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-8">
+                <p>Registration for {{ conf.longname }}</p>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ object.longname }}</td>
+                        </tr>
+                        <tr>
+                            <th>Owner</th>
+                            <td>
+                                {{ object.owner }} ({{ object.owner.first_name }}
+                                {{ object.owner.last_name }},
+                                <a href="mailto:{{ object.owner.email }}">{{ object.owner.email }}</a>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Contact</th>
+                            <td>
+                                {{ object.contact_person }}  ({{ object.contact_person.first_name }}
+                                {{ object.contact_person.last_name }},
+                                <a href="mailto:{{ object.contact_person.email }}">{{ object.contact_person.email }}</a>)
+                            </td>
+                        </tr>
+                        {% if user == object.owner and conf.open_signup %}
+                            <tr>
+                                <th>To join</th>
+                                <td>
+                                    Use <a href="{% url 'org-join' object.passphrase %}">this URL</a> to invite people to join your organization.
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Members</th>
+                                <td>
+                                    {% for m in object.members.all %}
+                                        {{ m }} ({{ m.first_name }} {{ m.last_name }},
+                                        <a href="mailto:{{ m.email }}">{{ m.email }}</a>)
+                                        <br />
+                                    {% empty %}
+                                        (none yet)
+                                    {% endfor %}
+                                    <a href="{% url 'org-edit' conf object.shortname %}">Remove a user from this organization</a>
+                                    <tr>
+                                        <th>Task interest</th>
+                                        <td>
+                                            {% for track in object.track_interest.all %}
+                                                {{ track.longname }}
+                                                <br />
+                                            {% endfor %}
+                                            <a href="{% url 'org-edit' conf object.shortname %}">Change track interests.</a>
+                                            <p>
+                                                (Please note, you don't need to specify a track here to participate in that track.  These just help us for planning in the start of the year.)
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 {% endblock %}

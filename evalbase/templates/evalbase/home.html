@@ -23,7 +23,7 @@
                                     {% else %}
                                         a member
                                     {% endif %}
-                                    of the <a href="{% url 'org-detail' org.conference org %}">{{ org.shortname }}</a> group)
+                                    of the <a href="{% url 'org-detail' oconf org %}">{{ org.shortname }}</a> group)
                                 </li>
                             {% empty %}
                                 <li>(none yet!)</li>

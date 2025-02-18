@@ -53,7 +53,6 @@ class Conference(models.Model):
     def __str__(self):
         return self.shortname
 
-
 class Organization(models.Model):
     """An Organization is a group that has registered to participate in a Conference."""
 
@@ -89,10 +88,6 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.shortname
-
-    def get_absolute_url(self):
-        return reverse('org-detail', args=[str(self.shortname)])
-    
 
 class Agreement(models.Model):
     """An Agreement is something somebody has to sign.  Usually for Conferences."""
