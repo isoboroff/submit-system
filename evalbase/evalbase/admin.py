@@ -110,7 +110,7 @@ class ConferenceAdmin(admin.ModelAdmin):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ['ci_shortname', 'owner_name', 'conference']
+    list_display = ['ci_shortname', 'owner_name']
     list_filter = ['conference']
     readonly_fields = [ 'passphrase' ]
     filter_horizontal = [ 'members' ]

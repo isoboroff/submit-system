@@ -53,16 +53,21 @@ class Conference(models.Model):
     def __str__(self):
         return self.shortname
 
-class Organization(models.Model):
-    """An Organization is a group that has registered to participate in a Conference."""
+class OrgConfThroughModel(models.Model):
+    org = models.ForeignKey(
+        'Organization',
+        on_delete=models.CASCADE)
+    conf = models.ForeignKey(
+        Conference,
+        on_delete=models.CASCADE)
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                Lower('shortname'), 'conference',
-                name='org_ids_must_be_unique',
-                violation_error_message='Another organization is already using this ID',
-            ),
+            models.UniqueConstraint(name='orgs in conferences must be unique',
+                                    fields = ['org', 'conf'])
         ]
+
+class Organization(models.Model):
+    """An Organization is a group that has registered to participate in a Conference."""
 
     owner = models.ForeignKey(
         User,
@@ -86,13 +91,10 @@ class Organization(models.Model):
     members = models.ManyToManyField(
         User,
         related_name='member_of')
-    conference = models.ForeignKey(
-        Conference,
-        on_delete=models.PROTECT,
-        related_name='participants')
-    conf2 = models.ManyToManyField(
+    conference = models.ManyToManyField(
         to='Conference',
-        related_name='parts')
+        through=OrgConfThroughModel,
+        related_name='participants')
     track_interest = models.ManyToManyField(
         to='Track',
         #limit_choices_to=Q(conference=conference)

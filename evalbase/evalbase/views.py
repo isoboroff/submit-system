@@ -228,16 +228,15 @@ def org_create(request, *args, **kwargs):
             cleaned = form.cleaned_data
             if 'existing_org' in cleaned:
                 org = Organization.objects.get(shortname=cleaned['existing_org'])
-                org.conference=kwargs['_conf']
             else:
                 org = Organization(
                     shortname=cleaned['shortname'],
                     longname=cleaned['longname'],
                     contact_person=request.user,
                     owner=request.user,
-                    conference=kwargs['_conf'],
                     passphrase=uuid.uuid4())
             org.save()
+            org.conference.add(kwargs['_conf']),
             org.track_interest.set(cleaned['track_interest'])
             org.members.add(request.user)
             org.save()
