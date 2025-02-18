@@ -29,6 +29,10 @@ from .decorators import *
 from .tasks import run_check_script
 from .utils import infinite_defaultdict
 
+@require_http_methods(['GET'])
+def howto_view(request):
+    return render(request, 'evalbase/howto.html')
+
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
     if request.method == 'GET':

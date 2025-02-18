@@ -1,0 +1,51 @@
+{% extends 'evalbase/base.html' %}
+{% block title %}evalbase Howto{% endblock %}
+{% block content %}
+    <h1>Evalbase Howto</h1>
+    <p>
+        Evalbase is a platform for managing the bookkeeping side of TREC and and related evaluation workshops.  It lets you register to participate, submit runs, and get evaluation results, as well as manage access for your participating organization.
+    </p>
+    <h2>Contents</h2>
+    <ul>
+        <li>
+            <a href="#getting_started">Getting Started</a>
+        </li>
+        <li>
+            <a href="#register">Registering to participate</a>
+        </li>
+        <li>
+            <a href="#pid">Managing your organization</a>
+        </li>
+        <li>
+            <a href="#home">The Evalbase Home page</a>
+        </li>
+        <li>
+            <a href="#submit">Submitting runs</a>
+        </li>
+        <li>
+            <a href="#manage">Managing runs</a>
+        </li>
+    </ul>
+    {% url 'home' as home_url %}
+    <h3>
+        <a name="getting_started">Getting Started</a>
+    </h3>
+    <p>
+        You need to register an account on Evalbase.  If you're reading this, that's probably already happened.  Please make a personal account for you specifically, rather than a group account.
+    </p>
+    <p>
+        Once you're logged in, there is a drop-down menu in the upper right to view your profile or log out.  The profile at the moment just contains contact information.
+    </p>
+    <h3>
+        <a name="register">Register to participate</a>
+    </h3>
+    <p>
+        The main landing page for Evalbase (<a href="{{ home_url }}">{{ request.get_host }}{{ home_url }}</a>) lets you register to participate in any open evaluations.  Typically that is just the current TREC cycle.  Registering to participate involves creating an "organization" for your team.
+    </p>
+    <p>
+        When you register, you give the full name of your team ('Wossamatta University IR Group') and a short identifier ('wu_ir').  The short identifier gets used in a lot of places, for example in plots, so it should be short and sweet.
+    </p>
+    <p>
+        You also tick off which tracks you are interested in participating in.  These choices don't lock you in, but we do use these choices to know which Slack channels to subscribe you to.
+    </p>
+{% endblock %}

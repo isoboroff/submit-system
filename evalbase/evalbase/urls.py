@@ -67,6 +67,7 @@ urlpatterns = ([
     path('run/<str:conf>/<str:task>/<str:runtag>/delete', views.delete_submission, name='run-delete'),
     path('conf/<str:conf>/<str:task>/<str:runtag>/edit', views.edit_submission, name='edit-task'),
     path('run/<str:conf>/<str:task>/<str:runtag>/<str:eval>', views.view_eval, name='eval'),
+    path('howto/', views.howto_view, name="home"),
     path('', views.home_view, name='home'),
 
     path('conf/<str:conf>/signups_per_track', views.org_signups_per_track,
