@@ -1,60 +1,68 @@
 {% extends 'evalbase/base.html' %}
-
-{% block title %} evalbase Home {% endblock %}
-
+{% block title %}evalbase Home{% endblock %}
 {% block content %}
-
-<div class="container-fluid">
-  <div class="row justify-content-md-center">
-    <div class="col-4 order-2 border p-2">
-      <p>Evalbase is a system that supports participation in certain NIST evaluations including <a href="https://trec.nist.gov/">TREC</a>.  If you are currently participating in an active evaluation, or there are evaluations with open signups, you will find them listed here.
-      </p>
-    </div>
-    <div class="col-6">
-      <p>
-        You are currently signed up to participate in:<br/>
-        <ul>
-          {% for org in my_orgs %}
-          <li> <a href="{% url 'tracks' org.conference.shortname %}">
-              {{ org.conference.shortname }}</a>
-            (as
-            {% if org.owner == user %} the owner {% else %} a member {% endif %}
-            of the <a href="{% url 'org-detail' org.conference org %}">
-              {{ org.shortname }}</a> group)</li>
-          {% empty %}
-          <li>(none yet!)</li>
-          {% endfor %}
-        </ul>
-
-      <p>
-        Other conferences open for registration:<br/>
-        {% if open_evals %}
-        <ul>
-          {% for conf in open_evals %}
-          <li><a href="{% url 'org-create' conf %}">
-              ({{ conf.shortname }})</a>
-            {{ conf.longname }}</li>
-          {% endfor %}
-        </ul>
-        <p>(Follow a link above to <b>register a new organization</b> with a
-        conference.  To <b>join</b> an organization, ask their contact for the group signup link.)</p>
-        {% else %}
-        (none right now, come back later!)
-        {% endif %}
-
-        {% if complete %}
-      <p>
-        Closed conferences you have participated in<br/>
-        <ul>
-          {% for conf in complete %}
-          <li><a href="{% url 'tasks' conf.shortname %}">
-              ({{ conf.shortname }})</a>
-            {{ conf.longname }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
-  </div>
-</div>
-
-{% endblock %}
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-4 order-2 border p-2">
+                <p>
+                    Evalbase is a system that supports participation in certain NIST evaluations including <a href="https://trec.nist.gov/">TREC</a>.  If you are currently participating in an active evaluation, or there are evaluations with open signups, you will find them listed here.
+                </p>
+            </div>
+            <div class="col-6">
+                <p>
+                    You are currently signed up to participate in:
+                    <br />
+                    <ul>
+                        {% for org in my_orgs %}
+                            {% for oconf in org.conference.all %}
+                                <li>
+                                    <a href="{% url 'tracks' oconf.shortname %}">{{ oconf.shortname }}</a>
+                                    (as
+                                    {% if org.owner == user %}
+                                        the owner
+                                    {% else %}
+                                        a member
+                                    {% endif %}
+                                    of the <a href="{% url 'org-detail' org.conference org %}">{{ org.shortname }}</a> group)
+                                </li>
+                            {% empty %}
+                                <li>(none yet!)</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    <p>
+                        Other conferences open for registration:
+                        <br />
+                        {% if open_evals %}
+                            <ul>
+                                {% for conf in open_evals %}
+                                    <li>
+                                        <a href="{% url 'org-create' conf %}">({{ conf.shortname }})</a>
+                                        {{ conf.longname }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                (Follow a link above to <b>register a new organization</b> with a
+                                conference.  To <b>join</b> an organization, ask their contact for the group signup link.)
+                            </p>
+                        {% else %}
+                            (none right now, come back later!)
+                        {% endif %}
+                        {% if complete %}
+                            <p>
+                                Closed conferences you have participated in
+                                <br />
+                                <ul>
+                                    {% for conf in complete %}
+                                        <li>
+                                            <a href="{% url 'tasks' conf.shortname %}">({{ conf.shortname }})</a>
+                                            {{ conf.longname }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}

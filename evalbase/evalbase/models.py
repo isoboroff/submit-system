@@ -53,18 +53,6 @@ class Conference(models.Model):
     def __str__(self):
         return self.shortname
 
-class OrgConfThroughModel(models.Model):
-    org = models.ForeignKey(
-        'Organization',
-        on_delete=models.CASCADE)
-    conf = models.ForeignKey(
-        Conference,
-        on_delete=models.CASCADE)
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(name='orgs in conferences must be unique',
-                                    fields = ['org', 'conf'])
-        ]
 
 class Organization(models.Model):
     """An Organization is a group that has registered to participate in a Conference."""
@@ -93,7 +81,6 @@ class Organization(models.Model):
         related_name='member_of')
     conference = models.ManyToManyField(
         to='Conference',
-        through=OrgConfThroughModel,
         related_name='participants')
     track_interest = models.ManyToManyField(
         to='Track',
@@ -105,6 +92,7 @@ class Organization(models.Model):
 
     def get_absolute_url(self):
         return reverse('org-detail', args=[str(self.shortname)])
+    
 
 class Agreement(models.Model):
     """An Agreement is something somebody has to sign.  Usually for Conferences."""

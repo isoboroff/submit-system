@@ -110,10 +110,10 @@ class ConferenceAdmin(admin.ModelAdmin):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ['ci_shortname', 'owner_name']
+    list_display = ['ci_shortname', 'owner_name' ]
     list_filter = ['conference']
     readonly_fields = [ 'passphrase' ]
-    filter_horizontal = [ 'members' ]
+    filter_horizontal = [ 'members', 'conference' ]
     search_fields = ['shortname', 'owner__first_name', 'owner__last_name', 'owner__email']
     actions = [csvexport]
 
@@ -124,6 +124,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     @admin.display(ordering='owner__last_name')
     def owner_name(self, obj):
         return f'{obj.owner.first_name} {obj.owner.last_name} ({obj.owner.email})'
+    
 
 class SignatureInline(admin.TabularInline):
     model = Signature

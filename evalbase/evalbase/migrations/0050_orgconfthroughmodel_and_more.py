@@ -10,48 +10,4 @@ class Migration(migrations.Migration):
         ("evalbase", "0049_organization_conf2"),
     ]
 
-    operations = [
-        migrations.CreateModel(
-            name="OrgConfThroughModel",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-            ],
-        ),
-        migrations.RemoveConstraint(
-            model_name="organization",
-            name="org_ids_must_be_unique",
-        ),
-        migrations.RenameField(
-            model_name="organization",
-            old_name="conf2",
-            new_name="conference",
-        ),
-        migrations.AddField(
-            model_name="orgconfthroughmodel",
-            name="conf",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="evalbase.conference"
-            ),
-        ),
-        migrations.AddField(
-            model_name="orgconfthroughmodel",
-            name="org",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="evalbase.organization"
-            ),
-        ),
-        migrations.AddConstraint(
-            model_name="orgconfthroughmodel",
-            constraint=models.UniqueConstraint(
-                fields=("org", "conf"), name="orgs in conferences must be unique"
-            ),
-        ),
-    ]
+    operations = []
