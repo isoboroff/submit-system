@@ -1,20 +1,56 @@
 {% extends 'evalbase/base.html' %}
 {% load django_bootstrap5 %}
-
 {% block title %}Create an organization{% endblock %}
-
 {% block content %}
-
-<div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col-8">
-      <p>Complete this form to register to participate in {{ conf.longname }}.  You will be listed as the primary organizational contact.  Once you've registered to participate, you will have a signup link you can share with members of your organization who are also participating in this evaluation.</p>
-      <form method="post">
-        {% csrf_token %}
-        {% bootstrap_field form.shortname show_help=True placeholder='nist' %}
-        {% bootstrap_field form.longname show_help=True placeholder='National Institute of Standards and Technology' %}
-        {% bootstrap_field form.track_interest show_help=True %}
-        {% bootstrap_button type="submit" content="Create" %}
-      </form>
-
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-8">
+                <p>
+                    Complete this form to register to participate in {{ conf.longname }}.  You will be listed as the primary organizational contact.  Once you've registered to participate, you will have a signup link you can share with members of your organization who are also participating in this evaluation.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form_errors form type="non_fields" layout="inline" %}
+                    {% if have_orgs %}
+                        <div class="row">
+                            <div class="col">
+                                <strong>Either</strong> choose one of your existing organizations
+                                {% bootstrap_field form.existing_org %}
+                            </div>
+                            <div class="col">
+                                <strong>Or</strong> create a new one...
+                                {% bootstrap_field form.shortname show_help=True placeholder='nist' %}
+                                {% bootstrap_field form.longname show_help=True placeholder='National Institute of Standards and Technology' %}
+                            </div>
+                            {% bootstrap_field form.track_interest show_help=True %}
+                            {% bootstrap_button type="submit" content="Create" %}
+                        </div>
+                    {% else %}
+                        {% bootstrap_field form.shortname show_help=True placeholder='nist' %}
+                        {% bootstrap_field form.longname show_help=True placeholder='National Institute of Standards and Technology' %}
+                        {% bootstrap_field form.track_interest show_help=True %}
+                        {% bootstrap_button type="submit" content="Create" %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block tailscript %}
+    <script>
+    // Don't let the form have an existing org and also a new org.
+    const existing_org = document.getElementById('id_existing_org');
+    const shortname = document.getElementById('id_shortname');
+    const longname = document.getElementById('id_longname');
+    existing_org.addEventListener('input', function(e) {
+        shortname.value = '';
+        longname.value = '';
+    });
+    shortname.addEventListener('input', function() {
+        existing_org.value = '';
+    });
+    longname.addEventListener('input', function() {
+        existing_org.value = '';
+    });
+    </script>
 {% endblock %}

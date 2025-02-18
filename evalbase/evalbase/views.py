@@ -177,14 +177,19 @@ def org_create(request, *args, **kwargs):
 
     In form validation, we create the random signup key URL.
     '''
-
     class _Form(forms.Form):
+        existing_org = forms.ModelChoiceField(
+            label='Existing organization',
+            queryset=Organization.objects.filter(owner=request.user),
+            required=False)
         shortname = forms.CharField(
             label='Organization ID - a short name for your organization (e.g. "nist")',
-            max_length=15)
+            max_length=15,
+            required=False)
         longname = forms.CharField(
             label='Full name of your organization',
-            max_length=50)
+            max_length=50,
+            required=False)
         track_interest = forms.ModelMultipleChoiceField(
             label='Which tracks are you interested in?',
             widget=forms.CheckboxSelectMultiple,
@@ -192,32 +197,46 @@ def org_create(request, *args, **kwargs):
                       .objects
                       .filter(conference=kwargs['_conf'])
                       .order_by('longname')))
+        
+        def clean(self):
+            cleaned_data = super().clean()
+            old_org = cleaned_data.get('existing_org')
+            sname = cleaned_data.get('shortname')
+            print(old_org, sname)
+            if not old_org and not sname:
+                raise ValidationError('You must either choose an existing organization or create a new one')
+            if old_org and sname:
+                raise ValidationError('You can either use an existing organization or create a new one')
 
-        def clean_shortname(self):
-            data = self.cleaned_data['shortname']
             if (Organization.objects
-                .filter(shortname=data,
+                .filter(shortname=sname,
                         conference=kwargs['_conf'])).exists():
                 raise ValidationError('Another organization is registered with this name.')
-            return data
 
+            return cleaned_data
+        
     if request.method == 'GET':
         form = _Form()
         return render(request, 'evalbase/org-create.html',
                       { 'conf': kwargs['_conf'],
+                        'have_orgs': Organization.objects.filter(owner=request.user).exists(),
                         'form': form })
 
     elif request.method == 'POST':
         form = _Form(request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
-            org = Organization(
-                shortname=cleaned['shortname'],
-                longname=cleaned['longname'],
-                contact_person=request.user,
-                owner=request.user,
-                conference=kwargs['_conf'],
-                passphrase=uuid.uuid4())
+            if 'existing_org' in cleaned:
+                org = Organization.objects.get(shortname=cleaned['existing_org'])
+                org.conference=kwargs['_conf']
+            else:
+                org = Organization(
+                    shortname=cleaned['shortname'],
+                    longname=cleaned['longname'],
+                    contact_person=request.user,
+                    owner=request.user,
+                    conference=kwargs['_conf'],
+                    passphrase=uuid.uuid4())
             org.save()
             org.track_interest.set(cleaned['track_interest'])
             org.members.add(request.user)
@@ -226,6 +245,7 @@ def org_create(request, *args, **kwargs):
         else:
             return render(request, 'evalbase/org-create.html',
                           { 'conf': kwargs['_conf'],
+                            'have_orgs': Organization.objects.filter(owner=request.user).exists(),
                             'form': form })
 
 

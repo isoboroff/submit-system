@@ -90,6 +90,9 @@ class Organization(models.Model):
         Conference,
         on_delete=models.PROTECT,
         related_name='participants')
+    conf2 = models.ManyToManyField(
+        to='Conference',
+        related_name='parts')
     track_interest = models.ManyToManyField(
         to='Track',
         #limit_choices_to=Q(conference=conference)
