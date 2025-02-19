@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Evalbase Howto</h1>
     <p>
-        Evalbase is a platform for managing the bookkeeping side of TREC and and related evaluation workshops.  It lets you register to participate, submit runs, and get evaluation results, as well as manage access for your participating organization.
+        Evalbase is a platform for managing the bookkeeping side of TREC and related evaluation workshops.  It lets you register to participate, submit runs, and get evaluation results, as well as manage access for your participating organization.
     </p>
     <h2>Contents</h2>
     <ul>
@@ -17,7 +17,7 @@
             <a href="#pid">Managing your organization</a>
         </li>
         <li>
-            <a href="#home">The Evalbase Home page</a>
+            <a href="#home">The conference page</a>
         </li>
         <li>
             <a href="#submit">Submitting runs</a>
@@ -40,12 +40,56 @@
         <a name="register">Register to participate</a>
     </h3>
     <p>
-        The main landing page for Evalbase (<a href="{{ home_url }}">{{ request.get_host }}{{ home_url }}</a>) lets you register to participate in any open evaluations.  Typically that is just the current TREC cycle.  Registering to participate involves creating an "organization" for your team.
+        The main landing page for Evalbase (<a href="{{ home_url }}">{{ request.get_host }}{{ home_url }}</a>) lets you register to participate in any open evaluations.  Clicking the 'Evalbase' title on any page will bring you back here.  Typically that is just the current TREC cycle.  Registering to participate involves creating an "organization" for your team.
     </p>
     <p>
         When you register, you give the full name of your team ('Wossamatta University IR Group') and a short identifier ('wu_ir').  The short identifier gets used in a lot of places, for example in plots, so it should be short and sweet.
     </p>
     <p>
         You also tick off which tracks you are interested in participating in.  These choices don't lock you in, but we do use these choices to know which Slack channels to subscribe you to.
+    </p>
+    <p>
+        After creating your organization, there is a handy link you can give to members of your group to register themselves with the organization after they've set up their account.  Click on your organization and the URL to share is there.
+    </p>
+    <h3>
+        <a name="pid">Managing your organization</a>
+    </h3>
+    <p>
+        From the main Evalbase page, you can click on your organization to see and edit details.  The organization detail shows you your current members, the current track interests you checked, and the signup URL.  If you want to add someone to your organization, ask them to create themselves an account, and then give them the signup URL.
+    </p>
+    <p>You can also remove members from the organization from this page.</p>
+    <h3>
+        <a name="home">The conference page</a>
+    </h3>
+    <p>
+        Clicking on the name of the conference you've registered for brings you to the page for that conference.  On this page, you can see all the tracks with links to their homepages.  In each track there are one or more tasks you can submit runs to.
+    </p>
+    <p>
+        If a task is open for submissions, there is a link with a deadline listed.  Your submitted runs are listed down the right hand side of the page, and by following those links you can edit or delete your submissions.
+    </p>
+    <p>When the conference happens, evaluation summaries and plots are linked from this page as well.</p>
+    <h3>
+        <a name="#submit">Submitting runs</a>
+    </h3>
+    <p>
+        When a task is open for submission, there is a link on the conference page.  Clicking that link will bring up a submission form that will ask you different questions about your run submission.  These questions are used by the track coordinators and NIST to make comparisons between submissions.
+    </p>
+    <p>
+        The run identifier or "runtag" is a unique identifier for your run.  Its common to use a common prefix for your runs based on your organization ID; if your organization ID was "NIST" you might tag your runs "NIST-1" or "NIST-firsttask-1".  Using a common prefix makes it easy to spot your runs on results tables and plots with lots of runs on them.
+    </p>
+    <p>
+        After you click Submit, the run is uploaded and queued for validation.  The validation process looks for errors in the submission file like missing topics or documents from the wrong collection.  Validation can take a few seconds or a minute, and happens asynchronously, so check back in a few minutes to make sure your submission validated.  If it didn't, you can see the output of the validator which should tell you where the issue is.
+    </p>
+    <p>
+        Evalbase sends an email to you and to the owner of your organization once validation is complete, so you'll have a notification of your submission and whether it validated or not.
+    </p>
+    <h3>
+        <a name="#manage">Managing your submissions</a>
+    </h3>
+    <p>
+        Your submissions are listed on the right-hand side of the conference page.  From that list, you can click a run to review and edit your answers to the submission form questions.  You can also delete the run.  Evalbase forces run identifiers to be unique, so if you want to re-submit the run, you need to delete it first.
+    </p>
+    <p>
+        Paper submissions for the proceedings are different in that run identifiers are generated automatically.  In this case, you need to manually delete your old submissions if you submit a replacement.
     </p>
 {% endblock %}

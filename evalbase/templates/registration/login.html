@@ -1,19 +1,23 @@
 {% extends "registration/auth.html" %}
 {% load django_bootstrap5 %}
-
 {% block title %}Evalbase login{% endblock %}
-
 {% block auth_content %}
-
     <h1 class="display-2 text-center">Evalbase</h1>
     <p class="text-center">Please sign in</p>
     <form method="post">
-      {% csrf_token %}
-      {% bootstrap_form form show_label=False %}
-      <button type="submit" class="btn btn-primary">Login</button>
-      <a role="button" class="btn btn-primary" href="{% url 'password_reset' %}">Reset Password</a>
-      <a role="button" class="btn btn-primary" href="{% url 'signup' %}">Account Signup</a>
-
+        {% csrf_token %}
+        {% bootstrap_form form show_label=False %}
+        <div class="d-flex gap-1">
+            <div class="col-auto me-auto">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a role="button"
+                   class="btn btn-primary"
+                   href="{% url 'password_reset' %}">Reset Password</a>
+            </div>
+            <div class="col-auto">
+                <a role="button" class="btn btn-primary" href="{% url 'signup' %}">Account Signup</a>
+                <a role="button" class="btn btn-primary" href="{% url 'howto' %}">Help</a>
+            </div>
+        </div>
     </form>
-
 {% endblock %}
