@@ -230,7 +230,7 @@ def org_create(request, *args, **kwargs):
         form = _Form(request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
-            if 'existing_org' in cleaned:
+            if 'existing_org' in cleaned and cleaned['existing_org']:
                 org = Organization.objects.get(shortname=cleaned['existing_org'])
             else:
                 org = Organization(
