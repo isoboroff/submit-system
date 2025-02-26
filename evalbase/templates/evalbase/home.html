@@ -15,16 +15,18 @@
                     <ul>
                         {% for org in my_orgs %}
                             {% for oconf in org.conference.all %}
-                                <li>
-                                    <a href="{% url 'tracks' oconf.shortname %}">{{ oconf.shortname }}</a>
-                                    (as
-                                    {% if org.owner == user %}
-                                        the owner
-                                    {% else %}
-                                        a member
-                                    {% endif %}
-                                    of the <a href="{% url 'org-detail' oconf org %}">{{ org.shortname }}</a> group)
-                                </li>
+                                {% if not oconf.complete %}
+                                    <li>
+                                        <a href="{% url 'tracks' oconf.shortname %}">{{ oconf.shortname }}</a>
+                                        (as
+                                        {% if org.owner == user %}
+                                            the owner
+                                        {% else %}
+                                            a member
+                                        {% endif %}
+                                        of the <a href="{% url 'org-detail' oconf org %}">{{ org.shortname }}</a> group)
+                                    </li>
+                                {% endif %}
                             {% empty %}
                                 <li>(none yet!)</li>
                             {% endfor %}
