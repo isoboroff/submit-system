@@ -56,7 +56,7 @@
                                 <ul>
                                     {% for conf in complete %}
                                         <li>
-                                            <a href="{% url 'tasks' conf.shortname %}">({{ conf.shortname }})</a>
+                                            <a href="{% url 'tracks' conf.shortname %}">({{ conf.shortname }})</a>
                                             {{ conf.longname }}
                                         </li>
                                     {% endfor %}
