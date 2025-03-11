@@ -257,17 +257,13 @@ def org_create(request, *args, **kwargs):
 def org_join(request, *args, **kwargs):
     '''Join an organization.  This view is triggered by someone
     using the special 'join-org' key for an organization.
-    The conference has to be open, but since the URL doesn't have
-    the conference specified, we can't use the conference_is_open
-    decorator.
+    Orgs can be joined any time.
     '''
 
     org = Organization.objects.filter(passphrase=kwargs['key'])
     if not org:
         raise Http404('org not found, wtf')
     org = org[0]
-    if not org.conference.open_signup:
-        raise PermissionDenied
 
     if request.method == 'GET':
         return render(request, 'evalbase/join.html',
