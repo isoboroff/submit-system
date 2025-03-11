@@ -213,9 +213,7 @@ def org_create(request, *args, **kwargs):
             if old_org and sname:
                 raise ValidationError('You can either use an existing organization or create a new one')
 
-            if (Organization.objects
-                .filter(shortname=sname,
-                        conference=kwargs['_conf'])).exists():
+            if (Organization.objects.filter(shortname=sname).exists()):
                 raise ValidationError('Another organization is registered with this name.')
 
             return cleaned_data
