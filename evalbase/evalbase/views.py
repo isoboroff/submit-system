@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_http_methods
@@ -273,6 +274,11 @@ def org_join(request, *args, **kwargs):
     elif request.method == 'POST':
         user = request.user
         org.members.add(user)
+        send_mail(f'{org.shortname}: {user} joined',
+                  f'This email is notifying you that user {user} ({user.first_name} {user.last_name} <{user.email}>) has joined the {org.shortname} ({org.longname}) team at Evalbase.',
+                  'ian.soboroff@nist.gov',
+                  [org.owner.email, org.contact_person.email],
+                  fail_silently=False)
         return HttpResponseRedirect(reverse_lazy('home'))
 
 
