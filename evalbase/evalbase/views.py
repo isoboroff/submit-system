@@ -767,7 +767,8 @@ def show_appendix(request, *args, **kwargs):
     if appendix.queryset_field and appendix.queryset_qtype and appendix.queryset_target:
         filter = appendix.queryset_field + '__' + appendix.queryset_qtype
         evals = evals.filter(**{filter: appendix.queryset_target})
-    eval_table = collections.defaultdict(dict)
+    means = collections.defaultdict(dict)
+    scores = infinite_defaultdict()
     runs = {}
     if appendix.measures == "all":
         measures = {}
@@ -783,24 +784,34 @@ def show_appendix(request, *args, **kwargs):
                 measure = fields[appendix.measure_name_field]
                 topic = fields[appendix.topic_field]
                 score = fields[appendix.score_field]
-                if topic != 'all':
-                    continue
                 if measure == 'runid':
                     continue
-                if appendix.measures == "all":
-                    eval_table[eval.submission.runtag][measure] = score
-                    measures[measure] = 1
-                elif measure in measures:
-                    eval_table[eval.submission.runtag][measure] = score
+                if topic == appendix.average_topic:
+                    if appendix.measures == 'all':
+                        means[eval.submission.runtag][measure] = score
+                        measures[measure] = 1
+                    elif measure in measures:
+                        means[eval.submission.runtag][measure] = score
+                else:
+                    if appendix.measures == 'all':
+                        scores[eval.submission.runtag][measure][topic] = score
+                        measures[measure] = 1
+                    elif measure in measures:
+                        scores[eval.submission.runtag][measure][topic] = score
+            for measure in measures:
+                if measure not in means[eval.submission.runtag]:
+                    sum_score = sum([float(s) for s in scores[eval.submission.runtag][measure].values()])
+                    avg = sum_score / len(scores[eval.submission.runtag][measure])
+                    means[eval.submission.runtag][measure] = f'{avg:6.4f}'
     if appendix.sort_column and appendix.sort_column in measures:
-        sorted_keys = sorted(eval_table, 
-                             key=lambda x: eval_table[x][appendix.sort_column], 
+        sorted_keys = sorted(means, 
+                             key=lambda x: means[x][appendix.sort_column], 
                              reverse=True)
-        tmp_dict = { runtag: eval_table[runtag] for runtag in sorted_keys }
-        eval_table = tmp_dict
+        tmp_dict = { runtag: means[runtag] for runtag in sorted_keys }
+        means = tmp_dict
         
     context = {}
-    context['scores'] = dict(eval_table)
+    context['scores'] = dict(means)
     context['runs'] = runs
     context['measures'] = measures.keys()
     context['task'] = kwargs['_task']

@@ -328,7 +328,10 @@ class Appendix(models.Model):
     score_field = models.IntegerField()
     # Measures to display, or "all"
     measures = models.JSONField(max_length=1024)
+    # topic number that represents the average over topics ("all")
+    average_topic = models.CharField(max_length=20, blank=True, null=True)
     sort_column = models.CharField(max_length=20, blank=True, null=True)
+    # These allow subsetting the list of eval outputs to use
     queryset_field = models.CharField(max_length=25, blank=True, null=True)
     queryset_qtype = models.CharField(max_length=25, blank=True, null=True)
     queryset_target = models.CharField(max_length=25, blank=True, null=True)
