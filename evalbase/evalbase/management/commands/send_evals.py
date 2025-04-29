@@ -5,6 +5,7 @@ from pathlib import Path
 import smtplib
 import sys
 import textwrap
+import magic
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from evalbase.models import Organization, Task, Submission, Evaluation
@@ -24,17 +25,21 @@ class Command(BaseCommand):
                             help='Comments to add to the text part of the email',
                             default=None)
         
+        parser.add_argument('--attach',
+                            help='Attach an extra file to the email',
+                            action='append')
+        
         parser.add_argument('--send',
                             help='Actually send the emails instead of saving them to files',
                             action='store_true')       
     
     def handle(self, *args, **options):
         email_template = textwrap.dedent("""
-        Subject: Evaluation Results for {task}
+        Subject: Evaluation Results for {track} {task}
     
         Hi {team_name},
     
-        Please find attached the evaluation results for your submissions to the {task} task.
+        Please find attached the evaluation results for your submissions to the {track} {task}.
         """)
 
         if options['task'] == 'list':
@@ -61,7 +66,7 @@ class Command(BaseCommand):
                 msg['From'] = task.track.conference.tech_contact
                 to_list.add(org.owner.email)
                 to_list.add(org.contact_person.email)
-                msg.set_content(email_template.format(task=task.longname, team_name=org.longname))
+                msg.set_content(email_template.format(task=task.longname, track=task.track.longname, team_name=org.longname))
                 
                 for run in Submission.objects.filter(task=task, org=org):  
                     to_list.add(run.submitted_by.email)
@@ -70,9 +75,16 @@ class Command(BaseCommand):
                         eval_name = Path(eval.filename.name).name
                         with eval.filename.open('rb') as f:
                             msg.add_attachment(f.read(), maintype='application', subtype='octet-stream', filename=eval_name)
-                
+                                
                 msg['To'] = ', '.join(to_list)
-                
+
+                if options['attach']:
+                    for attachment in options['attach']:
+                        (mime_main, mime_subtype) = magic.from_file(attachment, mime=True).split('/')
+                        with open(attachment, 'rb') as f:
+                            content = f.read()
+                            msg.add_attachment(content, maintype=mime_main, subtype=mime_subtype, filename=os.path.basename(attachment))
+                            
                 if options['send']:
                     # Send the email
                     with smtplib.SMTP('localhost') as s:
