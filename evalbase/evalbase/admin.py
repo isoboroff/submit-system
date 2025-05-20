@@ -97,7 +97,7 @@ class TaskAdmin(admin.ModelAdmin):
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'track':
-            return TrackChoiceField(queryset=Track.objects.all().order_by('-conference', 'longname'))
+            return TrackChoiceField(queryset=Track.objects.all().order_by('-conference__year', 'longname'))
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 @admin.register(Track)
