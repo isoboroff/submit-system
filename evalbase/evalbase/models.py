@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.db.models.functions import Lower
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
@@ -40,6 +41,10 @@ class Conference(models.Model):
         max_length=15)
     longname = models.CharField(
         max_length=150)
+    year = models.IntegerField(validators=[
+        MinValueValidator(2024),
+        MaxValueValidator(2032)
+    ])
     open_signup = models.BooleanField()
     tech_contact = models.EmailField()
     admin_contact = models.EmailField()

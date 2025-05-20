@@ -78,6 +78,10 @@ class SubmitFormAdmin(admin.ModelAdmin):
             new_form = a_form.copy()
             new_form.save()
 
+class TrackChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return f'{obj.conference.shortname}: {obj.longname}'
+
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'longname', 'track_short', 'required', 'task_open', 'deadline', 'checker_file']
@@ -90,6 +94,11 @@ class TaskAdmin(admin.ModelAdmin):
     @admin.display
     def submit_form(self, obj):
         return obj.submit_form
+    
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'track':
+            return TrackChoiceField(queryset=Track.objects.all().order_by('-conference', 'longname'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
