@@ -22,9 +22,13 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 from evalbase import views
 from evalbase import settings
+from oauth2_provider import urls as oauth2_urls
+
 
 urlpatterns = ([
     path('admin/', admin.site.urls),
+    path('o/', include(oauth2_urls)),
+
     # path('accounts/', include('django.contrib.auth.urls')),
 
     path(r"announcements/", include("pinax.announcements.urls", namespace="pinax_announcements")),

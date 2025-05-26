@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'evalbase.templatetags.get_fields',
     'django_select2',
     'django_cleanup.apps.CleanupConfig',
+    'oauth2_provider',
     'evalbase',
 ]
 
@@ -111,6 +112,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+OAUTH2_PROVIDER = {
+    "OIDC_ENABLED": True,
+    "OIDC_RSA_PRIVATE_KEY": open(os.path.join(BASE_DIR, "oidc.key")).read(),
+    "SCOPES": {
+        "openid": "OpenID Connect scope",
+        # ... any other scopes that you use
+    },
+    # ... any other settings you want
+}
 
 
 # Internationalization
