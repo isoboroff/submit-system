@@ -30,6 +30,9 @@ from .decorators import *
 from .tasks import run_check_script
 from .utils import infinite_defaultdict
 
+def site_is_down(request):
+    return render(request, 'evalbase/site-down.html')
+
 @require_http_methods(['GET'])
 def howto_view(request):
     return render(request, 'evalbase/howto.html')
