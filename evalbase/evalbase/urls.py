@@ -26,7 +26,6 @@ from oauth2_provider import urls as oauth2_urls
 
 
 urlpatterns = ([
-    re_path('^.*$', views.site_is_down),
     path('admin/', admin.site.urls),
     path('o/', include(oauth2_urls)),
 
