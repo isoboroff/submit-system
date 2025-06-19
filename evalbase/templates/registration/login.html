@@ -2,22 +2,68 @@
 {% load django_bootstrap5 %}
 {% block title %}Evalbase login{% endblock %}
 {% block auth_content %}
-    <h1 class="display-2 text-center">Evalbase</h1>
-    <p class="text-center">Please sign in</p>
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form show_label=False %}
-        <div class="d-flex gap-1">
-            <div class="col-auto me-auto">
-                <button type="submit" class="btn btn-primary">Login</button>
-                <a role="button"
-                   class="btn btn-primary"
-                   href="{% url 'password_reset' %}">Reset Password</a>
-            </div>
-            <div class="col-auto">
-                <a role="button" class="btn btn-primary" href="{% url 'signup' %}">Account Signup</a>
-                <a role="button" class="btn btn-primary" href="{% url 'howto' %}">Help</a>
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col">
+                <p class="h1">Evalbase</p>
             </div>
         </div>
-    </form>
+        <div class="row justify-content-center">
+            <div class="col">
+                <a class="btn btn-lg  btn-outline-primary justify-content-center"
+                   href="do_login">
+                    Sign in with
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 292.1 39.47"
+                         role="img"
+                         width="11.1rem"
+                         height="1.5rem">
+                        <path fill="#fff" d="M7.44 6.89h17.2v22.06H7.44z"></path>
+                        <path fill="#112e51" d="M53.45 5.28h-6.16v27.31h17.87v-5.38H53.45zm30.76-.19c-8.35 0-14.67 5.89-14.67 13.85s6.32 13.93 14.67 13.93 14.67-6 14.67-13.93S92.56 5.09 84.21 5.09m.08 22.39a8.49 8.49 0 0 1-8.43-8.54 8.4 8.4 0 0 1 8.43-8.47 8.29 8.29 0 0 1 8.27 8.47 8.36 8.36 0 0 1-8.27 8.54m35.36-17.05a11.43 11.43 0 0 1 7.49 3l3.47-4.41a17.2 17.2 0 0 0-11-4c-8.51 0-14.9 6-14.9 13.85s6.29 13.99 14.58 13.99a20.2 20.2 0 0 0 11.08-3.55V17.57h-10.11v4.82H125V26a12.4 12.4 0 0 1-5.34 1.48 8.52 8.52 0 1 1 0-17zm19.61-5.15h6.17v27.31h-6.17zm34.53 17.56L160.52 5.28h-5.61v27.31h5.89V15.07l13.22 17.52h5.62V5.28h-5.85zm17.47 2.85a3.39 3.39 0 0 0-3.47 3.56 3.47 3.47 0 1 0 6.94 0 3.36 3.36 0 0 0-3.47-3.56m23.15-15.26a11.43 11.43 0 0 1 7.49 3l3.47-4.41a17.2 17.2 0 0 0-11-4c-8.51 0-14.9 6-14.9 13.85s6.28 13.93 14.55 13.93a20.2 20.2 0 0 0 11.08-3.55V17.57H215v4.82h4.77V26a12.4 12.4 0 0 1-5.34 1.48 8.52 8.52 0 1 1 0-17zm32.23-5.34C238.29 5.09 232 11 232 18.94s6.32 13.93 14.67 13.93 14.67-6 14.67-13.93S255 5.09 246.64 5.09m.08 22.39a8.49 8.49 0 0 1-8.43-8.54 8.4 8.4 0 0 1 8.43-8.47 8.29 8.29 0 0 1 8.28 8.47 8.36 8.36 0 0 1-8.28 8.54m39.02-22.2-7.49 20.6-7.45-20.6h-6.63l10.73 27.31h6.36L292.1 5.28z">
+                        </path>
+                        <path fill="#e21d3e" d="m11.38 25.34 1.45-8.28a4.39 4.39 0 0 1 2.71-7.86V0H4.34A4.34 4.34 0 0 0 0 4.34v21.28a2.6 2.6 0 0 0 .26 1.16c.94 1.9 4.65 8 15.27 12.69V25.7a24.3 24.3 0 0 1-4.15-.36">
+                        </path>
+                        <path fill="#b51e23" d="M26.72 0H15.53v9.19A4.39 4.39 0 0 1 18.28 17l1.45 8.32a24.3 24.3 0 0 1-4.2.36v13.79C26.14 34.8 29.86 28.68 30.8 26.79a2.6 2.6 0 0 0 .26-1.16V4.34A4.34 4.34 0 0 0 26.72 0">
+                        </path>
+                        <title>Login.gov</title>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container row mt-5 pt-5">
+        <div class="col-4">
+            <h4>What is Login.gov?</h4>
+            Login.gov is a signiin service that offers multifactor authentication, that is, passwords plus some other key like an authenticator app or a random number sent by text message.
+            <h4>Why is Evalbase using Login.gov?</h4>
+            Multifactor authentication is a new requirement for all U.S. federal agencies.  That's a good thing, because multifactor authentication is more secure.
+            <h4>What about my existing Evalbase account?</h4>
+            When you set up a Login.gov account, use the same email addres you already use for Evalbase.  We use that to link in your existing account.  If you're not sure what email address you used, or want to use a different address, or have some other issue, email <a href="mailto:ian.soboroff@nist.gov">Ian Soboroff, the TREC program lead</a>.
+            <h4>How do I create a Login.gov account?</h4>
+            Click the "Sign in with Login.Gov" button. You'll automatically be taken to the Login.gov sign-in page. When you create an account, if you have an existing Evalbase account, <strong>use the same email address</strong>.  That lets us tie your Login.gov credential to your existing account.
+            <h4>Is Login.gov collecting my browsing activity?</h4>
+            No.  Login.gov is just a sign-in service.  Once Login.gov authenticates you, you are redirected to Evalbase and the session is set (and encrypted) by Evalbase, not Login.gov.  Login.gov knows where you came from (here) and where you went after logging in (here), and that's it.
+        </div>
+        <div class="col-4">
+            <h4>What factors can I use?</h4>
+            Login.gov lets you choose your multifactor authentication method. You can select to receive a code via SMS/Text or phone call or use an authentication application, government PIV/CAC card, face or touch unlock, security key or download backup codes. We encourage you to add more than one authentication method to your account to avoid getting locked out if you ever lose an authentication method.
+            <h4>How do I sign in to Evalbase after I create my Login.gov account?</h4>
+            Every time you click on Sign In on the Evalbase site, you'll go to the Login.gov sign in page. Enter your Evalbase/Login.gov email address, password and use your two-factor authentication method. Once you enter this information correctly, you'll be automatically directed back to Evalbase and logged in.
+            <h4>Can I use my existing Evalbase username and password to sign in?</h4>
+            No. Login.gov does not know about your old password. You must create a new Login.gov account or use your existing Login.gov account to sign in. We'll connect your new Login.gov account with your existing Evalbase profile during the process using your email address.
+            <h4>What if I already have a Login.gov account?</h4>
+            If you already have a Login.gov account, you don't need to create a second one. Use your existing Login.gov email address, password and a two-factor authentication method to sign in to Evalbase.
+        </div>
+        <div class="col-4">
+            <h4>What email address do I use to create a Login.gov account?</h4>
+            If you have an existing Evalbase account, use that email address.  If you don't, use whatever email address is most convenient for you, and a new Evalbase account will be set up with that email address as the username.
+            <h4>Can I share a Login.gov account with another person?</h4>
+            No. Each person must set up their own Login.gov account, with their own personal email address (not an email that you share with someone else). If you had a "group" login on Evalbase, you'll need to create individual accounts and let <a href="mailto:ian.soboroff@nist.gov">Ian Soboroff, the TREC program lead</a> know so he can link everything together.
+            <h4>How do I get support for my Login.gov account?</h4>
+            Login.gov can only help you resolve issues around signing in. For example, you would contact Login.gov if you have questions about your password or two-factor authentication method.  Please keep in mind Login.gov cannot reset, delete or access your account on your behalf if you are locked out. You'll need to delete your account and start again.
+            We encourage you to add more than one two-factor authentication method and to keep your username and password in a safe place. Visit the <a href="https://www.login.gov/help/">Login.gov Help center</a> to learn more.
+            <h4>Have other questions?</h4>
+            Email <a href="mailto:ian.soboroff@nist.gov">Ian Soboroff, the TREC program lead</a>.  We can help you understand the new process and make sure your existing Evalbae setup stays.
+        </div>
+    </div>
 {% endblock %}
