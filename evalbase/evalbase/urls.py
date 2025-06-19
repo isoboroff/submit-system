@@ -29,15 +29,10 @@ urlpatterns = ([
 
     path(r"announcements/", include("pinax.announcements.urls", namespace="pinax_announcements")),
 
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/login/', views.login_view, name='login'),
+    path('accounts/login_gov_initiate', views.login_gov_initiate, name='login_gov_step1'),
+    path('accounts/login_gov_complete', views.login_gov_complete, name='login_gov_step2'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
-    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-
-    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('signup/', views.signup_view, name='signup'),
 

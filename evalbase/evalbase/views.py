@@ -1,3 +1,5 @@
+import json
+import time
 import uuid
 import logging
 import subprocess
@@ -16,6 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views import generic
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
@@ -24,6 +27,12 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, Multipl
 from django.views.decorators.cache import never_cache
 from django.db.models import Count
 from django.db.models.query import QuerySet
+import secrets
+import jwt
+import base64
+
+import requests
+
 from .models import *
 from .forms import *
 from .decorators import *
@@ -32,6 +41,98 @@ from .utils import infinite_defaultdict
 
 def site_is_down(request):
     return render(request, 'evalbase/site-down.html')
+
+@require_http_methods(['GET'])
+def login_view(request):
+    return render(request, 'registration/login.html')
+
+@require_http_methods(['GET'])
+def login_gov_initiate(request):
+    request.session['app_state'] = secrets.token_urlsafe(64)
+    request.session['nonce'] = secrets.token_urlsafe(64)
+
+    query_params = {
+        'acr_values': 'urn:acr.login.gov:auth-only',
+        'client_id': settings.LOGIN_GOV['client_id'],
+        'redirect_uri': settings.LOGIN_GOV['redirect_uri'],
+        'scope': 'openid email profile:name',
+        'state': request.session['app_state'],
+        'nonce': request.session['nonce'],
+        'response_type': 'code',
+        'prompt': 'select_account',
+    }
+    # build request_uri
+    request_uri = '{base_url}?{query_params}'.format(
+        base_url=settings.OPENID['authorization_endpoint'],
+        query_params=requests.compat.urlencode(query_params)
+    )
+
+    return redirect(request_uri)
+
+@require_http_methods(['GET'])
+def login_gov_complete(request):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    try:
+        code = request.GET('code')
+        app_state = request.GET('state')
+    except MultiValueDictKeyError:
+        return HttpResponse('Forbidden', status=403, reason='Missing query parameters')
+
+    if app_state != request.session['app_state']:
+        return HttpResponse('Forbidden', status=403, reason='App state mismatch')
+    if not code:
+        return HttpResponse('Forbidden', status=403, reason='Code missing')
+    
+    private_key = open('ssl/private.pem', 'r').read()
+    jwt_encoded = jwt.encode({'iss': settings.LOGIN_GOV['client_id'],
+                              'sub': settings.LOGIN_GOV['client_id'],
+                              'aud': settings.OPENID['token_endpoint'],
+                              'jti': secrets.token_urlsafe(16),
+                              'exp': int(time.time()) + 300},
+                              private_key, algorithm="RS256")
+
+    query_params = {'grant_type': 'authorization_code',
+                    'code': code,
+                    'client_assertion': jwt_encoded,
+                    'client_assertion_type': 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                    }
+    query_params = requests.compat.urlencode(query_params)
+    exchange = requests.post(
+        settings.OPENID["token_endpoint"],
+        headers=headers,
+        data=query_params,
+    ).json()
+
+    # Get tokens and validate
+    if not exchange.get("token_type") == 'Bearer':
+        return HttpResponse("Forbidden", status=403, reason="Unsupported token type. Should be 'Bearer'.")
+    access_token = exchange["access_token"]
+    id_token = exchange["id_token"]
+
+    # token is encrypted using a JWKS key
+    jwks = requests.get(settings.OPENID['jwks_uri']).json()
+    public_keys = {}
+    for jwk in jwks['keys']:
+        kid = jwk['kid']
+        public_keys[kid] = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
+    kid = jwt.get_unverified_header(id_token)['kid']
+    key = public_keys[kid]
+    id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
+
+    # Authorization flow successful, get userinfo and sign in user
+    userinfo_response = requests.get(settings.OPENID["userinfo_endpoint"],
+        headers={'Authorization': f'Bearer {access_token}'}).json()
+
+    logging.info(userinfo_response)
+    unique_id = userinfo_response["sub"]
+    user_email = userinfo_response["email"]
+
+    # need an authentication backend for getting the user by email address
+    # call to django.contrib.auth.authenticate() here
+    # call to django.contrib.auth.login() here
+
+    return redirect(reverse("index"))
+
 
 @require_http_methods(['GET'])
 def howto_view(request):
