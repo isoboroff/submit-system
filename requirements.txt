@@ -12,6 +12,7 @@ pydantic==2.11.7
 PyJWT==2.10.1
 pytest==8.4.1
 python_magic==0.4.27
+Requests==2.32.4
 rich==14.0.0
 spacy==3.8.7
 tqdm==4.67.1

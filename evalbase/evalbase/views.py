@@ -12,6 +12,7 @@ from pathlib import Path
 from django import utils
 from django.conf import settings
 from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -50,6 +51,7 @@ def login_view(request):
 def login_gov_initiate(request):
     request.session['app_state'] = secrets.token_urlsafe(64)
     request.session['nonce'] = secrets.token_urlsafe(64)
+    request.session.modified = True
 
     query_params = {
         'acr_values': 'urn:acr.login.gov:auth-only',
@@ -73,8 +75,8 @@ def login_gov_initiate(request):
 def login_gov_complete(request):
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     try:
-        code = request.GET('code')
-        app_state = request.GET('state')
+        code = request.GET['code']
+        app_state = request.GET['state']
     except MultiValueDictKeyError:
         return HttpResponse('Forbidden', status=403, reason='Missing query parameters')
 
@@ -123,15 +125,15 @@ def login_gov_complete(request):
     userinfo_response = requests.get(settings.OPENID["userinfo_endpoint"],
         headers={'Authorization': f'Bearer {access_token}'}).json()
 
-    logging.info(userinfo_response)
     unique_id = userinfo_response["sub"]
     user_email = userinfo_response["email"]
 
     # need an authentication backend for getting the user by email address
-    # call to django.contrib.auth.authenticate() here
-    # call to django.contrib.auth.login() here
+    user = authenticate(email=user_email)
+    if user is not None:
+        login(request, user)
 
-    return redirect(reverse("index"))
+    return redirect(reverse("home"))
 
 
 @require_http_methods(['GET'])
