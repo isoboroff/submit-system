@@ -9,9 +9,9 @@ EMAIL_HOST = 'smtp.nist.gov'
 # Authentication
 # These are sandbox settings, change for production
 LOGIN_GOV = {
-    'discovery_uri': 'https://idp.int.identitysandbox.gov/.well-known/openid-configuration',
-    'client_id': 'urn:gov:gsa:openidconnect.profiles:sp:sso:nist:bench2-sb',
-    'redirect_uri': 'http://localhost:8000/login_gov_complete',
+    'discovery_uri': 'https://secure.login.gov/.well-known/openid-configuration',
+    'client_id': 'urn:gov:gsa:openidconnect.profiles:sp:sso:nist:bench2',
+    'redirect_uri': 'https://ir.nist.gov/evalbase/accounts/login_gov_complete',
 }
 
 OPENID = requests.get(LOGIN_GOV['discovery_uri']).json()
