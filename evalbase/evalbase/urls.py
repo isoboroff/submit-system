@@ -24,7 +24,7 @@ from evalbase import views
 from evalbase import settings
 
 urlpatterns = ([
-    re_path('^.*$', views.site_is_down),
+    # re_path('^.*$', views.site_is_down),
     path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls')),
 
