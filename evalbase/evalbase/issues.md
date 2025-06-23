@@ -7,9 +7,9 @@ This file is for issues to solve on the login_gov migration
 - [x] #3 Link in authentication()
 - [x] #4 Complete auth_login()
 - [x] #5 Authenticate users by email and not username
-- [ ] #6 Update new user creation process
-- [ ] #7 Login needs to route a new user to the user creation process
-- [ ] #8 Add unique_id to UserProfile
+- [x] #6 Update new user creation process
+- [x] #7 Login needs to route a new user to the user creation process
+- [x] #8 Add unique_id to UserProfile
 
 ## Issue detail
 
