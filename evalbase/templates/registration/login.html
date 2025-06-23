@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <a class="btn btn-lg  btn-outline-primary justify-content-center"
-                   href="login_gov_initiate">
+                   href="{% url 'login_gov_step1' %}">
                     Sign in with
                     <svg xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 292.1 39.47"
@@ -29,6 +29,13 @@
                     </svg>
                 </a>
             </div>
+        </div>
+    </div>
+    <div class="container mt-5 pt-5 text-center">
+        <div class="row justify-content-center">
+            {% if messages %}
+                {% for message in messages %}<div class="col-4 {{ message.tags }}">{{ message }}</div>{% endfor %}
+            {% endif %}
         </div>
     </div>
     <div class="container row mt-5 pt-5">

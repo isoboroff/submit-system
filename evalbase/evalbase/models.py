@@ -23,6 +23,12 @@ class UserProfile(models.Model):
         max_length=10)
     country = models.CharField(
         max_length=50)
+    unique_id = models.CharField(
+        # This ID comes from login.gov
+        # If it's blank we record the one that comes with the login
+        # otherwise we check that it matches
+        blank=True
+    )
     created_at = models.DateField(
         auto_now_add=True)
 

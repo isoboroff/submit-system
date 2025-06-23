@@ -2,35 +2,24 @@ import json
 import time
 import uuid
 import logging
-import subprocess
-import shutil
 import collections
 import zipfile
 import tempfile
-from datetime import datetime
-from pathlib import Path
-from django import utils
 from django.conf import settings
-from django.utils.decorators import method_decorator
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.utils.datastructures import MultiValueDictKeyError
-from django.views import generic
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
-from django.db.models import Count
 from django.db.models.query import QuerySet
+from django.contrib import messages
 import secrets
 import jwt
-import base64
 
 import requests
 
@@ -119,21 +108,46 @@ def login_gov_complete(request):
         public_keys[kid] = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
     kid = jwt.get_unverified_header(id_token)['kid']
     key = public_keys[kid]
-    id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
+    try:
+        id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
+    except jwt.ImmatureSignatureError:
+        time.sleep(3)
+        id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
 
     # Authorization flow successful, get userinfo and sign in user
-    userinfo_response = requests.get(settings.OPENID["userinfo_endpoint"],
+    userinfo_response = requests.get(settings.OPENID['userinfo_endpoint'],
         headers={'Authorization': f'Bearer {access_token}'}).json()
-
-    unique_id = userinfo_response["sub"]
-    user_email = userinfo_response["email"]
+    unique_id = userinfo_response['sub']
+    user_email = userinfo_response['email']
+    verified = userinfo_response['email_verified']
 
     # need an authentication backend for getting the user by email address
-    user = authenticate(email=user_email)
-    if user is not None:
-        login(request, user)
+    user = authenticate(email=user_email, verified=verified, unique_id=unique_id)
+    if user is None:
+        # Why are we None?
+        # maybe email is not verified
+        if not verified:
+            # include a msg please
+            messages.error(request, 'Your email is not validated on Login.gov', extra_tags='bg-danger-subtle text-emphasis')
+            return render(request, 'registration/login.html')
+        # Maybe this is a new user?
+        elif not get_user_model().objects.filter(email=user_email).exists():
+            request.session['email'] = user_email
+            request.session['unique_id'] = unique_id
+            return redirect('signup')
+        else:
+            # kick them back to the login screen
+            messages.error(request, 'User not recognized', extra_tags='bg-danger-subtle text-emphasis')
+            return render(request, 'registration/login.html')
 
-    return redirect(reverse("home"))
+    else:
+        login(request, user)
+        if not UserProfile.objects.filter(user=user).exists():
+            profile = UserProfile(user=user, unique_id=unique_id)
+            profile.save()
+            return redirect('profile-create-edit')
+
+    return redirect('home')
 
 
 @require_http_methods(['GET'])
@@ -143,13 +157,19 @@ def howto_view(request):
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
     if request.method == 'GET':
-        context = {'form': SignupForm()}
+        form = SignupForm(initial={'email': request.session['email']})
+        context = {'form': form}
         return render(request, 'evalbase/signup.html', context)
 
     elif request.method == 'POST':
         form_data = SignupForm(request.POST)
         if form_data.is_valid():
-            form_data.save()
+            user = User.objects.create_user(form_data.cleaned_data['username'],
+                                     password='not-a-good-password',
+                                     email=request.session['email'],
+                                     first_name=form_data.cleaned_data['first_name'],
+                                     last_name=form_data.cleaned_data['last_name'])
+            login(request, user)
             return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
         else:
             context = {'form': form_data}
@@ -187,7 +207,7 @@ def profile_create_edit(request):
             form = ProfileForm(instance=cur_profile,
                                initial={'user': request.user})
         else:
-            form = ProfileForm()
+            form = ProfileForm(initial={'unique_id': request.session.pop('unique_id', None)})
         return render(request, 'evalbase/profile_form.html',
                       {'form': form})
 
