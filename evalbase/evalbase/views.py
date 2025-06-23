@@ -1,29 +1,28 @@
+import json
+import time
 import uuid
 import logging
-import subprocess
-import shutil
 import collections
 import zipfile
 import tempfile
-from datetime import datetime
-from pathlib import Path
-from django import utils
 from django.conf import settings
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
-from django.views import generic
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect, Http404, FileResponse, HttpResponse
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
-from django.db.models import Count
 from django.db.models.query import QuerySet
+from django.contrib import messages
+import secrets
+import jwt
+
+import requests
+
 from .models import *
 from .forms import *
 from .decorators import *
@@ -34,19 +33,143 @@ def site_is_down(request):
     return render(request, 'evalbase/site-down.html')
 
 @require_http_methods(['GET'])
+def login_view(request):
+    return render(request, 'registration/login.html')
+
+@require_http_methods(['GET'])
+def login_gov_initiate(request):
+    request.session['app_state'] = secrets.token_urlsafe(64)
+    request.session['nonce'] = secrets.token_urlsafe(64)
+    request.session.modified = True
+
+    query_params = {
+        'acr_values': 'urn:acr.login.gov:auth-only',
+        'client_id': settings.LOGIN_GOV['client_id'],
+        'redirect_uri': settings.LOGIN_GOV['redirect_uri'],
+        'scope': 'openid email profile:name',
+        'state': request.session['app_state'],
+        'nonce': request.session['nonce'],
+        'response_type': 'code',
+        'prompt': 'select_account',
+    }
+    # build request_uri
+    request_uri = '{base_url}?{query_params}'.format(
+        base_url=settings.OPENID['authorization_endpoint'],
+        query_params=requests.compat.urlencode(query_params)
+    )
+
+    return redirect(request_uri)
+
+@require_http_methods(['GET'])
+def login_gov_complete(request):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    try:
+        code = request.GET['code']
+        app_state = request.GET['state']
+    except MultiValueDictKeyError:
+        return HttpResponse('Forbidden', status=403, reason='Missing query parameters')
+
+    if app_state != request.session['app_state']:
+        return HttpResponse('Forbidden', status=403, reason='App state mismatch')
+    if not code:
+        return HttpResponse('Forbidden', status=403, reason='Code missing')
+    
+    private_key = open('ssl/private.pem', 'r').read()
+    jwt_encoded = jwt.encode({'iss': settings.LOGIN_GOV['client_id'],
+                              'sub': settings.LOGIN_GOV['client_id'],
+                              'aud': settings.OPENID['token_endpoint'],
+                              'jti': secrets.token_urlsafe(16),
+                              'exp': int(time.time()) + 300},
+                              private_key, algorithm="RS256")
+
+    query_params = {'grant_type': 'authorization_code',
+                    'code': code,
+                    'client_assertion': jwt_encoded,
+                    'client_assertion_type': 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                    }
+    query_params = requests.compat.urlencode(query_params)
+    exchange = requests.post(
+        settings.OPENID["token_endpoint"],
+        headers=headers,
+        data=query_params,
+    ).json()
+
+    # Get tokens and validate
+    if not exchange.get("token_type") == 'Bearer':
+        return HttpResponse("Forbidden", status=403, reason="Unsupported token type. Should be 'Bearer'.")
+    access_token = exchange["access_token"]
+    id_token = exchange["id_token"]
+
+    # token is encrypted using a JWKS key
+    jwks = requests.get(settings.OPENID['jwks_uri']).json()
+    public_keys = {}
+    for jwk in jwks['keys']:
+        kid = jwk['kid']
+        public_keys[kid] = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
+    kid = jwt.get_unverified_header(id_token)['kid']
+    key = public_keys[kid]
+    try:
+        id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
+    except jwt.ImmatureSignatureError:
+        time.sleep(3)
+        id_token = jwt.decode(id_token, key, audience=settings.LOGIN_GOV['client_id'], algorithms=["RS256"])
+
+    # Authorization flow successful, get userinfo and sign in user
+    userinfo_response = requests.get(settings.OPENID['userinfo_endpoint'],
+        headers={'Authorization': f'Bearer {access_token}'}).json()
+    unique_id = userinfo_response['sub']
+    user_email = userinfo_response['email']
+    verified = userinfo_response['email_verified']
+
+    # need an authentication backend for getting the user by email address
+    user = authenticate(email=user_email, verified=verified, unique_id=unique_id)
+    if user is None:
+        # Why are we None?
+        # maybe email is not verified
+        if not verified:
+            # include a msg please
+            messages.error(request, 'Your email is not validated on Login.gov', extra_tags='bg-danger-subtle text-emphasis')
+            return render(request, 'registration/login.html')
+        # Maybe this is a new user?
+        elif not get_user_model().objects.filter(email=user_email).exists():
+            request.session['email'] = user_email
+            request.session['unique_id'] = unique_id
+            return redirect('signup')
+        else:
+            # kick them back to the login screen
+            messages.error(request, 'User not recognized', extra_tags='bg-danger-subtle text-emphasis')
+            return render(request, 'registration/login.html')
+
+    else:
+        login(request, user)
+        if not UserProfile.objects.filter(user=user).exists():
+            profile = UserProfile(user=user, unique_id=unique_id)
+            profile.save()
+            return redirect('profile-create-edit')
+
+    return redirect('home')
+
+
+@require_http_methods(['GET'])
 def howto_view(request):
     return render(request, 'evalbase/howto.html')
 
 @require_http_methods(['GET', 'POST'])
 def signup_view(request):
     if request.method == 'GET':
-        context = {'form': SignupForm()}
+        form = SignupForm(initial={'email': request.session['email']})
+        context = {'form': form}
         return render(request, 'evalbase/signup.html', context)
 
     elif request.method == 'POST':
         form_data = SignupForm(request.POST)
         if form_data.is_valid():
-            form_data.save()
+            user = User.objects.create_user(form_data.cleaned_data['username'],
+                                     password='not-a-good-password',
+                                     email=request.session['email'],
+                                     first_name=form_data.cleaned_data['first_name'],
+                                     last_name=form_data.cleaned_data['last_name'])
+            login(request, user)
             return HttpResponseRedirect(reverse_lazy('profile-create-edit'))
         else:
             context = {'form': form_data}
@@ -84,7 +207,7 @@ def profile_create_edit(request):
             form = ProfileForm(instance=cur_profile,
                                initial={'user': request.user})
         else:
-            form = ProfileForm()
+            form = ProfileForm(initial={'unique_id': request.session.pop('unique_id', None)})
         return render(request, 'evalbase/profile_form.html',
                       {'form': form})
 

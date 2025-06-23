@@ -1,12 +1,11 @@
 {% extends 'evalbase/base.html' %}
 {% load django_bootstrap5 %}
-
 {% block title %}evalbase Sign up{% endblock %}
-
 {% block content %}
-<form method="post">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% bootstrap_button type="submit" content="Sign up" %}
-</form>
+  <p>Welcome to Evalbase.  Continue signing up as a new user by completing this form.</p>
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button type="submit" content="Sign up" %}
+  </form>
 {% endblock %}

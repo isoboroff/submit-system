@@ -93,6 +93,7 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [ "evalbase.auth.EmailBackend" ]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -196,7 +197,7 @@ CSP_STYLE_SRC = ("'self'", 'cdn.jsdelivr.net')
 # Have CSRF cookies use SameSite: Strict
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = False
 
 # CSVexport
