@@ -16,3 +16,12 @@ Requests==2.32.4
 rich==14.0.0
 spacy==3.8.7
 tqdm==4.67.1
+django-csp
+django_bootstrap5
+pinax-announcements
+django-select2
+django_cleanup
+django-admin-csvexport
+uwsgi
+django-cors-headers
+whitenoise
