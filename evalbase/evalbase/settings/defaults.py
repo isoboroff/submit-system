@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import sys
 from pathlib import Path
+from django.core.checks import Tags, Error, register as register_check
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent.parent
@@ -207,3 +208,12 @@ CSV_EXPORT_EMPTY_VALUE = ''
 # File upload permissions
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o750
 FILE_UPLOAD_PERMISSIONS = 0o640
+
+@register_check(Tags.files)
+def ssl_check(app_configs, **kwargs):
+    errors = []
+    ssl_dir = BASE_DIR / 'ssl'
+    if not ssl_dir.exists() or not ssl_dir.is_dir():
+        errors.append(Error('Directory with SSL keys for login.gov missing',
+                            hint=f'Check that {BASE_DIR}/ssl exists and contains an RSA 2048-bit keypair.  See views.py for the filename of the private key.'))
+    return errors
