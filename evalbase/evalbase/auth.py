@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from .models import UserProfile
+from .settings import DEBUG
 
 # a None response could mean:
 # 1. no such user, could be a new signup
@@ -25,7 +26,7 @@ class EmailBackend(ModelBackend):
             if profile.unique_id == '':
                 profile.unique_id = unique_id
                 profile.save()
-            elif profile.unique_id != unique_id:
+            elif not DEBUG and profile.unique_id != unique_id:
                 return None
         except UserProfile.DoesNotExist:
             # This is ok, the login cycle will redirect them to make their profile
