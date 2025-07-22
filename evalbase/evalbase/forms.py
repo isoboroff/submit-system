@@ -8,6 +8,9 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from .models import *
 
+class DebuggingLoginForm(forms.Form):
+    login_as = forms.CharField(max_length=20)
+
 class SignupForm(forms.ModelForm):
     class Meta:
         model = User

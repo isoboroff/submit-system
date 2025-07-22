@@ -32,9 +32,25 @@ from .utils import infinite_defaultdict
 def site_is_down(request):
     return render(request, 'evalbase/site-down.html')
 
-@require_http_methods(['GET'])
+@require_http_methods(['GET', 'POST'])
 def login_view(request):
-    return render(request, 'registration/login.html')
+    if settings.DEBUG and request.get_host() == '127.0.0.1:8000':
+        if request.method == 'GET':
+            form = DebuggingLoginForm()
+            context = { 'form': form }
+            return render(request, 'evalbase/simple_login.html', context)
+    
+        elif request.method == 'POST':
+            form_data = DebuggingLoginForm(request.POST)
+            if form_data.is_valid():
+                try:
+                    user = User.objects.get(username=form_data.cleaned_data['login_as'])
+                except:
+                    return Http404
+                login(request, user)
+                return HttpResponseRedirect(reverse_lazy('home'))
+    else:
+        return render(request, 'registration/login.html')
 
 @require_http_methods(['GET'])
 def login_gov_initiate(request):

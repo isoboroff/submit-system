@@ -1,0 +1,17 @@
+{% extends 'evalbase/base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}evalbase login{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        {% bootstrap_button type="submit" content="Login as user" %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
