@@ -278,7 +278,7 @@ class SubmitMeta(models.Model):
     form_field = models.ForeignKey(
         SubmitFormField,
         on_delete=models.PROTECT)
-    key = models.CharField(max_length=15)
+    key = models.CharField(max_length=25)
     value = models.CharField(max_length=2500)
 
     def __str__(self):
