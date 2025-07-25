@@ -82,7 +82,7 @@ class SubmitFormAdmin(admin.ModelAdmin):
 
 class TrackChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return f'{obj.track.conference.shortname}/{obj.conference.shortname}: {obj.longname}'
+        return f'{obj.conference.shortname}: {obj.longname}'
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
