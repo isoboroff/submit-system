@@ -62,10 +62,11 @@ class SubmitFormAdmin(admin.ModelAdmin):
     actions = ["replicate_form"]
     save_as = True
     view_on_site = True
+    list_filter = ["task__track__conference", "task__track__longname"]
 
     class TaskChoiceField(forms.ModelChoiceField):
         def label_from_instance(self, obj):
-            return f'{obj.track.shortname}: {obj.longname}'
+            return f'{obj.track.conference.shortname}/{obj.track.shortname}: {obj.longname}'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'task':
@@ -80,7 +81,7 @@ class SubmitFormAdmin(admin.ModelAdmin):
 
 class TrackChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return f'{obj.conference.shortname}: {obj.longname}'
+        return f'{obj.track.conference.shortname}/{obj.conference.shortname}: {obj.longname}'
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
