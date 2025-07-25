@@ -62,6 +62,7 @@ class SubmitFormAdmin(admin.ModelAdmin):
     actions = ["replicate_form"]
     save_as = True
     view_on_site = True
+    list_display = ["__str__", "task__track__longname", "task__longname"]
     list_filter = ["task__track__conference", "task__track__longname"]
 
     class TaskChoiceField(forms.ModelChoiceField):
