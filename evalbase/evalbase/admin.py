@@ -103,7 +103,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ['shortname', 'conference']
+    list_display = ['shortname', 'longname', 'conference']
     list_filter = ['conference']
     filter_horizontal = ['coordinators']
 
