@@ -4,6 +4,7 @@ import sys
 import re
 import unicodedata
 from argparse import ArgumentParser
+from pathlib import Path
 
 MARCODOC = re.compile(r"^msmarco_v2\.1_doc_\d+_\d+#\d+_\d+$")
 REQUIRED_METADATA_KEYS = {"team_id", "run_id", "narrative_id"}
@@ -13,7 +14,13 @@ CITATION_LIMIT = 100
 
 def load_topic_ids(path):
     topic_ids = {}
-    with open(path, "r", encoding="utf-8") as f:
+    topicfile = Path(path)
+    if not topicfile.exists():
+        topicfile = Path(sys.path[0]) / path
+        if not topicfile.exists():
+            raise FileNotFoundError(f'Topic file {path} not found')
+        
+    with open(topicfile, "r", encoding="utf-8") as f:
         for line in f:
             try:
                 topic = json.loads(line)
@@ -199,6 +206,9 @@ def main():
     p.add_argument("--verbose", action="store_true", help="Print details when trimming")
     args = p.parse_args()
 
+    original_stdout = sys.stdout
+    sys.stdout = open("errlog", "w") if args.input == "-" else open(f"{args.input}.errlog", "w")
+
     valid_topic_ids = load_topic_ids(args.topics)
     input_stream = sys.stdin if args.input == "-" else open(args.input, encoding="utf-8")
     
@@ -281,6 +291,8 @@ def main():
         print("\nValidation completed: all lines passed (with possible warnings).")
     else:
         print("\nValidation completed: all lines passed.")
+
+    sys.stdout = original_stdout
 
 if __name__ == "__main__":
     main()
