@@ -435,11 +435,12 @@ def home_view(request, *args, **kwargs):
                   .filter(open_signup=True)
                   .exclude(participants__members__pk = request.user.pk))
     my_orgs = (Organization.objects
-               .filter(members__pk=request.user.pk, conference__complete=False)
+               .filter(Q(members__pk=request.user.pk) | Q(owner__pk=request.user.pk), conference__complete=False)
                .distinct())
     complete = (Conference.objects
                 .filter(complete=True)
-                .filter(participants__members__pk=request.user.pk))
+                .filter(participants__members__pk=request.user.pk)
+                .distinct())
 
     return render(request, 'evalbase/home.html',
                   { 'open_evals': open_evals,
