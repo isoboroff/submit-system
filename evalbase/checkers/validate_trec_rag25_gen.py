@@ -196,6 +196,20 @@ def validate_entry(entry, format_type, valid_topic_ids):
 
     return errors, warnings
 
+def detect_format_type(entry):
+    """Detect citation format type based on the first available citations."""
+    ans = entry.get("answer", [])
+    for a in ans:
+        cits = a.get("citations", [])
+        if not cits:
+            continue
+        if all(isinstance(c, int) for c in cits):
+            return 1
+        if all(isinstance(c, str) for c in cits):
+            return 2
+    return None
+
+
 def main():
     p = ArgumentParser(description="Validate and optionally fix TREC RAG 2025 AG output format.")
     p.add_argument("--input", help="JSONL input file or '-' for stdin")
@@ -218,6 +232,7 @@ def main():
     
     total_errors = 0
     total_warnings = 0
+    format_type = None
     for i, line in enumerate(input_stream, 1):
         line = line.strip()
         if not line:
@@ -225,6 +240,9 @@ def main():
         try:
             entry = json.loads(line)
             original_entry = json.loads(json.dumps(entry))  # Deep copy for comparison
+            if format_type is None:
+                detected_format = detect_format_type(entry)
+                format_type = detected_format or args.format
         except json.JSONDecodeError as e:
             print(f"[Line {i}] ❌ JSON decode error: {e}")
             total_errors += 1
@@ -235,7 +253,7 @@ def main():
         entry_was_fixed = False
         
         if args.fix_citations:
-            entry, citation_warnings = fix_citations(entry, i, args.format, verbose=args.verbose)
+            entry, citation_warnings = fix_citations(entry, i, format_type, verbose=args.verbose)
             fix_warnings.extend(citation_warnings)
             if citation_warnings:
                 entry_was_fixed = True
@@ -251,7 +269,7 @@ def main():
         if entry_was_fixed:
             any_fixes_made = True
 
-        errors, warnings = validate_entry(entry, args.format, valid_topic_ids)
+        errors, warnings = validate_entry(entry, format_type, valid_topic_ids)
 
         if errors:
             print(f"[Line {i}] ❌ ERRORS:")
