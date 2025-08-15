@@ -22,6 +22,7 @@ import secrets
 import jwt
 
 import requests
+import urllib
 
 from .models import *
 from .forms import *
@@ -618,7 +619,7 @@ def submit_run(request, *args, **kwargs):
                               .count())
                 runtag = f'{org.shortname}-{context["task"].shortname}-{num_papers + 1}'
             else:
-                runtag = stuff['runtag']
+                runtag = urllib.parse.quote(stuff['runtag'], safe='')
 
             sub = Submission(task=context['task'],
                              org = org,
