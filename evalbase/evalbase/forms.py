@@ -1,4 +1,5 @@
 import operator
+import re
 
 from django import forms
 from django.apps import apps
@@ -106,7 +107,7 @@ class SubmitFormForm(forms.Form):
             fields['runfile'] = forms.FileField(label='Submission file')
             if context['track'].shortname != 'papers':
                 fields['runtag'] = forms.CharField(
-                    label='Runtag: a short identifier for the run',
+                    label='Runtag: a short identifier for the run (letters, numbers, or hyphens only, 20 characters or less)',
                     validators=[SubmitFormForm.make_runtag_checker(context)])
 
         # Set up custom fields
@@ -165,6 +166,14 @@ class SubmitFormForm(forms.Form):
             if value == 'submit' or value == 'list':
                 raise ValidationError(
                     _('Submissions may not be named "submit" or "list"'))
+
+            if re.search(r'[^\w\d-]', value):
+                raise ValidationError(
+                    _('Submission runtags may have letters, numbers, and hyphens only.'))
+            
+            if len(value) > 20:
+                raise ValidationError(
+                    _('Submission runtags may be at most 20 characters long.'))
 
             tags = (Submission.objects
                     .filter(task__track__conference=context['conf'])
