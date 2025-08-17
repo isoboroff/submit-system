@@ -1,9 +1,11 @@
+import re
 import shutil
 from pathlib import Path
 
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.db.models.functions import Lower
@@ -260,6 +262,19 @@ class Submission(models.Model):
         default=ValidationState.WAITING)
     has_evaluation = models.BooleanField()
     check_output = models.TextField(blank=True)
+
+    def save(self, **kwargs):
+        if re.search(r'[^\d\w_-]', self.runtag):
+            raise ValidationError(_('Runtags may only have letters, numbers, hyphens, or underscores'))
+        
+        if self.runtag.length > 20:
+            raise ValidationError(_('Runtags cannot be more than 20 characters long'))
+        
+        if Submission.objects.filter(task__track__conference=self.task.track.conference, runtag=self.runtag).exists():
+            raise ValidationError(_('Runtags must be unique, an another submission to %(conf)s already has runtag %(runtag)s',
+                                    params={'conf': self.task.track.conference.longname,
+                                            'runtag': self.runtag}))
+        super().save(**kwargs)
 
     def delete(self, *args, **kwargs):
         run_dir =  (Path(settings.MEDIA_ROOT) / self.file.name).parent

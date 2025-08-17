@@ -4,6 +4,7 @@ import re
 from django import forms
 from django.apps import apps
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator, MaxLengthValidator
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
@@ -76,7 +77,33 @@ class AgreementForm(forms.Form):
     sigtext = forms.CharField(label='Signature',
                               help_text='Please type your full name',
                               max_length=50)
+    
+class RuntagField(forms.Field):
+    default_validators = [
+        RegexValidator(regex=r'[^\w\d_-]',
+                       inverse_match=True,
+                       message='Runtags may only contain letters, numbers, underscores, and hyphens'),
+        MaxLengthValidator(20,
+                           message='Runtags can be at most 20 characters long'),
+    ]
 
+    def __init__(self, existing_runtags, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.existing_runtags = existing_runtags
+
+    def to_python(self, value):
+        return super().to_python(value)
+    
+    def validate(self, value):
+        super().validate(value)
+        if value in self.existing_runtags:
+            raise ValidationError(
+                _('Another submission with the runtag %(runtag)s has already been submitted'),
+                params={'runtag': value}
+            )
+        if value == 'submit' or value == 'list':
+            raise ValidationError(
+                _('Submissions may not be named "submit" or "list"'))
 
 class SubmitFormForm(forms.Form):
     def get_form_class(context):
@@ -106,9 +133,12 @@ class SubmitFormForm(forms.Form):
         if context['mode'] == 'submit':
             fields['runfile'] = forms.FileField(label='Submission file')
             if context['track'].shortname != 'papers':
-                fields['runtag'] = forms.CharField(
-                    label='Runtag: a short identifier for the run (letters, numbers, or hyphens only, 20 characters or less)',
-                    validators=[SubmitFormForm.make_runtag_checker(context)])
+                existing_runtags = set(Submission.objects
+                                    .filter(task__track__conference=context['conf'])
+                                    .values_list('runtag', flat=True))
+                fields['runtag'] = RuntagField(
+                    label='Runtag: a short identifier for the run (letters, numbers, underscores, or hyphens only, 20 characters or less)',
+                    existing_runtags=existing_runtags)
 
         # Set up custom fields
         other_fields = (SubmitFormField.objects
@@ -159,27 +189,3 @@ class SubmitFormForm(forms.Form):
             fields[field.meta_key].help_text = field.help_text
 
         return type('SubmitFormForm', (forms.Form,), fields)
-
-
-    def make_runtag_checker(context):
-        def thunk(value):
-            if value == 'submit' or value == 'list':
-                raise ValidationError(
-                    _('Submissions may not be named "submit" or "list"'))
-
-            if re.search(r'[^\w\d-]', value):
-                raise ValidationError(
-                    _('Submission runtags may have letters, numbers, and hyphens only.'))
-            
-            if len(value) > 20:
-                raise ValidationError(
-                    _('Submission runtags may be at most 20 characters long.'))
-
-            tags = (Submission.objects
-                    .filter(task__track__conference=context['conf'])
-                    .filter(runtag=value))
-            if tags:
-                raise ValidationError(
-                    _('A submission with runtag %(runtag) has already been submitted.'),
-                    params={'runtag': value})
-        return thunk
