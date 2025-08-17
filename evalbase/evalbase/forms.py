@@ -80,9 +80,12 @@ class AgreementForm(forms.Form):
     
 class RuntagField(forms.Field):
     default_validators = [
-        RegexValidator(regex=r'[^\w\d_-]',
+        RegexValidator(regex=r'[^\w\d_\.-]',
                        inverse_match=True,
-                       message='Runtags may only contain letters, numbers, underscores, and hyphens'),
+                       message='Runtags may only contain letters, numbers, underscores, periods, and hyphens'),
+        RegexValidator(regex=r'^\.',
+                       inverse_match=True,
+                       message='Runtags may not have a period as the first character'),
         MaxLengthValidator(20,
                            message='Runtags can be at most 20 characters long'),
     ]
@@ -137,7 +140,7 @@ class SubmitFormForm(forms.Form):
                                     .filter(task__track__conference=context['conf'])
                                     .values_list('runtag', flat=True))
                 fields['runtag'] = RuntagField(
-                    label='Runtag: a short identifier for the run (letters, numbers, underscores, or hyphens only, 20 characters or less)',
+                    label='Runtag: a short identifier for the run (letters, numbers, underscores, periods (not first character) or hyphens only, 20 characters or less)',
                     existing_runtags=existing_runtags)
 
         # Set up custom fields

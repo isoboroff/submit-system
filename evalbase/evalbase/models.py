@@ -264,10 +264,13 @@ class Submission(models.Model):
     check_output = models.TextField(blank=True)
 
     def save(self, **kwargs):
-        if re.search(r'[^\d\w_-]', self.runtag):
-            raise ValidationError(_('Runtags may only have letters, numbers, hyphens, or underscores'))
+        if re.search(r'[^\d\w_\.-]', self.runtag):
+            raise ValidationError(_('Runtags may only have letters, numbers, hyphens, periods (not first), or underscores'))
         
-        if self.runtag.length > 20:
+        if self.runtag.startswith('.'):
+            raise ValidationError(_('Runtags may not start with a period'))
+        
+        if len(self.runtag) > 20:
             raise ValidationError(_('Runtags cannot be more than 20 characters long'))
         
         if Submission.objects.filter(task__track__conference=self.task.track.conference, runtag=self.runtag).exists():
