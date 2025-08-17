@@ -265,6 +265,9 @@ class Submission(models.Model):
 
     def save(self, **kwargs):
         if self._state.adding:
+            if not self.runtag.isascii():
+                raise ValidationError(_('Runtags must be ASCII'))
+            
             if re.search(r'[^\d\w_\.-]', self.runtag):
                 raise ValidationError(_('Runtags may only have letters, numbers, hyphens, periods (not first), or underscores'))
             

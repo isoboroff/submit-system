@@ -107,6 +107,9 @@ class RuntagField(forms.Field):
         if value == 'submit' or value == 'list':
             raise ValidationError(
                 _('Submissions may not be named "submit" or "list"'))
+        if not value.isascii():
+            raise ValidationError(
+                _('Runtags must be in ASCII'))
 
 class SubmitFormForm(forms.Form):
     def get_form_class(context):
