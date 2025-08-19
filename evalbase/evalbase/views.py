@@ -694,6 +694,7 @@ def edit_submission(request, *args, **kwargs):
 
     context['conf'] = conf
     context['task'] = task
+    context['track'] = task.track
     context['form'] = submitform
     context['user'] = request.user
     context['orgs'] = (Organization.objects
@@ -702,10 +703,14 @@ def edit_submission(request, *args, **kwargs):
     context['mode'] = 'edit'
     form_class = SubmitFormForm.get_form_class(context)
 
-    run = (Submission.objects
-           .filter(submitted_by_id=request.user.id)
-           .filter(task__track__conference__shortname=kwargs['conf'])
-           .filter(runtag=kwargs['runtag'])[0])
+    run_list = (Submission.objects
+                .filter(submitted_by=request.user)
+                .filter(task__track__conference__shortname=kwargs['conf'])
+                .filter(runtag=kwargs['runtag']))
+    if run_list:
+        run = run_list[0]
+    else:
+        raise PermissionDenied("You don't have access to this run.")
 
     form_info = {'conf': conf,
                  'task': run.task,
@@ -734,8 +739,7 @@ def edit_submission(request, *args, **kwargs):
             run = (Submission.objects
                    .filter(submitted_by_id=request.user.id)
                    .filter(task__track__conference__shortname=kwargs['conf'])
-                   .filter(runtag=stuff['runtag'])[0])
-            stuff = form.cleaned_data
+                   .filter(runtag=run.runtag)[0])
             org = (Organization.objects
                    .filter(members__pk=request.user.pk)
                    .filter(shortname=stuff['org'])
@@ -744,7 +748,6 @@ def edit_submission(request, *args, **kwargs):
                 raise Http404()
 
             run.org = org[0]
-            run.runtag = stuff['runtag']
             run.save()
 
             custom_fields = SubmitFormField.objects.filter(submit_form=context['form'])
@@ -758,7 +761,7 @@ def edit_submission(request, *args, **kwargs):
 
             return HttpResponseRedirect(reverse_lazy('run',
                                                      kwargs={'conf': conf,
-                                                             'task': task,
+                                                             'task': task.shortname,
                                                              'runtag': run.runtag}))
         else:
             context['gen_form'] = form
