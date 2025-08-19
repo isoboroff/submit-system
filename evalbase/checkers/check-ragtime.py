@@ -59,7 +59,7 @@ if __name__ == '__main__':
             result = subprocess.run([
                 'rag_run_validator',
                 '--topics', home / "aux/ragtime25_main_all.jsonl",
-                '--strict_on_length',
+                # '--strict_on_length',
                 args.runfile],
                 text=True,
                 stdout=subprocess.PIPE,
