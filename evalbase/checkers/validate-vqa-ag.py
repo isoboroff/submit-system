@@ -75,9 +75,16 @@ if __name__ == '__main__':
 
     file_path = sys.argv[1]
     validation_errors = validate_csv_run_file(file_path)
+
     if validation_errors:
         print("Validation errors found:")
+        with open(file_path+'.errlog', 'w') as errFile:
+            print('\n'.join(validation_errors),file=errFile)
         for error in validation_errors:
             print(" -", error)
+        sys.exit(1)
     else:
         print("CSV run file is valid.")
+        with open(file_path+'.errlog', 'w') as errFile:
+            print('No error found\n',file=errFile)
+        sys.exit(0)
