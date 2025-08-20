@@ -9,7 +9,11 @@ class Command(BaseCommand):
         parser.add_argument('-f', '--force',
                             action='store_true',
                             help='Force validation to run on all submissions')
-        parser.add_argument('task')
+        parser.add_argument('-r', '--run',
+                            help='Run validation for a specific run (default is all runs)',
+                            default=None)
+        parser.add_argument('task',
+                            help='Run validation over all runs in a task')
 
     def handle(self, *args, **options):
         task = Task.objects.get(shortname=options['task'])
@@ -20,12 +24,13 @@ class Command(BaseCommand):
         if task.checker_file and task.checker_file != 'NONE':
             for sub in Submission.objects.filter(task=task):
                 if (options['force'] or
-                    sub.is_validated == Submission.ValidationState.WAITING):
+                    sub.is_validated == Submission.ValidationState.WAITING or
+                    (options['run'] and sub.runtag == options['run'])):
                     checktask = run_check_script(sub, task.checker_file)
                     print('Running', task.checker_file, 'for submission',
-                          sub, '(', checktask, ')')
+                            sub, '(', checktask, ')')
                     run_one = True
-                else:
+                elif not options['run'] or options['force']:
                     print(f'Skipping {sub}, {sub.is_validated}')
         else:
             print('Task has no checker to run')
