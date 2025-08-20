@@ -156,7 +156,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     list_display = ['runtag', 'task', 'org', 'date', 'is_validated']
     readonly_fields = ['date']
     list_filter = ['task__track__conference', 'task', 'is_validated']
-    search_fields = ['runtag', 'org']
+    search_fields = ['runtag', 'org__shortname']
 
     def delete_queryset(self, request, queryset):
         for submission in queryset:
