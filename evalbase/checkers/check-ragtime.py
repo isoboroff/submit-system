@@ -33,7 +33,7 @@ class Errlog():
 
     def warn(self, line, msg):
         if line == -1:
-            print(f'WARNING: {msg}')
+            print(f'WARNING: {msg}', file=self.fp)
         else:
             print(f'WARNING Line {line}: {msg}', file=self.fp)
 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT)
             for line in result.stdout.splitlines():
-                if re.search(r'\[Error:(\d+)\]', line):
+                if re.search(r'\[Error', line):
                     log.error(-1, line)
                 else:
                     log.warn(-1, line)
