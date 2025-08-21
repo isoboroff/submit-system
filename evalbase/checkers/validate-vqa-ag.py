@@ -1,14 +1,21 @@
 #!/usr/bin/env python
 import csv
-
+import sys
+from pathlib import Path
 
 def validate_csv_run_file(file_path):
     errors = []
     # Dictionary to track seen ranks for each query_ID
     query_ranks = {}
 
+    id_file = Path("2025.testing.ids.txt")
+    if not id_file.exists():
+        id_file = Path(sys.path[0]) / f"aux/{id_file}"
+        if not id_file.exists():
+            raise FileNotFoundError(f"{id_file} not found")
+
     # Read the file and store IDs in a set (faster lookup than list)
-    with open("2025.testing.ids.txt", "r", encoding="utf-8-sig") as f:
+    with open(id_file, "r", encoding="utf-8-sig") as f:
         ids_in_file = {line.strip() for line in f}
        # print(ids_in_file)
 
@@ -82,7 +89,7 @@ if __name__ == '__main__':
             print('\n'.join(validation_errors),file=errFile)
         for error in validation_errors:
             print(" -", error)
-        sys.exit(1)
+        sys.exit(255)
     else:
         print("CSV run file is valid.")
         with open(file_path+'.errlog', 'w') as errFile:
