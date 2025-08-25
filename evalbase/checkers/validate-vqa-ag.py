@@ -23,9 +23,9 @@ def validate_csv_run_file(file_path):
         reader = csv.reader(csvfile)
         row_number = 1
         for row in reader:
-            # Check that there are exactly 4 fields
-            if len(row) != 4:
-                errors.append(f"Row {row_number}: Expected 4 fields, got {len(row)}")
+            # Check that there are exactly 5 fields
+            if len(row) != 5:
+                errors.append(f"Row {row_number}: Expected 5 fields, got {len(row)}")
                 row_number += 1
                 continue
 
