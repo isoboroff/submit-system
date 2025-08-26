@@ -29,7 +29,7 @@ def validate_csv_run_file(file_path):
                 row_number += 1
                 continue
 
-            query_id_str, dummy, rank_str, answer = row
+            query_id_str, dummy, rank_str, answer, time = row
 
             # Check if my_id exists in the file
             if dummy.strip() not in ids_in_file:
