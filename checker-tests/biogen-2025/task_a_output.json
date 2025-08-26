@@ -1,0 +1,3708 @@
+[
+    {
+        "metadata": {
+            "qa_id": "116",
+            "question": "Are there ways to prevent sleep apnea or treat it naturally?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "There are ways to prevent and treat sleep apnea naturally.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    8961240,
+                    24882797,
+                    28781744
+                ],
+                "contradicted_citations": [
+                    1475564,
+                    7941899,
+                    35992920
+                ]
+            },
+            {
+                "text": "Lifestyle changes may prevent and treat sleep apnea .",
+                "existing_supported_citations": [
+                    28646811,
+                    33659106,
+                    28659501,
+                    12693795,
+                    36617387
+                ],
+                "supported_citations": [
+                    29517065,
+                    21348318,
+                    37701472
+                ],
+                "contradicted_citations": [
+                    39028778,
+                    6274244,
+                    23079209
+                ]
+            },
+            {
+                "text": "Sleep apnea can be prevented by losing weight and keeping it down with diet and exercise ; quitting alcohol and smoking ; and changing sleep position .",
+                "existing_supported_citations": [
+                    12693795,
+                    22987061,
+                    30204000,
+                    36617387,
+                    33659106,
+                    12693795,
+                    36617387,
+                    33659106,
+                    12693795,
+                    30204000,
+                    36617387,
+                    28659501
+                ],
+                "supported_citations": [
+                    33501418,
+                    38022002,
+                    33520339
+                ],
+                "contradicted_citations": [
+                    29915639,
+                    34959806,
+                    14971838
+                ]
+            },
+            {
+                "text": "While Continuous Positive Airway Pressure (CPAP, a machine that uses mild air pressure to keep breathing airways open while you sleep) is the standard treatment for obstructive sleep apnea (OSA) , Chinese massage Tui Na , dental treatments to change teeth and jaw position ; and exercises for tongue and throat  reduce snoring and apnea.",
+                "existing_supported_citations": [
+                    28901030,
+                    12693795,
+                    36617387,
+                    28901030,
+                    28646811,
+                    28901030,
+                    35909585
+                ],
+                "supported_citations": [
+                    38022002,
+                    35507064,
+                    17938499
+                ],
+                "contradicted_citations": [
+                    8731857,
+                    14971838,
+                    17136406
+                ]
+            },
+            {
+                "text": "Treatments with drugs , nerve stimulation  and surgery  were also suggested.",
+                "existing_supported_citations": [
+                    25348130,
+                    22987061,
+                    22987061,
+                    28901030,
+                    30204000,
+                    22987061
+                ],
+                "supported_citations": [
+                    21422783,
+                    29071466,
+                    12468993
+                ],
+                "contradicted_citations": [
+                    28120051,
+                    17628766,
+                    1958606
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "117",
+            "question": "What will mutation in runx2 affect in the future?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "The effect of the runx2 mutation depends on the kind of the mutation.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    12196916,
+                    27713122,
+                    27509906
+                ],
+                "contradicted_citations": [
+                    20702542,
+                    20225274,
+                    27294865
+                ]
+            },
+            {
+                "text": "This gene mostly affects bone development .",
+                "existing_supported_citations": [
+                    19734454,
+                    24222232,
+                    32385263
+                ],
+                "supported_citations": [
+                    27990447,
+                    20101412,
+                    36011354
+                ],
+                "contradicted_citations": [
+                    18180281,
+                    17646263,
+                    35701706
+                ]
+            },
+            {
+                "text": "Mutations can cause bone deformities, height lower than expected, extra teeth and other dental problems .",
+                "existing_supported_citations": [
+                    19734454,
+                    24222232,
+                    17290219,
+                    19744171,
+                    35235174,
+                    32360898
+                ],
+                "supported_citations": [
+                    39212455,
+                    28530321,
+                    1856772
+                ],
+                "contradicted_citations": [
+                    6961828,
+                    9462087,
+                    15727909
+                ]
+            },
+            {
+                "text": "Later in life, having more RUNX2 is linked to cancers, such as pancreatic and bone cancer , prostate and breast cancer , and small cell lung cancer .",
+                "existing_supported_citations": [
+                    34810201,
+                    33411419,
+                    29558908
+                ],
+                "supported_citations": [
+                    31505052,
+                    16166639,
+                    17165130
+                ],
+                "contradicted_citations": [
+                    30805306,
+                    37252821,
+                    7049490
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "118",
+            "question": "how long does a minor cornea injury take to heal without medical attention?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Most corneal injuries heal in 24 to 72 hours .",
+                "existing_supported_citations": [
+                    15259527,
+                    8644566
+                ],
+                "supported_citations": [
+                    2079771,
+                    2465101,
+                    2773713
+                ],
+                "contradicted_citations": [
+                    11918897,
+                    7956316,
+                    3246571
+                ]
+            },
+            {
+                "text": "If the injury is greater than 4mm and vision is not getting better, a doctor should evaluate it again after 24 hours .",
+                "existing_supported_citations": [
+                    23317075
+                ],
+                "supported_citations": [
+                    2059130,
+                    2734493,
+                    29570524
+                ],
+                "contradicted_citations": [
+                    2679455,
+                    15283227,
+                    3162866
+                ]
+            },
+            {
+                "text": "Severe injuries might need two weeks of treatment or more .",
+                "existing_supported_citations": [
+                    29355667
+                ],
+                "supported_citations": [
+                    30761068,
+                    38921533,
+                    17279474
+                ],
+                "contradicted_citations": [
+                    2331549,
+                    9934945,
+                    14987465
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "119",
+            "question": "what drug or combination of drugs is most popular for treating stage 4 copd?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Drugs are used to lessen the symptoms of COPD and prevent flare-ups .",
+                "existing_supported_citations": [
+                    28246430,
+                    18044097
+                ],
+                "supported_citations": [
+                    33245531,
+                    37552476,
+                    33234856
+                ],
+                "contradicted_citations": [
+                    8263455,
+                    9552019,
+                    14594347
+                ]
+            },
+            {
+                "text": "Combinations of drugs that include inhaled corticosteroids (steroid sprays or powders that you breathe in to reduce inflammation) improve quality of life , reduce risk of death  and flare-ups , improve breathing  and reduce symptoms .",
+                "existing_supported_citations": [
+                    32335859,
+                    34301267,
+                    28220381,
+                    35207460,
+                    34301267,
+                    35547781
+                ],
+                "supported_citations": [
+                    15038079,
+                    16789800,
+                    16779858
+                ],
+                "contradicted_citations": [
+                    11449612,
+                    8922147,
+                    39194421
+                ]
+            },
+            {
+                "text": "The most effective triple combinations were  inhaled corticosteroid/long-acting muscarinic antagonist/long-acting \u03b22-agonist (ICS/LAMA/LABA), such as budesonide/glycopyrronium/formoterol fumarate .",
+                "existing_supported_citations": [
+                    32335859
+                ],
+                "supported_citations": [
+                    36444374,
+                    39691156,
+                    34342835
+                ],
+                "contradicted_citations": [
+                    30463457,
+                    30153695,
+                    36483674
+                ]
+            },
+            {
+                "text": "Muscarinic antagonists help the small muscles and other lung tissues work properly.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    2350099,
+                    8112384,
+                    8495246
+                ],
+                "contradicted_citations": [
+                    2746503,
+                    1758444,
+                    8282482
+                ]
+            },
+            {
+                "text": "Long-acting \u03b22-agonists, also called bronchodilators, relax the muscles in the airways, helping them to open up.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    23348973,
+                    27254952,
+                    29582435
+                ],
+                "contradicted_citations": [
+                    33273813,
+                    33234690,
+                    28134225
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "120",
+            "question": "what causes left sided facial numbness?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Facial numbness may be a sign of trigeminal neuropathy, a condition in which the nerve that sends sensations from your face to your brain is not working properly .",
+                "existing_supported_citations": [
+                    21628435
+                ],
+                "supported_citations": [
+                    39758795,
+                    17305614,
+                    9329237
+                ],
+                "contradicted_citations": [
+                    7873285,
+                    30557178,
+                    38966614
+                ]
+            },
+            {
+                "text": "The nerve can be affected by damage to the nearby blood vessels , compression in the spine , sensitive nerves passed down from the parents , root canal treatment , Guillain-Barre Syndrome (in which your immune system damages the nerves) , tumors , damage to the brain , and Sj\u00f6gren's Syndrome, another disease in which the immune system attacks the body .",
+                "existing_supported_citations": [
+                    34564290,
+                    31783736,
+                    35989231,
+                    34804646,
+                    27630886,
+                    24598329,
+                    34867715,
+                    31274646,
+                    3827688
+                ],
+                "supported_citations": [
+                    33907474,
+                    30930839,
+                    11128699
+                ],
+                "contradicted_citations": [
+                    37511005,
+                    24195230,
+                    18732327
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "121",
+            "question": "how can i lower my cortisol level?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Stress management, such as mindfulness, meditation and relaxation , or interacting with dogs for an hour  can lower cortisol levels.",
+                "existing_supported_citations": [
+                    35989236,
+                    37879237
+                ],
+                "supported_citations": [
+                    38377148,
+                    39580618,
+                    36105458
+                ],
+                "contradicted_citations": [
+                    35204923,
+                    34359232,
+                    36978636
+                ]
+            },
+            {
+                "text": "Balneotherapy (using water or bathing as treatment) or spa treatments may also help .",
+                "existing_supported_citations": [
+                    29455296
+                ],
+                "supported_citations": [
+                    12919115,
+                    23868626,
+                    26731976
+                ],
+                "contradicted_citations": [
+                    28644605,
+                    35094110,
+                    19588141
+                ]
+            },
+            {
+                "text": "Electrical stimulation  and acupuncture  may have some effect too.",
+                "existing_supported_citations": [
+                    37920858,
+                    33948545
+                ],
+                "supported_citations": [
+                    32631387,
+                    25618982,
+                    9131475
+                ],
+                "contradicted_citations": [
+                    20663717,
+                    17342241,
+                    25876364
+                ]
+            },
+            {
+                "text": "Medicinal plant Withania somnifera , and hormones",
+                "existing_supported_citations": [
+                    38140274
+                ],
+                "supported_citations": [
+                    36046742,
+                    26919744,
+                    34697529
+                ],
+                "contradicted_citations": [
+                    28707323,
+                    25648550,
+                    34738415
+                ]
+            },
+            {
+                "text": "melatonin  and dehydroepiandrosterone (DHEA)  might help as well.",
+                "existing_supported_citations": [
+                    34342920,
+                    34616464
+                ],
+                "supported_citations": [
+                    9221619,
+                    19732300,
+                    9572155
+                ],
+                "contradicted_citations": [
+                    15309306,
+                    10567728,
+                    19616550
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "122",
+            "question": "what is a t wave abnormality?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "T wave abnormalities are commonly seen on the electrocardiogram (EKG: tests that record heartbeat) .",
+                "existing_supported_citations": [
+                    11728347
+                ],
+                "supported_citations": [
+                    36207075,
+                    11763731,
+                    6373284
+                ],
+                "contradicted_citations": [
+                    38846668,
+                    6188885,
+                    4035590
+                ]
+            },
+            {
+                "text": "They may be harmless  or they may predict life-threatening conditions .",
+                "existing_supported_citations": [
+                    15842426,
+                    32975832,
+                    11728347,
+                    32259342
+                ],
+                "supported_citations": [
+                    35153083,
+                    24034073,
+                    29152957
+                ],
+                "contradicted_citations": [
+                    37173827,
+                    35002334,
+                    8565878
+                ]
+            },
+            {
+                "text": "Tall or prominent T-waves may be a sign of heart attack .",
+                "existing_supported_citations": [
+                    11992348,
+                    2301787
+                ],
+                "supported_citations": [
+                    2097472,
+                    573621,
+                    33183921
+                ],
+                "contradicted_citations": [
+                    7205113,
+                    6721943,
+                    20832817
+                ]
+            },
+            {
+                "text": "Inverted T-wave (a deep in the recorded line) is linked to coronary heart disease .",
+                "existing_supported_citations": [
+                    32975832
+                ],
+                "supported_citations": [
+                    599783,
+                    22964131,
+                    6687227
+                ],
+                "contradicted_citations": [
+                    1745867,
+                    18722026,
+                    36211576
+                ]
+            },
+            {
+                "text": "Deep inverted symmetric T-waves called \"cerebral T-waves\" are seen in stroke patients .",
+                "existing_supported_citations": [
+                    34239799
+                ],
+                "supported_citations": [
+                    29197472,
+                    33029464,
+                    31653824
+                ],
+                "contradicted_citations": [
+                    11992349,
+                    29593570,
+                    136532
+                ]
+            },
+            {
+                "text": "Peaked T waves are the most frequent change in patients with kidney problems .",
+                "existing_supported_citations": [
+                    31686358
+                ],
+                "supported_citations": [
+                    149373,
+                    35916239,
+                    30084758
+                ],
+                "contradicted_citations": [
+                    1364515,
+                    10482151,
+                    10636634
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "123",
+            "question": "what is fbn1 mutation?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "FBN1 is a gene that tells the body how to build connective tissues that support and protect the structure of the human body .",
+                "existing_supported_citations": [
+                    27437668
+                ],
+                "supported_citations": [
+                    27386756,
+                    38269088,
+                    27225987
+                ],
+                "contradicted_citations": [
+                    27090893,
+                    28539832,
+                    8120105
+                ]
+            },
+            {
+                "text": "Mutations in specific parts of FBN1 can cause health problems .",
+                "existing_supported_citations": [
+                    27437668,
+                    23897642,
+                    38458756
+                ],
+                "supported_citations": [
+                    21895641,
+                    11251996,
+                    7611299
+                ],
+                "contradicted_citations": [
+                    10756346,
+                    11933199,
+                    21726527
+                ]
+            },
+            {
+                "text": "Some of these mutations called missense mutation (like misspelling the instructions) cause tall or short stature, finger deformities, and problems with aorta (the major artery that supplies the body with blood) .",
+                "existing_supported_citations": [
+                    23897642,
+                    38317175,
+                    38458756
+                ],
+                "supported_citations": [
+                    25703509,
+                    17033969,
+                    24864036
+                ],
+                "contradicted_citations": [
+                    11889216,
+                    12014383,
+                    20830670
+                ]
+            },
+            {
+                "text": "Mutations in specific parts of the gene cause different problems, such as Marfan syndrome, Weill-Marchesani syndrome, familial thoracic aortic aneurysms/dissections, acromicric dysplasia, and geleophysic dysplasia ,",
+                "existing_supported_citations": [
+                    27437668,
+                    23897642
+                ],
+                "supported_citations": [
+                    27068007,
+                    24214363,
+                    23133647
+                ],
+                "contradicted_citations": [
+                    30415012,
+                    21683322,
+                    27935852
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "124",
+            "question": "what does cad without angina mean?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Coronary artery disease (CAD, also called coronary heart disease, CHD) is a heart condition in which not enough blood and oxygen gets to the heart muscle (condition called myocardial ischemia).",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    6133640,
+                    1999010,
+                    15356432
+                ],
+                "contradicted_citations": [
+                    34646607,
+                    9800050,
+                    19833255
+                ]
+            },
+            {
+                "text": "Angina is chest pain that happens repeatedly; it can be a symptom of CAD .",
+                "existing_supported_citations": [
+                    7102361
+                ],
+                "supported_citations": [
+                    27354848,
+                    26081064,
+                    27908388
+                ],
+                "contradicted_citations": [
+                    4061330,
+                    26693332,
+                    32595282
+                ]
+            },
+            {
+                "text": "CAD without angina, called silent ischemia, which is often found in middle-aged and old men, increases the risk of severe CHD-complications over 12-15 years .",
+                "existing_supported_citations": [
+                    3223015,
+                    28395884
+                ],
+                "supported_citations": [
+                    2929465,
+                    3751899,
+                    3825868
+                ],
+                "contradicted_citations": [
+                    3381731,
+                    14664169,
+                    3195475
+                ]
+            },
+            {
+                "text": "In study of 5070 patients with CAD, three quarter of the patients had no angina .",
+                "existing_supported_citations": [
+                    30001355
+                ],
+                "supported_citations": [
+                    15754849,
+                    7055044,
+                    2347218
+                ],
+                "contradicted_citations": [
+                    6938184,
+                    3984868,
+                    6883830
+                ]
+            },
+            {
+                "text": "CAD patients without angina may have better results from coronary artery bypass graft (CABG) surgery .",
+                "existing_supported_citations": [
+                    26541919
+                ],
+                "supported_citations": [
+                    36237804,
+                    12145567,
+                    6778624
+                ],
+                "contradicted_citations": [
+                    20670188,
+                    12464983,
+                    33142395
+                ]
+            },
+            {
+                "text": "CAD without symptoms is associated with less diagnostic tests and treatments compared to CAD with angina .",
+                "existing_supported_citations": [
+                    28239488
+                ],
+                "supported_citations": [
+                    2330893,
+                    2857520,
+                    1352191
+                ],
+                "contradicted_citations": [
+                    8168281,
+                    15912431,
+                    3661392
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "125",
+            "question": "what is tamsulosin used for?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Tamsulosin is mostly used to treat benign prostatic hyperplasia (BPH, a condition in men in which the prostate gland is enlarged) , and the overactive bladder (OAB)  and lower urinary tract symptoms (LUTS) linked to prostate inflammation  and BPH.",
+                "existing_supported_citations": [
+                    29737501,
+                    11750250,
+                    26266159,
+                    29737501,
+                    11547074,
+                    11750250
+                ],
+                "supported_citations": [
+                    25834406,
+                    19887725,
+                    18510659
+                ],
+                "contradicted_citations": [
+                    25032191,
+                    27440781,
+                    25823641
+                ]
+            },
+            {
+                "text": "It is also used to treat ureteral stones (a stone in the urinary tract) and pain caused by these stones (renal colic) .",
+                "existing_supported_citations": [
+                    29737501,
+                    25982524,
+                    38520492
+                ],
+                "supported_citations": [
+                    21539143,
+                    1433608,
+                    10195491
+                ],
+                "contradicted_citations": [
+                    15133331,
+                    11750154,
+                    9165575
+                ]
+            },
+            {
+                "text": "Tamsulosin is also used to treat lower urinary tract symptoms in children  and women .",
+                "existing_supported_citations": [
+                    18721208,
+                    19110267
+                ],
+                "supported_citations": [
+                    28424499,
+                    18345957,
+                    12957198
+                ],
+                "contradicted_citations": [
+                    12526285,
+                    25588085,
+                    15883586
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "126",
+            "question": "what is nondisjunction and what causes it?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Nondisjunction is the errors in splitting genetic materials when our body cells divide .",
+                "existing_supported_citations": [
+                    17911163
+                ],
+                "supported_citations": [
+                    8768496,
+                    16192705,
+                    27600794
+                ],
+                "contradicted_citations": [
+                    19383411,
+                    3095636,
+                    1977308
+                ]
+            },
+            {
+                "text": "A type of cell division that takes only one of two copies of each chromosome (cell structures that store genetic information) from the parent cell, for the baby to have a set of chromosomes from each parent, is called meiosis.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    2829294,
+                    26694509,
+                    35393552
+                ],
+                "contradicted_citations": [
+                    29641187,
+                    33590639,
+                    36923790
+                ]
+            },
+            {
+                "text": "When the cells divide for growth and to maintain our bodies, the number of chromosomes remains the same in the new cells, and this type of cell division is called mitosis.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    12096633,
+                    17579515,
+                    4086516
+                ],
+                "contradicted_citations": [
+                    6728454,
+                    31068378,
+                    17351334
+                ]
+            },
+            {
+                "text": "Non-disjunction can happen during both types of cell division .",
+                "existing_supported_citations": [
+                    9557829,
+                    6232200
+                ],
+                "supported_citations": [
+                    11309370,
+                    1190734,
+                    12435848
+                ],
+                "contradicted_citations": [
+                    7088014,
+                    963905,
+                    6455325
+                ]
+            },
+            {
+                "text": "When the chromosomes fail to split properly, it causes a condition called aneuploidy (having too many or too few chromosomes instead of the normal two of each).",
+                "existing_supported_citations": [
+                    11283700,
+                    35788750
+                ],
+                "supported_citations": [
+                    31345733,
+                    8314908,
+                    15713829
+                ],
+                "contradicted_citations": [
+                    35355062,
+                    752068,
+                    9015146
+                ]
+            },
+            {
+                "text": "Nondisjunction can be caused by the genes and environment .",
+                "existing_supported_citations": [
+                    7789361
+                ],
+                "supported_citations": [
+                    31830031,
+                    36447056,
+                    3160646
+                ],
+                "contradicted_citations": [
+                    16769819,
+                    31371407,
+                    1977308
+                ]
+            },
+            {
+                "text": "During meiosis, both women's eggs and male sperm may have faulty chromosomes.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    20227008,
+                    27273078,
+                    19319272
+                ],
+                "contradicted_citations": [
+                    1879616,
+                    16386730,
+                    38903120
+                ]
+            },
+            {
+                "text": "It happens more often in older women  and in men who inherited faulty chromosomes .",
+                "existing_supported_citations": [
+                    21311180,
+                    9557829,
+                    35270022
+                ],
+                "supported_citations": [
+                    9792875,
+                    17620666,
+                    28812450
+                ],
+                "contradicted_citations": [
+                    8613834,
+                    7468284,
+                    3216651
+                ]
+            },
+            {
+                "text": "Hormone imbalance plays an important role in nondisjunction .",
+                "existing_supported_citations": [
+                    4096700
+                ],
+                "supported_citations": [
+                    477404,
+                    387397,
+                    1279409
+                ],
+                "contradicted_citations": [
+                    22363215,
+                    22220370,
+                    115682
+                ]
+            },
+            {
+                "text": "Faulty chromosomes in sperm were linked to drug treatments, occupational agents and lifestyle .",
+                "existing_supported_citations": [
+                    17292877
+                ],
+                "supported_citations": [
+                    15754381,
+                    10462722,
+                    22040161
+                ],
+                "contradicted_citations": [
+                    16192719,
+                    8625439,
+                    10037323
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "127",
+            "question": "what effects does gene therapy have on an organism?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Gene therapy aims to treat and cure disease by improving genes .",
+                "existing_supported_citations": [
+                    33677501,
+                    29091160
+                ],
+                "supported_citations": [
+                    31813888,
+                    14692314,
+                    16715361
+                ],
+                "contradicted_citations": [
+                    38485038,
+                    31419223,
+                    28725655
+                ]
+            },
+            {
+                "text": "Gene therapy can suppress the genes \"gene silencing\", replace the genes, or genes can be edited (modified) .",
+                "existing_supported_citations": [
+                    35123997
+                ],
+                "supported_citations": [
+                    36269665,
+                    39145521,
+                    36066674
+                ],
+                "contradicted_citations": [
+                    38365187,
+                    23212298,
+                    38264147
+                ]
+            },
+            {
+                "text": "Each method may have side effects .",
+                "existing_supported_citations": [
+                    38247731,
+                    37886603
+                ],
+                "supported_citations": [
+                    16020367,
+                    30296417,
+                    12306285
+                ],
+                "contradicted_citations": [
+                    6553031,
+                    11686679,
+                    7965443
+                ]
+            },
+            {
+                "text": "Gene replacement relies on viruses and similar cells to deliver the gene to the target location .",
+                "existing_supported_citations": [
+                    38549260
+                ],
+                "supported_citations": [
+                    27713537,
+                    32985507,
+                    37172560
+                ],
+                "contradicted_citations": [
+                    25195922,
+                    30772143,
+                    34011551
+                ]
+            },
+            {
+                "text": "Side effects include toxic damage to the liver (hepatotoxicity), heart (cardiotoxicity), nerves (neurotoxicity), inflammation caused by immune response, and even death .",
+                "existing_supported_citations": [
+                    38549260,
+                    38247731
+                ],
+                "supported_citations": [
+                    30538634,
+                    39337662,
+                    37855967
+                ],
+                "contradicted_citations": [
+                    12740803,
+                    26325335,
+                    35749044
+                ]
+            },
+            {
+                "text": "Suppressing the immune response may cause secondary infections .",
+                "existing_supported_citations": [
+                    38247731
+                ],
+                "supported_citations": [
+                    20636817,
+                    37985960,
+                    21788440
+                ],
+                "contradicted_citations": [
+                    29978355,
+                    15557247,
+                    22316382
+                ]
+            },
+            {
+                "text": "Gene editing may cause unintended changes .",
+                "existing_supported_citations": [
+                    33667951
+                ],
+                "supported_citations": [
+                    36620901,
+                    38440883,
+                    37982648
+                ],
+                "contradicted_citations": [
+                    32460957,
+                    33626327,
+                    37385251
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "128",
+            "question": "how does cbd effect liver enzymes?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Cannabidiol (CBD) is a non-psychoactive (not causing 'high') chemical found in Cannabis (marijuana) .",
+                "existing_supported_citations": [
+                    38397045
+                ],
+                "supported_citations": [
+                    35833025,
+                    36056846,
+                    34128629
+                ],
+                "contradicted_citations": [
+                    32655732,
+                    25801536,
+                    28875990
+                ]
+            },
+            {
+                "text": "Some studies show that it causes liver enzymes to be higher than normal , which shows CBD in higher doses damages liver .",
+                "existing_supported_citations": [
+                    38494580,
+                    33022751,
+                    36912195,
+                    31052254,
+                    38011195,
+                    38286636
+                ],
+                "supported_citations": [
+                    27759652,
+                    11693203,
+                    36249785
+                ],
+                "contradicted_citations": [
+                    31489664,
+                    3836872,
+                    17481832
+                ]
+            },
+            {
+                "text": "Other studies found that in healthy adults CBD is not linked to higher liver enzymes , and it may be protective in some liver diseases .",
+                "existing_supported_citations": [
+                    38397045,
+                    34918948,
+                    36968131
+                ],
+                "supported_citations": [
+                    36972999,
+                    33022751,
+                    38711461
+                ],
+                "contradicted_citations": [
+                    7683179,
+                    3229734,
+                    9226686
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "129",
+            "question": "what are side effects for suddenly stopping metoprolol?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Suddenly stopping metropolis may cause withdrawal symptoms , return of high blood pressure [7053309, 7104154, 15857353, 37093,  3813760,  6125187] and heart problems .",
+                "existing_supported_citations": [
+                    15857353,
+                    6125187,
+                    17949833,
+                    15857353,
+                    7102534,
+                    37093
+                ],
+                "supported_citations": [
+                    39949,
+                    6133736,
+                    32160
+                ],
+                "contradicted_citations": [
+                    19867041,
+                    6822060,
+                    7306435
+                ]
+            },
+            {
+                "text": "Withdrawal symptoms include fast heartbeat, headache, agitation, nausea , heart palpitations and shaking .",
+                "existing_supported_citations": [
+                    7102534,
+                    15857353
+                ],
+                "supported_citations": [
+                    7937455,
+                    20473065,
+                    15872191
+                ],
+                "contradicted_citations": [
+                    8938913,
+                    6617064,
+                    8117550
+                ]
+            },
+            {
+                "text": "Patients with severe heart problems may die .",
+                "existing_supported_citations": [
+                    10467195
+                ],
+                "supported_citations": [
+                    10609389,
+                    27528985,
+                    2871753
+                ],
+                "contradicted_citations": [
+                    10842889,
+                    26527229,
+                    26514053
+                ]
+            },
+            {
+                "text": "These withdrawal effects may be prevented by gradual withdrawal on a prolonged small dose of metoprolol .",
+                "existing_supported_citations": [
+                    6125187
+                ],
+                "supported_citations": [
+                    7053309,
+                    6278914,
+                    3549312
+                ],
+                "contradicted_citations": [
+                    3533547,
+                    6475710,
+                    3383875
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "130",
+            "question": "is pcos linked to oxidative stress?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "PCOS patients have confirmed signs of oxidative stress (OS) in their lab tests .",
+                "existing_supported_citations": [
+                    38385463
+                ],
+                "supported_citations": [
+                    36386912,
+                    37507937,
+                    28675914
+                ],
+                "contradicted_citations": [
+                    25911850,
+                    27799629,
+                    37509682
+                ]
+            },
+            {
+                "text": "The causes of PCOS are not known, but oxidative stress may start the problems linked to PCOS  and increase the risk of cancers caused by PCOS .",
+                "existing_supported_citations": [
+                    26770659,
+                    31198521,
+                    37996893
+                ],
+                "supported_citations": [
+                    30450993,
+                    38021744,
+                    38285412
+                ],
+                "contradicted_citations": [
+                    37585035,
+                    25911850,
+                    28696807
+                ]
+            },
+            {
+                "text": "OS disrupts hormonal balance, which leads to fertility problems .",
+                "existing_supported_citations": [
+                    38540173,
+                    36279177,
+                    36386912,
+                    37762427
+                ],
+                "supported_citations": [
+                    16737536,
+                    36472818,
+                    39090335
+                ],
+                "contradicted_citations": [
+                    34589489,
+                    37627567,
+                    3075164
+                ]
+            },
+            {
+                "text": "OS is also linked to heart and blood problems in PCOS .",
+                "existing_supported_citations": [
+                    26066290
+                ],
+                "supported_citations": [
+                    17454124,
+                    37507937,
+                    25911850
+                ],
+                "contradicted_citations": [
+                    35992132,
+                    26089623,
+                    20067879
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "131",
+            "question": "what are side effects of using formoterol?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Formoterol improves breathing in patients with asthma and other lung problems .",
+                "existing_supported_citations": [
+                    33273813
+                ],
+                "supported_citations": [
+                    1514666,
+                    31752560,
+                    1360774
+                ],
+                "contradicted_citations": [
+                    17451803,
+                    16925692,
+                    11704584
+                ]
+            },
+            {
+                "text": "It is safe for most patients .",
+                "existing_supported_citations": [
+                    20159250,
+                    11534893
+                ],
+                "supported_citations": [
+                    26100424,
+                    16218903,
+                    38288716
+                ],
+                "contradicted_citations": [
+                    7897039,
+                    25293604,
+                    34225900
+                ]
+            },
+            {
+                "text": "The most frequent side effects are  tremors (shaking, twitching) and palpitations (throbbing), which happen more frequently when formoterol  is taken orally .",
+                "existing_supported_citations": [
+                    1718682,
+                    9506248
+                ],
+                "supported_citations": [
+                    8244916,
+                    34489503,
+                    12943175
+                ],
+                "contradicted_citations": [
+                    6248395,
+                    25445928,
+                    1973907
+                ]
+            },
+            {
+                "text": "Formoterol may cause supraventricular tachycardia (SVT -- irregular heartbeat) .",
+                "existing_supported_citations": [
+                    38530149
+                ],
+                "supported_citations": [
+                    38385329,
+                    20488843,
+                    3323302
+                ],
+                "contradicted_citations": [
+                    6734639,
+                    2702964,
+                    8373613
+                ]
+            },
+            {
+                "text": "In children with asthma, the most frequent side effects were worsening of asthma, lung infection, cough, fever and headache .",
+                "existing_supported_citations": [
+                    24562976
+                ],
+                "supported_citations": [
+                    37743297,
+                    33530624,
+                    30828592
+                ],
+                "contradicted_citations": [
+                    7589401,
+                    7607286,
+                    8074912
+                ]
+            },
+            {
+                "text": "In cancer patients, the few side effects included tremors, swelling, increased heart rate, and indigestion .",
+                "existing_supported_citations": [
+                    24389826
+                ],
+                "supported_citations": [
+                    1273541,
+                    7140872,
+                    22344584
+                ],
+                "contradicted_citations": [
+                    16212560,
+                    12691417,
+                    7457166
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "132",
+            "question": "what is the effect of low vitamin D?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Many conditions are linked to low Vitamin D or Vitamin D deficiency, and some problems are known to be caused by Vitamin D deficiency .",
+                "existing_supported_citations": [
+                    36396409
+                ],
+                "supported_citations": [
+                    28786260,
+                    26634683,
+                    27037388
+                ],
+                "contradicted_citations": [
+                    33920130,
+                    15585795,
+                    23208530
+                ]
+            },
+            {
+                "text": "Vitamin D deficiency can lead to bone softening and rickets in children and bone softening , brittleness and fractures  in adults.",
+                "existing_supported_citations": [
+                    18400738,
+                    30335299,
+                    26204630
+                ],
+                "supported_citations": [
+                    39677085,
+                    24353599,
+                    24251166
+                ],
+                "contradicted_citations": [
+                    33999242,
+                    27525132,
+                    22053268
+                ]
+            },
+            {
+                "text": "Vitamin D deficiency is linked to increased risk of common cancers, autoimmune diseases , hypertension (high blood pressure), infections , depression , mental problems , type 2 diabetes, heart disease, metabolic syndrome,   and nervous system problems .",
+                "existing_supported_citations": [
+                    28516265,
+                    26204630,
+                    37242192,
+                    22461123,
+                    23377209,
+                    18400738,
+                    28516265
+                ],
+                "supported_citations": [
+                    26000302,
+                    19717244,
+                    16295817
+                ],
+                "contradicted_citations": [
+                    30634516,
+                    29421141,
+                    36396409
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "133",
+            "question": "What are the short and long term effects of surgery and its complexity for women with ovarian cyst?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Surgery may remove the cyst, drain it, or cauterize (sear) it .",
+                "existing_supported_citations": [
+                    28089684
+                ],
+                "supported_citations": [
+                    31893186,
+                    39640387,
+                    15200127
+                ],
+                "contradicted_citations": [
+                    26587064,
+                    4093127,
+                    21574134
+                ]
+            },
+            {
+                "text": "When removing the cyst, the surgeon will try to do it through a small cut (laparoscopy) or fall back to opening the abdomen (laparotomy) .",
+                "existing_supported_citations": [
+                    11044507
+                ],
+                "supported_citations": [
+                    1834286,
+                    34990296,
+                    26435651
+                ],
+                "contradicted_citations": [
+                    1828651,
+                    37168161,
+                    22117832
+                ]
+            },
+            {
+                "text": "After laparoscopy, in a small number of patients, the cysts may form again , particularly if the contents of the cyst spills into abdomen .",
+                "existing_supported_citations": [
+                    33279627,
+                    17022919
+                ],
+                "supported_citations": [
+                    18998313,
+                    17490490,
+                    12574929
+                ],
+                "contradicted_citations": [
+                    9273086,
+                    16212799,
+                    19582199
+                ]
+            },
+            {
+                "text": "Spillage of the cyst content into abdomen, which is rare, may cause inflammation in the abdomen (peritonitis) .",
+                "existing_supported_citations": [
+                    10527327,
+                    33279627
+                ],
+                "supported_citations": [
+                    39296764,
+                    1563683,
+                    21082898
+                ],
+                "contradicted_citations": [
+                    35865446,
+                    36524269,
+                    21985734
+                ]
+            },
+            {
+                "text": "Major surgery effects include accidental cuts to bowels and ureter (the tube that carries urine from the kidney to the bladder).",
+                "existing_supported_citations": [
+                    11044507
+                ],
+                "supported_citations": [
+                    38054124,
+                    34322462,
+                    35505745
+                ],
+                "contradicted_citations": [
+                    6847272,
+                    8630444,
+                    19870695
+                ]
+            },
+            {
+                "text": "During surgery, small blood vessels may be nicked  and there may be some blood loss .",
+                "existing_supported_citations": [
+                    17022919,
+                    11044507
+                ],
+                "supported_citations": [
+                    29224263,
+                    2393274,
+                    523956
+                ],
+                "contradicted_citations": [
+                    2259405,
+                    9495622,
+                    3205205
+                ]
+            },
+            {
+                "text": "After surgery, inflammation may develop around the cut  or a part of the organ may come through the cut (incisional hernia) .",
+                "existing_supported_citations": [
+                    11044507,
+                    10527327
+                ],
+                "supported_citations": [
+                    36855158,
+                    18997256,
+                    33623063
+                ],
+                "contradicted_citations": [
+                    16119310,
+                    3954314,
+                    19025344
+                ]
+            },
+            {
+                "text": "A major long-term risk of the surgery is infertility .",
+                "existing_supported_citations": [
+                    28089684,
+                    36971598,
+                    36120464
+                ],
+                "supported_citations": [
+                    33691349,
+                    35743718,
+                    19961040
+                ],
+                "contradicted_citations": [
+                    33135508,
+                    20966703,
+                    2299374
+                ]
+            },
+            {
+                "text": "Infertility is more common among women who had cyst surgery, all other causes of infertility being equal to women without surgery .",
+                "existing_supported_citations": [
+                    36971598
+                ],
+                "supported_citations": [
+                    34585638,
+                    15977444,
+                    30837119
+                ],
+                "contradicted_citations": [
+                    12346451,
+                    6236618,
+                    12284537
+                ]
+            },
+            {
+                "text": "The impact of surgery on fertility can be reduced by selecting the best surgery for the cyst , being careful during surgery, and using cauterization sparingly .",
+                "existing_supported_citations": [
+                    28089684,
+                    36120464,
+                    24559614
+                ],
+                "supported_citations": [
+                    38977389,
+                    36452525,
+                    35636806
+                ],
+                "contradicted_citations": [
+                    15200127,
+                    12758100,
+                    38731060
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "134",
+            "question": "what are the symptoms and treatments for ibs?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Symptoms of irritable bowel syndrome (IBS) are long-standing abdominal pain and changes in bowel habits that have no clear causes .",
+                "existing_supported_citations": [
+                    30466670,
+                    38078610
+                ],
+                "supported_citations": [
+                    36292457,
+                    1382014,
+                    25083055
+                ],
+                "contradicted_citations": [
+                    17761124,
+                    31195706,
+                    25880820
+                ]
+            },
+            {
+                "text": "Changes in bowel habits include diarrhea (IBS-D), constipation (IBS-D), mixed stool pattern (IBS-M, which includes constipation and diarrhea), and unclassified IBS .",
+                "existing_supported_citations": [
+                    34463082,
+                    34927757,
+                    34463082
+                ],
+                "supported_citations": [
+                    38161272,
+                    23991913,
+                    26432092
+                ],
+                "contradicted_citations": [
+                    29372991,
+                    37786251,
+                    25805945
+                ]
+            },
+            {
+                "text": "Depending on the type of IBS, symptoms are managed by different drugs and other methods, such as brain-gut behavioral therapies (BGBTs) .",
+                "existing_supported_citations": [
+                    38078610
+                ],
+                "supported_citations": [
+                    37743035,
+                    35368137,
+                    38777133
+                ],
+                "contradicted_citations": [
+                    28790872,
+                    39754699,
+                    39243395
+                ]
+            },
+            {
+                "text": "Lifestyle and dietary changes, such as probiotics, a low fermentable oligosaccharides, disacchardies, monosaccharides, polyols (FODMAP) diet, or gluten-free diet, are the first treatment for all patients .",
+                "existing_supported_citations": [
+                    31820883,
+                    34249316
+                ],
+                "supported_citations": [
+                    30029704,
+                    36072680,
+                    36424920
+                ],
+                "contradicted_citations": [
+                    30632437,
+                    31434299,
+                    31850930
+                ]
+            },
+            {
+                "text": "Laxatives are used to treat IBS-C , e.g., linaclotide, lubiprostone, plecanatide , although lubiprostone and linaclotide may be recommended when other laxatives do not work .",
+                "existing_supported_citations": [
+                    34463082,
+                    30466670,
+                    33315591
+                ],
+                "supported_citations": [
+                    26016701,
+                    24363515,
+                    26907518
+                ],
+                "contradicted_citations": [
+                    36504229,
+                    23160292,
+                    26371734
+                ]
+            },
+            {
+                "text": "For IBS-D, rifaximin  eluxadoline , alosetron, loperamide , alosetron and ramosetron  may be recommended.",
+                "existing_supported_citations": [
+                    34249316,
+                    35738725,
+                    30466670,
+                    35738725,
+                    33315591,
+                    35738725
+                ],
+                "supported_citations": [
+                    28276811,
+                    26907518,
+                    31632456
+                ],
+                "contradicted_citations": [
+                    28232472,
+                    31707713,
+                    29372991
+                ]
+            },
+            {
+                "text": "For IBS-D and IBS-M additional treatments may include faecal microbial transplant  or alternative treatments, including psychotherapy, hypnotherapy, acupuncture or herbs .",
+                "existing_supported_citations": [
+                    31820883,
+                    34927757
+                ],
+                "supported_citations": [
+                    18825145,
+                    22661301,
+                    11772245
+                ],
+                "contradicted_citations": [
+                    15173682,
+                    21927652,
+                    37341454
+                ]
+            },
+            {
+                "text": "The effectiveness  of these ternative treatments is not clear .",
+                "existing_supported_citations": [
+                    36507830
+                ],
+                "supported_citations": [
+                    26115174,
+                    34302449,
+                    37916041
+                ],
+                "contradicted_citations": [
+                    25330737,
+                    18333675,
+                    25874997
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "135",
+            "question": "what can happen if you are prescribed thyroid meds but don't take them?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "If you don't take medications for under-active thyroid gland (hypothyroidism), you will be fatigued, gain weight, have constipation, dry skin and cold intolerance .",
+                "existing_supported_citations": [
+                    28336049,
+                    37908940,
+                    37469961,
+                    32175200
+                ],
+                "supported_citations": [
+                    18560652,
+                    24741781,
+                    37273384
+                ],
+                "contradicted_citations": [
+                    33983002,
+                    32692699,
+                    32975201
+                ]
+            },
+            {
+                "text": "Then yo may have severe complications like heart failure, infertility, myxedema coma .",
+                "existing_supported_citations": [
+                    37908940
+                ],
+                "supported_citations": [
+                    28261365,
+                    20635749,
+                    8480906
+                ],
+                "contradicted_citations": [
+                    19857436,
+                    37842478,
+                    12486569
+                ]
+            },
+            {
+                "text": "In myxedema coma, people experience decreased mental status, hypothermia (low body temperature), and slowing of function in multiple organs, which can lead to death .",
+                "existing_supported_citations": [
+                    29631518
+                ],
+                "supported_citations": [
+                    30111206,
+                    23214074,
+                    39044871
+                ],
+                "contradicted_citations": [
+                    20808690,
+                    21941682,
+                    39444496
+                ]
+            },
+            {
+                "text": "Most people will have these problems if they don't take their medications .",
+                "existing_supported_citations": [
+                    33161885
+                ],
+                "supported_citations": [
+                    31483583,
+                    10168476,
+                    6659029
+                ],
+                "contradicted_citations": [
+                    10639889,
+                    8212910,
+                    16777646
+                ]
+            },
+            {
+                "text": "If you do not treat hyper-active thyroid gland (untreated hyperthyroidism), you may have a life-threatening emergency called thyroid storm .",
+                "existing_supported_citations": [
+                    35155015,
+                    37614021
+                ],
+                "supported_citations": [
+                    28939923,
+                    18186382,
+                    33898131
+                ],
+                "contradicted_citations": [
+                    30559947,
+                    2680469,
+                    37153268
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "136",
+            "question": "what can be done for severe elbow pain?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Elbow pain may be caused by inflammation  and injuries .",
+                "existing_supported_citations": [
+                    35876779,
+                    26001427,
+                    23016111,
+                    35419078,
+                    36800442,
+                    33330224
+                ],
+                "supported_citations": [
+                    38616636,
+                    16464123,
+                    3068691
+                ],
+                "contradicted_citations": [
+                    14421374,
+                    9802175,
+                    19468873
+                ]
+            },
+            {
+                "text": "Standard treatments include rest, painkillers, non-steroidal anti-inflammatory medications (NSAIDs), physical therapy, and steroids .",
+                "existing_supported_citations": [
+                    33330224,
+                    26001427,
+                    36800442
+                ],
+                "supported_citations": [
+                    12173280,
+                    36451493,
+                    28056333
+                ],
+                "contradicted_citations": [
+                    25878074,
+                    38939365,
+                    26861001
+                ]
+            },
+            {
+                "text": "If the standard treatments do not relieve pain, your doctor may suggest surgery .",
+                "existing_supported_citations": [
+                    26001427,
+                    33467345,
+                    38685993
+                ],
+                "supported_citations": [
+                    1489516,
+                    12365340,
+                    36864912
+                ],
+                "contradicted_citations": [
+                    9188025,
+                    8867258,
+                    20051430
+                ]
+            },
+            {
+                "text": "Alternative treatments that show promise include acupuncture ,  High-Intensity Laser Therapy , botulinum toxin and bone marrow injections .",
+                "existing_supported_citations": [
+                    33330224,
+                    36233361,
+                    35419078
+                ],
+                "supported_citations": [
+                    19773727,
+                    32638463,
+                    38723874
+                ],
+                "contradicted_citations": [
+                    26879873,
+                    30995453,
+                    30982056
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "137",
+            "question": "in an adult with type 2 diabetes would metformin or ketogenic diet be the most effective option to lower a1c levels?\u200b",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "in a side-by-side comparison of a low glycemic index diet, which is similar to ketogenic, and metformin in about 50 adults with metabolic syndrome (which may lead to type 2 diabetes) both were equally effective in significantly lowering  Hemoglobin A1c (HbA1c).",
+                "existing_supported_citations": [
+                    26587028
+                ],
+                "supported_citations": [
+                    28093996,
+                    26986104,
+                    38900252
+                ],
+                "contradicted_citations": [
+                    20345934,
+                    35800806,
+                    32640608
+                ]
+            },
+            {
+                "text": "For diabetic adults, evaluated separately, ketogenic diet alone or in combination with metformin improved HbA1c .",
+                "existing_supported_citations": [
+                    34448957,
+                    33652834,
+                    30291062,
+                    32641437
+                ],
+                "supported_citations": [
+                    19418936,
+                    30254769,
+                    11092289
+                ],
+                "contradicted_citations": [
+                    20093927,
+                    38912731,
+                    32020696
+                ]
+            },
+            {
+                "text": "Some of these patients were able to stop taking metformin .",
+                "existing_supported_citations": [
+                    30291062,
+                    28600119
+                ],
+                "supported_citations": [
+                    12384131,
+                    17458042,
+                    28693693
+                ],
+                "contradicted_citations": [
+                    32382466,
+                    37207247,
+                    32580502
+                ]
+            },
+            {
+                "text": "To keep HbA1c low, studies recommend combining diet and medications .",
+                "existing_supported_citations": [
+                    28600119,
+                    10359389
+                ],
+                "supported_citations": [
+                    27921432,
+                    26986104,
+                    12619168
+                ],
+                "contradicted_citations": [
+                    31393762,
+                    36297093,
+                    31207126
+                ]
+            },
+            {
+                "text": "Some doctors are concerned that the long-term effects of ketogenic diet are not known  and suggest the patient on the diet should be monitored .",
+                "existing_supported_citations": [
+                    34448957,
+                    36297093,
+                    37966583
+                ],
+                "supported_citations": [
+                    37088260,
+                    28667864,
+                    38232923
+                ],
+                "contradicted_citations": [
+                    6990715,
+                    38732505,
+                    35675167
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "138",
+            "question": "can i use Sudafed after using Afrin for nasal congestion?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Both Sudafed (also called pseudoephedrine) and Afrin (also called oxymetazoline) use the same process to quickly help with congestion .",
+                "existing_supported_citations": [
+                    25932218,
+                    1702944
+                ],
+                "supported_citations": [
+                    15236629,
+                    6175254,
+                    37787170
+                ],
+                "contradicted_citations": [
+                    1960257,
+                    29713098,
+                    16933214
+                ]
+            },
+            {
+                "text": "This process can also affect your heart and breathing , and the other body systems in adults  and children .",
+                "existing_supported_citations": [
+                    34942425,
+                    7507588,
+                    25932218
+                ],
+                "supported_citations": [
+                    11584108,
+                    16532658,
+                    37867476
+                ],
+                "contradicted_citations": [
+                    2675252,
+                    8216970,
+                    30245619
+                ]
+            },
+            {
+                "text": "While some studies show that taken in higher than recommended doses, pseudoephedrine can cause stroke , others recommend combining local decongestants with systemic (affecting the whole body).",
+                "existing_supported_citations": [
+                    23119799,
+                    12791938,
+                    1725079
+                ],
+                "supported_citations": [
+                    7507590,
+                    38399407,
+                    10776186
+                ],
+                "contradicted_citations": [
+                    19473112,
+                    23624060,
+                    6155131
+                ]
+            },
+            {
+                "text": "In healthy people, local decongestants do not affect blood pressure .",
+                "existing_supported_citations": [
+                    30195946
+                ],
+                "supported_citations": [
+                    10687944,
+                    16141379,
+                    7507588
+                ],
+                "contradicted_citations": [
+                    37200767,
+                    17869148,
+                    28574526
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "139",
+            "question": "what are possible long-term outcomes of not treating anorexia?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Anorexia affects all body systems , particularly the heart, bones, digestive system and ability to have children .",
+                "existing_supported_citations": [
+                    23706279,
+                    33023762,
+                    32778424
+                ],
+                "supported_citations": [
+                    18194087,
+                    33254442,
+                    10365580
+                ],
+                "contradicted_citations": [
+                    15249924,
+                    35569150,
+                    25248356
+                ]
+            },
+            {
+                "text": "It may even lead to death .",
+                "existing_supported_citations": [
+                    26138740,
+                    32796186
+                ],
+                "supported_citations": [
+                    26980245,
+                    23749718,
+                    24905111
+                ],
+                "contradicted_citations": [
+                    19428814,
+                    26056914,
+                    3987393
+                ]
+            },
+            {
+                "text": "People with anorexia often have anxiety and depression , reduced sleep quality , and reduced quality of life .",
+                "existing_supported_citations": [
+                    32796186,
+                    38469262,
+                    36498309
+                ],
+                "supported_citations": [
+                    31851036,
+                    30024853,
+                    31157499
+                ],
+                "contradicted_citations": [
+                    28744804,
+                    37599745,
+                    34011061
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "140",
+            "question": "what can cause acute fractures in both of your hands when there hasn\u2019t been injury or trauma?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "The most common causes of fractures of the bones without trauma are brittle bones, taking too much vitamin A  and lack of vitamin D .",
+                "existing_supported_citations": [
+                    33804459,
+                    28599045,
+                    19275452
+                ],
+                "supported_citations": [
+                    37449347,
+                    26204630,
+                    33999242
+                ],
+                "contradicted_citations": [
+                    27075415,
+                    9850350,
+                    19721209
+                ]
+            },
+            {
+                "text": "In the hands, non-cancer tumors called enchondromas  and chondromas  and bone cysts  may cause fractures.",
+                "existing_supported_citations": [
+                    24209955,
+                    17515230,
+                    24209955
+                ],
+                "supported_citations": [
+                    16617764,
+                    19890803,
+                    21053879
+                ],
+                "contradicted_citations": [
+                    32759011,
+                    28422880,
+                    34926049
+                ]
+            },
+            {
+                "text": "Not often, fractures are caused by cancerous tumors, such as osteosarcoma and Ewing's sarcoma  and Paget's disease .",
+                "existing_supported_citations": [
+                    509822,
+                    25030957
+                ],
+                "supported_citations": [
+                    2028867,
+                    17414166,
+                    32573183
+                ],
+                "contradicted_citations": [
+                    8488357,
+                    10510213,
+                    3162256
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "141",
+            "question": "what are the possible complications for a person that has yellow fever?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Severe cases of yellow fever can cause bleeding, damage to liver, nerves and kidneys, and even death .",
+                "existing_supported_citations": [
+                    15487593,
+                    29641667,
+                    10582093
+                ],
+                "supported_citations": [
+                    19868352,
+                    33053039,
+                    15829426
+                ],
+                "contradicted_citations": [
+                    19868337,
+                    33268494,
+                    36412749
+                ]
+            },
+            {
+                "text": "Yellow fwver can also cause blood clotting problems , damage to the heart , pancreas and multi-organ failure .",
+                "existing_supported_citations": [
+                    31150098,
+                    37757571,
+                    36386719,
+                    33268494
+                ],
+                "supported_citations": [
+                    33029105,
+                    1478053,
+                    33456056
+                ],
+                "contradicted_citations": [
+                    35445389,
+                    35291496,
+                    26990144
+                ]
+            },
+            {
+                "text": "Liver problems include hepatitis (inflammation of the liver) .",
+                "existing_supported_citations": [
+                    32079143
+                ],
+                "supported_citations": [
+                    36313291,
+                    31547621,
+                    22766789
+                ],
+                "contradicted_citations": [
+                    1108667,
+                    29697415,
+                    25310404
+                ]
+            },
+            {
+                "text": "Kidney problems include acute kidney injury .",
+                "existing_supported_citations": [
+                    31340247
+                ],
+                "supported_citations": [
+                    21796967,
+                    33328061,
+                    34486290
+                ],
+                "contradicted_citations": [
+                    31439924,
+                    31800194,
+                    33759249
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "142",
+            "question": "what medication has a drug interaction with high blood pressure?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Many drugs increase blood pressure by themselves  or through interaction with other drugs .",
+                "existing_supported_citations": [
+                    17028488,
+                    22195528,
+                    7777726
+                ],
+                "supported_citations": [
+                    25618128,
+                    1797997,
+                    2185349
+                ],
+                "contradicted_citations": [
+                    15709894,
+                    3072653,
+                    15680460
+                ]
+            },
+            {
+                "text": "The most common drugs that affect blood pressure are the nonsteroidal anti-inflammatory drugs (NSAIDs)  and steroids , inhibitors of angiogenesis (cancer-fighting drugs), and some drugs that raise HDL .",
+                "existing_supported_citations": [
+                    22002334,
+                    17028488,
+                    11416668
+                ],
+                "supported_citations": [
+                    21612106,
+                    10581086,
+                    9663355
+                ],
+                "contradicted_citations": [
+                    12556654,
+                    9397294,
+                    9068612
+                ]
+            },
+            {
+                "text": "Other drugs that raise blood pressure include drugs for treating depression  and attention deficit hyperactivity disorder .",
+                "existing_supported_citations": [
+                    24803642,
+                    34414219
+                ],
+                "supported_citations": [
+                    30365404,
+                    23111202,
+                    27079775
+                ],
+                "contradicted_citations": [
+                    30531411,
+                    37228994,
+                    33245274
+                ]
+            },
+            {
+                "text": "It is not clear if obesity treatments orlistat and sibutramine significantly affect blood pressure , whereas anti-HIV lopinavir/ritonavir  treatment and Nirmatrelvir/ritonavir (Paxlovid)  prescribed for COVID-19 are linked to high blood pressure.",
+                "existing_supported_citations": [
+                    37012153,
+                    16603854,
+                    20025693
+                ],
+                "supported_citations": [
+                    36928334,
+                    38967233,
+                    36679952
+                ],
+                "contradicted_citations": [
+                    39554516,
+                    37510996,
+                    39244809
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "143",
+            "question": "how to live with huntington's disease?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Living with Huntington's disease (HD) begins with coping with the knowledge of the forthcoming functional, behavioral, and cognitive changes, followed by physical dependence on other people .",
+                "existing_supported_citations": [
+                    35526033
+                ],
+                "supported_citations": [
+                    22278219,
+                    39252438,
+                    18467429
+                ],
+                "contradicted_citations": [
+                    12614496,
+                    36513779,
+                    25062855
+                ]
+            },
+            {
+                "text": "Even before the disease starts, apathy caused by this knowledge hinders employment  as does chorea .",
+                "existing_supported_citations": [
+                    34183975,
+                    35379551
+                ],
+                "supported_citations": [
+                    14978414,
+                    28621715,
+                    24576988
+                ],
+                "contradicted_citations": [
+                    7898693,
+                    36531855,
+                    21747995
+                ]
+            },
+            {
+                "text": "In a small number of people, HD starts late (over 60 years of age) .",
+                "existing_supported_citations": [
+                    28671137
+                ],
+                "supported_citations": [
+                    17724040,
+                    38627228,
+                    28685808
+                ],
+                "contradicted_citations": [
+                    16391835,
+                    2146466,
+                    30860078
+                ]
+            },
+            {
+                "text": "Good nutrition helps keeping health and functions for a longer time .",
+                "existing_supported_citations": [
+                    25482256
+                ],
+                "supported_citations": [
+                    36516825,
+                    26630509,
+                    23746780
+                ],
+                "contradicted_citations": [
+                    16996770,
+                    11793073,
+                    34069415
+                ]
+            },
+            {
+                "text": "Rehabilitation programs and breathing training improved quality of life in HD .",
+                "existing_supported_citations": [
+                    36715747
+                ],
+                "supported_citations": [
+                    9346380,
+                    15233245,
+                    23228242
+                ],
+                "contradicted_citations": [
+                    14606285,
+                    25685417,
+                    35070244
+                ]
+            },
+            {
+                "text": "While currently available  medications help with symptoms, treatments that target the harmful body chemicals and harmful genes are evaluated in clinical trials .",
+                "existing_supported_citations": [
+                    35615642,
+                    38764004
+                ],
+                "supported_citations": [
+                    19412500,
+                    30217591,
+                    30925615
+                ],
+                "contradicted_citations": [
+                    33284731,
+                    27186626,
+                    30986113
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "144",
+            "question": "when should i treat high blood pressure?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Guidelines for starting blood pressure treatments take into account blood pressure levels and risk of heart disease and stroke .",
+                "existing_supported_citations": [
+                    30659396
+                ],
+                "supported_citations": [
+                    23511723,
+                    30402738,
+                    9194509
+                ],
+                "contradicted_citations": [
+                    27872051,
+                    24637661,
+                    29674188
+                ]
+            },
+            {
+                "text": "The guidelines have changed over the years, particularly for the elderly and patients with diabetic kidney disease, chronic kidney disease, and stroke .",
+                "existing_supported_citations": [
+                    36523741
+                ],
+                "supported_citations": [
+                    39036128,
+                    28559651,
+                    26081967
+                ],
+                "contradicted_citations": [
+                    30056925,
+                    38142396,
+                    27169398
+                ]
+            },
+            {
+                "text": "American College of Cardiology recommends 130/80 mmHg blood pressure levels .",
+                "existing_supported_citations": [
+                    32237577
+                ],
+                "supported_citations": [
+                    33637204,
+                    34566506,
+                    29934621
+                ],
+                "contradicted_citations": [
+                    31646769,
+                    30612417,
+                    39526675
+                ]
+            },
+            {
+                "text": "Lowering blood pressure  below 120/70 mmHg may cause heart and other problems .",
+                "existing_supported_citations": [
+                    30612417
+                ],
+                "supported_citations": [
+                    31646769,
+                    27310905,
+                    28913677
+                ],
+                "contradicted_citations": [
+                    15930097,
+                    2770185,
+                    19785385
+                ]
+            },
+            {
+                "text": "According to European guidelines, the threshold should be adjusted for people over 65 years old .",
+                "existing_supported_citations": [
+                    31958854
+                ],
+                "supported_citations": [
+                    30402738,
+                    10952082,
+                    20422925
+                ],
+                "contradicted_citations": [
+                    33158071,
+                    24294003,
+                    12315835
+                ]
+            },
+            {
+                "text": "The best time of the day to take the medications is in the evening .",
+                "existing_supported_citations": [
+                    32073800
+                ],
+                "supported_citations": [
+                    32026248,
+                    29211509,
+                    25313801
+                ],
+                "contradicted_citations": [
+                    10947676,
+                    23382539,
+                    18525187
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "145",
+            "question": "What are the side effects of opdivo treatment for melanoma?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Opdivo (nivolumab) side effects can mostly be managed .",
+                "existing_supported_citations": [
+                    26220912
+                ],
+                "supported_citations": [
+                    37700996,
+                    35456527,
+                    37064962
+                ],
+                "contradicted_citations": [
+                    27189706,
+                    27313464,
+                    28923211
+                ]
+            },
+            {
+                "text": "The most frequent side effects are skin reactions , such as itching, rash  and vitiligo , hepatitis , and reactions to drug infusion .",
+                "existing_supported_citations": [
+                    32117745,
+                    32117745,
+                    27609337,
+                    34358260,
+                    36831607
+                ],
+                "supported_citations": [
+                    21742594,
+                    33302688,
+                    25610192
+                ],
+                "contradicted_citations": [
+                    30515930,
+                    25214766,
+                    36190010
+                ]
+            },
+            {
+                "text": "Nivolumab may also affect blood, e.g. leading to lymphocytic leukemia .",
+                "existing_supported_citations": [
+                    35060786
+                ],
+                "supported_citations": [
+                    11224479,
+                    33290361,
+                    21312101
+                ],
+                "contradicted_citations": [
+                    23006943,
+                    27793928,
+                    26147613
+                ]
+            },
+            {
+                "text": "It affects the nervous system, including neuropathy and inflammation of the brain tissues (meningitis and encephalitis) .",
+                "existing_supported_citations": [
+                    28495807
+                ],
+                "supported_citations": [
+                    10916131,
+                    2680079,
+                    31823509
+                ],
+                "contradicted_citations": [
+                    9160430,
+                    7549573,
+                    8936005
+                ]
+            },
+            {
+                "text": "Nivolumab may damage kidneys , thyroid function , and swelling of the face .",
+                "existing_supported_citations": [
+                    31635547,
+                    30880569,
+                    29486725
+                ],
+                "supported_citations": [
+                    35673588,
+                    30837393,
+                    31247693
+                ],
+                "contradicted_citations": [
+                    34123796,
+                    32122271,
+                    2516813
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "146",
+            "question": "how can ptsd be treated/managed?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "the Veterans Affairs (VA) and the Department of Defense (DoD) recommend  trauma-focused treatments such as Cognitive Processing Therapy (CPT), Prolonged Exposure Therapy (PE), Eye Movement, Desensitization, and Restructuring (EMDR) .",
+                "existing_supported_citations": [
+                    34924624
+                ],
+                "supported_citations": [
+                    29635395,
+                    21475611,
+                    32345329
+                ],
+                "contradicted_citations": [
+                    30550959,
+                    25898342,
+                    25360060
+                ]
+            },
+            {
+                "text": "They recommend avoiding benzodiazepines and other sedative hypnotic medications because of their side effects .",
+                "existing_supported_citations": [
+                    34924624
+                ],
+                "supported_citations": [
+                    36813499,
+                    38738726,
+                    3047910
+                ],
+                "contradicted_citations": [
+                    6329901,
+                    1981103,
+                    1970665
+                ]
+            },
+            {
+                "text": "The recommended medications include selective serotonin reuptake inhibitors (SSRIs) .",
+                "existing_supported_citations": [
+                    34575284
+                ],
+                "supported_citations": [
+                    16001091,
+                    27384395,
+                    18849910
+                ],
+                "contradicted_citations": [
+                    12427293,
+                    9639080,
+                    37807008
+                ]
+            },
+            {
+                "text": "Prazosin is often prescribed for nightmares , although the evidence for it and other drugs, such as tricyclic antidepressants and atypical antipsychotics is inconclusive .",
+                "existing_supported_citations": [
+                    35688992,
+                    33026676
+                ],
+                "supported_citations": [
+                    20726290,
+                    8929678,
+                    32608144
+                ],
+                "contradicted_citations": [
+                    11715630,
+                    2822432,
+                    16687990
+                ]
+            },
+            {
+                "text": "Mindfulness skills, such as non-judgmental acceptance, attentional control and openness to experiences  and fMRI-guided neurofeedback  may help with the symptoms.",
+                "existing_supported_citations": [
+                    38577405,
+                    38812001
+                ],
+                "supported_citations": [
+                    33213158,
+                    29922575,
+                    30416114
+                ],
+                "contradicted_citations": [
+                    30953836,
+                    39314394,
+                    36566448
+                ]
+            },
+            {
+                "text": "Hyperbaric oxygen therapy (HBOT) helped veterans with treatment-resistant PTSD .",
+                "existing_supported_citations": [
+                    38027524
+                ],
+                "supported_citations": [
+                    35192645,
+                    36433746,
+                    31134828
+                ],
+                "contradicted_citations": [
+                    29888387,
+                    29152209,
+                    27799776
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "147",
+            "question": "what treatments options are available for atherosclerosis?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Drugs that reduce the effects of atherosclerosis include statins, which reduce levels of fat in the blood .",
+                "existing_supported_citations": [
+                    37175766,
+                    31025381
+                ],
+                "supported_citations": [
+                    38170026,
+                    8411678,
+                    24484464
+                ],
+                "contradicted_citations": [
+                    19024167,
+                    21395156,
+                    23740299
+                ]
+            },
+            {
+                "text": "Agents targeting inflammatory pathways show promise , e.g., added to statins, low-dose colchicine lowers rates of myocardial infarction, stroke, and cardiovascular death .",
+                "existing_supported_citations": [
+                    37871757,
+                    35786159
+                ],
+                "supported_citations": [
+                    37558377,
+                    23225175,
+                    34657777
+                ],
+                "contradicted_citations": [
+                    32880682,
+                    18673009,
+                    22906895
+                ]
+            },
+            {
+                "text": "It is recommended that in an addition to statins, women change their lifestyle to improve many common age-related heart and metabolism problems .",
+                "existing_supported_citations": [
+                    37770308
+                ],
+                "supported_citations": [
+                    15025838,
+                    17320217,
+                    30004840
+                ],
+                "contradicted_citations": [
+                    30444752,
+                    26771424,
+                    7839332
+                ]
+            },
+            {
+                "text": "Focused ultrasound is also showing promise , as well as specific light that stabilizes plaques and reduces inflammation .",
+                "existing_supported_citations": [
+                    38396639,
+                    37629640
+                ],
+                "supported_citations": [
+                    38931851,
+                    35734817,
+                    14699240
+                ],
+                "contradicted_citations": [
+                    36012557,
+                    34844041,
+                    33129585
+                ]
+            },
+            {
+                "text": "Surgery is sometimes needed .",
+                "existing_supported_citations": [
+                    36065464
+                ],
+                "supported_citations": [
+                    15886009,
+                    25948318,
+                    34104403
+                ],
+                "contradicted_citations": [
+                    31398144,
+                    31210967,
+                    19626305
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "148",
+            "question": "why do i bruise so easily?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Easy bruising may have simple causes .",
+                "existing_supported_citations": [
+                    16634245
+                ],
+                "supported_citations": [
+                    20016354,
+                    2152054,
+                    15566352
+                ],
+                "contradicted_citations": [
+                    840808,
+                    1080028,
+                    16100873
+                ]
+            },
+            {
+                "text": "Bruising may be caused by problems with blood clotting , liver problems , inherited bleeding disorders, such as von Willebrand's disease , deep tissue injury , or collagen disorders, such as the Ehlers-Danlos syndrome .",
+                "existing_supported_citations": [
+                    15566352,
+                    26123043,
+                    18481559,
+                    26926815,
+                    22463830,
+                    23023361
+                ],
+                "supported_citations": [
+                    18324963,
+                    15607555,
+                    31329366
+                ],
+                "contradicted_citations": [
+                    30312027,
+                    16969576,
+                    20847697
+                ]
+            },
+            {
+                "text": "Skin becomes prone to bruising as people are getting older .",
+                "existing_supported_citations": [
+                    28979656
+                ],
+                "supported_citations": [
+                    16410163,
+                    27246789,
+                    8777956
+                ],
+                "contradicted_citations": [
+                    15640517,
+                    21970508,
+                    31255841
+                ]
+            },
+            {
+                "text": "Young women with psychiatric problems may have painful bruising syndrome .",
+                "existing_supported_citations": [
+                    12442101
+                ],
+                "supported_citations": [
+                    16023271,
+                    2735600,
+                    29644197
+                ],
+                "contradicted_citations": [
+                    4735136,
+                    17656998,
+                    24350012
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "149",
+            "question": "what is the best test to rule out a lumbar disc herniation?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Disc herniation is diagnosed  with a history of the problem, physical examination by your doctor, and advanced medical imaging , although some studies value imaging les than the examination and history .",
+                "existing_supported_citations": [
+                    38125064,
+                    37072094
+                ],
+                "supported_citations": [
+                    17766218,
+                    34673710,
+                    37165707
+                ],
+                "contradicted_citations": [
+                    8129590,
+                    10552236,
+                    20977958
+                ]
+            },
+            {
+                "text": "MRI is considered the best imaging method .",
+                "existing_supported_citations": [
+                    28722852,
+                    38034203,
+                    36704505
+                ],
+                "supported_citations": [
+                    28627984,
+                    8154660,
+                    35323359
+                ],
+                "contradicted_citations": [
+                    38057971,
+                    14530852,
+                    35548099
+                ]
+            },
+            {
+                "text": "Deterioration of muscles around the spine is linked to disc herniation  .",
+                "existing_supported_citations": [
+                    36812791
+                ],
+                "supported_citations": [
+                    20936307,
+                    24567672,
+                    8360729
+                ],
+                "contradicted_citations": [
+                    9420090,
+                    1750000,
+                    1625012
+                ]
+            },
+            {
+                "text": "Lumbar provocation discography (imaging with special materials) may help finding if the disc causes pain .",
+                "existing_supported_citations": [
+                    29565943
+                ],
+                "supported_citations": [
+                    21625274,
+                    26133255,
+                    36549846
+                ],
+                "contradicted_citations": [
+                    2145643,
+                    10766075,
+                    8147805
+                ]
+            },
+            {
+                "text": "If a patient cannot have MRI, special CT images can be used .",
+                "existing_supported_citations": [
+                    38755438
+                ],
+                "supported_citations": [
+                    9334109,
+                    2087655,
+                    2642560
+                ],
+                "contradicted_citations": [
+                    21089405,
+                    2697325,
+                    34450337
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "150",
+            "question": "what are the effectiveness of physical therapy interventions in reducing pain in patients with lumbar disc herniation?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Physical therapy is effective as the first line treatment of lumbar disc herniation , and pain reducing physical therapies such as cold or electrotherapy are effective additional treatments .",
+                "existing_supported_citations": [
+                    11552355,
+                    18394495,
+                    28505956,
+                    38389961
+                ],
+                "supported_citations": [
+                    38398287,
+                    39014873,
+                    31194689
+                ],
+                "contradicted_citations": [
+                    25729196,
+                    10637969,
+                    27225614
+                ]
+            },
+            {
+                "text": "Specific successful procedures include mobilization therapies, exercise, traction , and decompression .",
+                "existing_supported_citations": [
+                    28505956,
+                    11552355,
+                    18394495,
+                    35774300,
+                    38799754,
+                    38398287
+                ],
+                "supported_citations": [
+                    19142674,
+                    27942133,
+                    27022340
+                ],
+                "contradicted_citations": [
+                    25729196,
+                    35596874,
+                    14973754
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "151",
+            "question": "what has turned my skin gray and scaly?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Gray skin discoloration may have many different causes.",
+                "existing_supported_citations": null,
+                "supported_citations": [
+                    15485524,
+                    30229904,
+                    1654344
+                ],
+                "contradicted_citations": [
+                    30125612,
+                    6508331,
+                    34068024
+                ]
+            },
+            {
+                "text": "It may be inherited , it may be a sign of problems with other organs , infection , drugs , such as anti-inflammatory drugs , psoriasis , and aging .",
+                "existing_supported_citations": [
+                    38828054,
+                    36010618,
+                    32110559,
+                    11705252,
+                    37375394,
+                    3515175,
+                    31896405,
+                    31896405
+                ],
+                "supported_citations": [
+                    38506998,
+                    1362889,
+                    34061129
+                ],
+                "contradicted_citations": [
+                    28785220,
+                    11702297,
+                    1365482
+                ]
+            },
+            {
+                "text": "Your doctor may order some tests to exclude skin cancer and specific infections .",
+                "existing_supported_citations": [
+                    34235719
+                ],
+                "supported_citations": [
+                    26589774,
+                    20086546,
+                    24624732
+                ],
+                "contradicted_citations": [
+                    31916714,
+                    34235273,
+                    36191329
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "152",
+            "question": "is it possible to quit taking amlodipine after taking for many years?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "After taking amlodipine for a long time, blood pressure is decreased from pre-treatment baseline and stable .",
+                "existing_supported_citations": [
+                    1534713
+                ],
+                "supported_citations": [
+                    10078539,
+                    19498438,
+                    10212327
+                ],
+                "contradicted_citations": [
+                    1839989,
+                    8310978,
+                    8176999
+                ]
+            },
+            {
+                "text": "If you stop taking amlodipine, your blood pressure will slowly return to baseline over 7-10 days .",
+                "existing_supported_citations": [
+                    1534713
+                ],
+                "supported_citations": [
+                    11138234,
+                    10078539,
+                    34964660
+                ],
+                "contradicted_citations": [
+                    27459306,
+                    8905335,
+                    8523379
+                ]
+            },
+            {
+                "text": "Only a small part of young to middle-aged adults with mildly high blood pressure succeeded in stopping their anti-hypertensive medication over 6 months .",
+                "existing_supported_citations": [
+                    36593518,
+                    28486271
+                ],
+                "supported_citations": [
+                    30677485,
+                    28929608,
+                    15369127
+                ],
+                "contradicted_citations": [
+                    9343911,
+                    25367435,
+                    6810459
+                ]
+            },
+            {
+                "text": "Temporarily stopping antihypertensive medication for the diagnostic evaluation is safe under your doctor's guidance .",
+                "existing_supported_citations": [
+                    28373591
+                ],
+                "supported_citations": [
+                    28264916,
+                    34854616,
+                    38830752
+                ],
+                "contradicted_citations": [
+                    3870899,
+                    20051430,
+                    3425975
+                ]
+            },
+            {
+                "text": "If you are switching to another medication, the dose might need to be adjusted .",
+                "existing_supported_citations": [
+                    10999500
+                ],
+                "supported_citations": [
+                    18057401,
+                    30274643,
+                    33721253
+                ],
+                "contradicted_citations": [
+                    31840748,
+                    35622417,
+                    12201620
+                ]
+            },
+            {
+                "text": "Switching might be needed if amlodipine does not lower your blood pressure .",
+                "existing_supported_citations": [
+                    19590506
+                ],
+                "supported_citations": [
+                    10417864,
+                    11603236,
+                    18761872
+                ],
+                "contradicted_citations": [
+                    11347858,
+                    8389563,
+                    22111777
+                ]
+            },
+            {
+                "text": "Amlodipine is still a good choice for older adults to control blood pressure and protect against stroke and myocardial infarction .",
+                "existing_supported_citations": [
+                    37551050
+                ],
+                "supported_citations": [
+                    17502490,
+                    11336577,
+                    21228778
+                ],
+                "contradicted_citations": [
+                    25456262,
+                    15207957,
+                    2530882
+                ]
+            },
+            {
+                "text": "In general, it is not recommended suddenly stoping the class of medications that includes amlodipine .",
+                "existing_supported_citations": [
+                    31814590,
+                    15857353,
+                    39949
+                ],
+                "supported_citations": [
+                    38557512,
+                    25738570,
+                    15992104
+                ],
+                "contradicted_citations": [
+                    27750346,
+                    20860414,
+                    39512190
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "153",
+            "question": "if hct is 34, does pt need blood transfusion?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "In healthy women optimal Hct is 35-40% and in men, 39-50%, but in stable hospital patients, the recommended transfusion threshold is 7-8 g/dL hemoglobin (Hct 20-24%) .",
+                "existing_supported_citations": [
+                    27767984
+                ],
+                "supported_citations": [
+                    35846267,
+                    11920353,
+                    31307836
+                ],
+                "contradicted_citations": [
+                    34062566,
+                    8122728,
+                    24166817
+                ]
+            },
+            {
+                "text": "Traditionally, a 3% change in hematocrit was considered equal to a 1-\"unit\" loss of blood , and the 10/30 rule (hemoglobin 10 g/dL - hematocrit 30%) has been most commonly used to start blood transfusions .",
+                "existing_supported_citations": [
+                    15196315,
+                    33173454,
+                    16432852
+                ],
+                "supported_citations": [
+                    16617252,
+                    8441299,
+                    18356652
+                ],
+                "contradicted_citations": [
+                    18607751,
+                    1284709,
+                    21962318
+                ]
+            },
+            {
+                "text": "The peripheral venous hematocrit (Hct)levels alone are not enough to decide on transfusion ; other measurements and the patient's condition should be taken into account .",
+                "existing_supported_citations": [
+                    38395758,
+                    26492900,
+                    32770311,
+                    16533277
+                ],
+                "supported_citations": [
+                    3585609,
+                    7267222,
+                    1514159
+                ],
+                "contradicted_citations": [
+                    1536435,
+                    11445952,
+                    6712371
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "154",
+            "question": "how to breathe when you are short of breath?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Shortness of breath (SoB) may be caused by many different health problems, treating which will help with SoB .",
+                "existing_supported_citations": [
+                    32352727
+                ],
+                "supported_citations": [
+                    39133575,
+                    27722084,
+                    9803048
+                ],
+                "contradicted_citations": [
+                    34105382,
+                    32848098,
+                    7828043
+                ]
+            },
+            {
+                "text": "In patients with lung disease, strengthening respiratory (breathing) muscles, breast, ribcage and stomach muscles, pursed lips breathing, and leaning forward help .",
+                "existing_supported_citations": [
+                    16281658
+                ],
+                "supported_citations": [
+                    33371099,
+                    35089245,
+                    15074451
+                ],
+                "contradicted_citations": [
+                    14606285,
+                    31192742,
+                    37141930
+                ]
+            },
+            {
+                "text": "Aerobic exercise with or without breathing exercises and inspiratory muscle training (IMT) improve breathing .",
+                "existing_supported_citations": [
+                    32274173
+                ],
+                "supported_citations": [
+                    36429439,
+                    29667507,
+                    29543134
+                ],
+                "contradicted_citations": [
+                    8665039,
+                    7149451,
+                    3202422
+                ]
+            },
+            {
+                "text": "IMT also helps by itself .",
+                "existing_supported_citations": [
+                    32936904
+                ],
+                "supported_citations": [
+                    10924737,
+                    11473742,
+                    37720649
+                ],
+                "contradicted_citations": [
+                    21339792,
+                    16898503,
+                    25268188
+                ]
+            },
+            {
+                "text": "Patients reported that reducing physical activity, psychological strategies, and breathing techniques and positions improved their breathing .",
+                "existing_supported_citations": [
+                    27220949
+                ],
+                "supported_citations": [
+                    24163753,
+                    37234059,
+                    33530033
+                ],
+                "contradicted_citations": [
+                    35480156,
+                    30245619,
+                    20032846
+                ]
+            },
+            {
+                "text": "\"Breathing SPACE\" approach, in which S stands for stopping smoking, P for treating pulmonary (lung) disease, A for managing anxiety/psychosocial factors, C for cardiac disease, and E for exercise/fitness, was developed to help with all breathing problems .",
+                "existing_supported_citations": [
+                    28138132
+                ],
+                "supported_citations": [
+                    8887597,
+                    30789041,
+                    33224668
+                ],
+                "contradicted_citations": [
+                    14606285,
+                    1989788,
+                    18412031
+                ]
+            },
+            {
+                "text": "Yoga with pranayama breathing techniques improved breathing , while the effect of diaphragmatic breathing is not clear .",
+                "existing_supported_citations": [
+                    33076360,
+                    23076942
+                ],
+                "supported_citations": [
+                    36669770,
+                    39668415,
+                    29247426
+                ],
+                "contradicted_citations": [
+                    29395894,
+                    23721252,
+                    33074110
+                ]
+            },
+            {
+                "text": "Using a fan may help with SoB .",
+                "existing_supported_citations": [
+                    31004769
+                ],
+                "supported_citations": [
+                    39133575,
+                    26052315,
+                    37569211
+                ],
+                "contradicted_citations": [
+                    17873322,
+                    12364439,
+                    11934542
+                ]
+            }
+        ]
+    },
+    {
+        "metadata": {
+            "qa_id": "155",
+            "question": "for how long after cataract surgery do i keep dropping eye drops?",
+            "team_id": "organizers",
+            "run_id": "organizers-run-example"
+        },
+        "answer": [
+            {
+                "text": "Studies show that using antibiotic eye drops for one week might be as effective as two weeks to prevent eye infection after cataract surgery .",
+                "existing_supported_citations": [
+                    33081522
+                ],
+                "supported_citations": [
+                    34936061,
+                    38696092,
+                    37124044
+                ],
+                "contradicted_citations": [
+                    30065652,
+                    27957367,
+                    35006494
+                ]
+            },
+            {
+                "text": "It is recommended to see your eye doctor a week after surgery to see if you need to continue eye drops .",
+                "existing_supported_citations": [
+                    34936061
+                ],
+                "supported_citations": [
+                    26176354,
+                    35940899,
+                    15028213
+                ],
+                "contradicted_citations": [
+                    32142045,
+                    36867474,
+                    32251043
+                ]
+            },
+            {
+                "text": "If the eyes are dry, a month-long treatment might be needed .",
+                "existing_supported_citations": [
+                    32434354
+                ],
+                "supported_citations": [
+                    36013128,
+                    31490199,
+                    23297619
+                ],
+                "contradicted_citations": [
+                    31712035,
+                    23145471,
+                    12419092
+                ]
+            }
+        ]
+    }
+]
