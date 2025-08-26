@@ -1,5 +1,27 @@
 ERROR Line 1: Unrecognized docno bad-docno05
+ERROR Line 2: Field 2 is "Qfoo" and not Q0
+ERROR Line 2: Unrecognized docno 01aed8a4-f1b9-4729-97f0-525338029268
+ERROR Line 3: Unrecognized docno f1635155-a93f-4a2a-99f1-97cc8ee97e8a
 ERROR Line 4: Column 4 (rank) -4 must be a positive integer
+ERROR Line 4: Unrecognized docno 6698fc27-7db9-4a27-b781-763bbbc36f18
+ERROR Line 5: Unrecognized docno 6f013a1d-c461-4081-a1de-410930461693
+ERROR Line 6: Unrecognized docno 528b7d17-a56e-4396-9091-64989064ef5f
+ERROR Line 7: Unrecognized docno 3b9eab61-cb60-4488-89d8-83818145a76c
+ERROR Line 8: Unrecognized docno 392df112-2442-41ea-b71b-303103bd073c
+ERROR Line 9: Unrecognized docno 7c5e0f4f-fcc7-4255-bd1c-bd3802aeefb4
 ERROR Line 10: Run tag inconsistent ("trec-run.missing-runtag" instead of "trec-run.bad")
-ERROR Line 76004: 63fc0ee3-93d8-4312-aa94-6757645332d4 retrieved more than once for topic 275
-ERROR Line 76004: Too many documents (1003) retrieved for topic 275
+ERROR Line 10: Unrecognized docno 4d3f3ea3-c4b2-474d-960e-87dbadfee097
+ERROR Line 11: Unrecognized docno c4816ab4-a2a8-416b-ab6b-afaa6d8ab300
+ERROR Line 12: Unrecognized docno 5763a437-e494-48d7-9b57-56d1f4f4a42b
+ERROR Line 13: Unrecognized docno 5e97d3ee-da6c-4332-b6c1-006f0d65a347
+ERROR Line 14: Unrecognized docno 53e567c6-3235-480d-9aad-b8a6c8087954
+ERROR Line 15: Unrecognized docno 200c23e1-4b10-4799-a852-e24f363e3619
+ERROR Line 16: Unrecognized docno c998a9d1-3397-427d-89c6-d3870ba55cdd
+ERROR Line 17: Unrecognized docno bca3f6a4-f56e-46b0-9333-b27080eadf8a
+ERROR Line 18: Unrecognized docno e5a5c15e-77b1-470c-9566-779da0339a82
+ERROR Line 19: Unrecognized docno ede2057c-6c3e-44b2-81f4-377dd1aed499
+ERROR Line 20: Unrecognized docno 8929403b-57fc-4d41-b8a1-839a235391e5
+ERROR Line 21: Unrecognized docno 20dd820d-20b9-4280-9f1c-b403a38c1bfa
+ERROR Line 22: Unrecognized docno 6094cc96-1efd-4717-8171-ab9e6e211852
+ERROR Line 23: Unrecognized docno d72caa86-f40d-4f85-b677-4d4a6b1495ac
+ERROR Line -1: Too many errors

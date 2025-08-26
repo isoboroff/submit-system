@@ -96,7 +96,7 @@ def check_retrieval_run(args, log):
                 else:
                     log.error(count, f'Unknown tests topic ({topic})')
 
-            if q0 != 'Q0' and not warned_about_q0:
+            if not args.q0 and q0 != 'Q0' and not warned_about_q0:
                 log.error(count, f'Field 2 is "{q0}" and not Q0')
                 # If they got it wrong on one line, it's probably on all the lines
                 warned_about_q0 = True
@@ -150,6 +150,9 @@ if __name__ == '__main__':
                     type=int,
                     default=1000,
                     help='Maximum number of documents allowed for a topic')
+    ap.add_argument('--q0',
+                    help='Allow values besides "Q0" in the q0 field',
+                    action='store_true')
     ap.add_argument('runfile')
 
     args = ap.parse_args()
