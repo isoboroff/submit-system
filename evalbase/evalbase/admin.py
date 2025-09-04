@@ -64,6 +64,7 @@ class SubmitFormAdmin(admin.ModelAdmin):
     view_on_site = True
     list_display = ["__str__", "task__track__longname", "task__longname"]
     list_filter = ["task__track__conference", "task__track__longname"]
+    ordering = ["-task__track__conference__year", "task__track__longname", "task__longname"]
 
     class TaskChoiceField(forms.ModelChoiceField):
         def label_from_instance(self, obj):
@@ -88,6 +89,7 @@ class TrackChoiceField(forms.ModelChoiceField):
 class TaskAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'longname', 'track_short', 'required', 'task_open', 'deadline', 'checker_file']
     list_filter = ['track__conference']
+    ordering = ['-track__conference__year', 'track__longname', 'longname']
     
     @admin.display(ordering=Lower('shortname'))
     def track_short(self, obj):
@@ -107,6 +109,7 @@ class TrackAdmin(admin.ModelAdmin):
     list_display = ['shortname', 'longname', 'conference']
     list_filter = ['conference']
     filter_horizontal = ['coordinators']
+    ordering = ['-conference__year', 'longname']
 
 class TrackInline(admin.TabularInline):
     model = Track
@@ -126,6 +129,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = [ 'passphrase' ]
     filter_horizontal = [ 'members', 'conference' ]
     search_fields = ['shortname', 'owner__first_name', 'owner__last_name', 'owner__email']
+    ordering = ['-conference__year', 'shortname']
     actions = [csvexport]
 
     @admin.display(ordering=Lower('shortname'))
@@ -157,6 +161,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     readonly_fields = ['date']
     list_filter = ['task__track__conference', 'task', 'is_validated']
     search_fields = ['runtag', 'org__shortname']
+    ordering = ['-date']
 
     def delete_queryset(self, request, queryset):
         for submission in queryset:
@@ -167,6 +172,7 @@ class EvaluationAdmin(admin.ModelAdmin):
     list_display = ['get_runtag', 'get_task', 'name', 'date']
     list_filter = ['name', 'submission__task']
     search_fields = ['get_runtag']
+    ordering = ['-date', 'submission__task']
 
     def get_runtag(self, obj):
         return obj.submission.runtag
