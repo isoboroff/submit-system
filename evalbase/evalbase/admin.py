@@ -19,7 +19,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     list_filter = ['user__member_of__conference__shortname', 'added_to_slack']
     ordering = ['-created_at', 'user__username']
-    search_fields = ['user__username', 'user__email', 'user__first_name', 'user__last_name']
+    search_fields = ['user__username', 'user__email', 'user__first_name', 'user__last_name', 'user__member_of__shortname']
     actions = ['mark_slacked', 'clear_slacked', csvexport]
 
     @admin.display(description='username')
