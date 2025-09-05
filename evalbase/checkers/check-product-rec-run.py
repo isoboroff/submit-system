@@ -73,7 +73,7 @@ def check_retrieval_run(args, log):
             count += 1
 
             if len(fields) == 6:
-                topic, relationship, docno, rank, sim, runtag = fields
+                topic, _, docno, rank, sim, runtag = fields
             else:
                 log.error(count, 'Wrong number of fields (expecting 6)');
                 # critical failure, stop checking
@@ -84,7 +84,7 @@ def check_retrieval_run(args, log):
             elif the_runtag != runtag:
                 log.error(count, f'Run tag inconsistent ("{runtag}" instead of "{the_runtag}")')
             elif runtag != args.runfile:
-                log.error(count, f'Runtag does not match file')
+                log.error(count, f'Runtag "{runtag}" does not match filename')
                 # catastophic fail, stop checking
                 return
 
