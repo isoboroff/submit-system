@@ -73,7 +73,7 @@ def check_retrieval_run(args, log):
             count += 1
 
             if len(fields) == 6:
-                topic, q0, docno, rank, sim, runtag = fields
+                topic, relationship, docno, rank, sim, runtag = fields
             else:
                 log.error(count, 'Wrong number of fields (expecting 6)');
                 # critical failure, stop checking
@@ -88,15 +88,21 @@ def check_retrieval_run(args, log):
                 # catastophic fail, stop checking
                 return
 
-            result = re.match(r'(PSRT_Recs_\d{3})([RCS])', topic)
+            result = re.match(r'^(PSRT_Recs_\d{3})([RCS])$', topic)
             if not result:
                 log.error(count, f'Unknown test topic ({topic}, does not match topic pattern)')
-            topic_base = result.group(1)
-            if not topic_base:
-                log.error(count, f'Unknown test topic ({topic}, base topic missing)')
-            topic_class = result.group(2)
-            if not topic_class:
-                log.error(count, f'{topic} must end in R, C, or S')
+                continue
+            try:
+                topic_base = result.group(1)
+                if not topic_base:
+                    log.error(count, f'Unknown test topic ({topic}, base topic missing)')
+                    continue
+                topic_class = result.group(2)
+                if not topic_class:
+                    log.error(count, f'{topic} must end in R, C, or S')
+                    continue
+            except Exception as e:
+                log.error(count, f'Unknown test topic ({topic}, bad topic pattern match)')
 
             if topic not in topics:
                 if args.topicfile:
