@@ -129,7 +129,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = [ 'passphrase' ]
     filter_horizontal = [ 'members', 'conference' ]
     search_fields = ['shortname', 'owner__first_name', 'owner__last_name', 'owner__email']
-    ordering = ['-conference__year', 'shortname']
+    ordering = ['shortname']
     actions = [csvexport]
 
     @admin.display(ordering=Lower('shortname'))
