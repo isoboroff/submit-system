@@ -24,12 +24,12 @@ def validate_csv_run_file(file_path):
         row_number = 1
         for row in reader:
             # Check that there are exactly 5 fields
-            if len(row) != 5:
-                errors.append(f"Row {row_number}: Expected 5 fields, got {len(row)}")
+            if len(row) != 4:
+                errors.append(f"Row {row_number}: Expected 4 fields, got {len(row)}")
                 row_number += 1
                 continue
 
-            query_id_str, dummy, rank_str, answer, time = row
+            query_id_str, dummy, rank_str, answer = row
 
             # Check if my_id exists in the file
             if dummy.strip() not in ids_in_file:
@@ -48,8 +48,8 @@ def validate_csv_run_file(file_path):
             # Validate rank: should be an integer between 1 and 10
             try:
                 rank = int(rank_str)
-                if rank < 1 or rank > 10:
-                    errors.append(f"Row {row_number}: rank must be between 1 and 10, got {rank_str}")
+                if rank < 1 or rank > 4:
+                    errors.append(f"Row {row_number}: rank must be between 1 and 4, got {rank_str}")
             except ValueError:
                 errors.append(f"Row {row_number}: rank is not a valid integer: {rank_str}")
                 row_number += 1
