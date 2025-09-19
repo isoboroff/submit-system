@@ -45,7 +45,11 @@ def login_view(request):
             form_data = DebuggingLoginForm(request.POST)
             if form_data.is_valid():
                 try:
-                    user = User.objects.get(username=form_data.cleaned_data['login_as'])
+                    login_as = form_data.cleaned_data['login_as']
+                    if '@' in login_as:
+                        user = User.objects.get(email=login_as)
+                    else:
+                        user = User.objects.get(username=login_as)
                 except:
                     raise Http404
                 login(request, user)
