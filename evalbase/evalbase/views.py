@@ -47,7 +47,7 @@ def login_view(request):
                 try:
                     user = User.objects.get(username=form_data.cleaned_data['login_as'])
                 except:
-                    return Http404
+                    raise Http404
                 login(request, user)
                 return HttpResponseRedirect(reverse_lazy('home'))
     else:
